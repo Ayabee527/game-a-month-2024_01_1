@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6eounl1wmnfu"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vqc0a"]
+
+[node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_vqc0a")
+gravity_scale = 0.0
+script = ExtResource("1_bjr5u")

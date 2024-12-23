@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bxxx0cgwl7wb7"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Back" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Back"]
+custom_minimum_size = Vector2(256, 256)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.0964166, 0.0169966, 0.142552, 1)
