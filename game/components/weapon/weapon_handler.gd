@@ -2,6 +2,7 @@ class_name WeaponHandler
 extends Node2D
 
 signal fired()
+signal recoiled(recoil: Vector2)
 
 @export var muzzle_distance: float = 8.0
 @export var muzzle_is_origin: bool = true
@@ -87,6 +88,7 @@ func shoot() -> void:
 	sound.stream = weapon.attack_data.sound
 	sound.play()
 	fired.emit()
+	recoiled.emit(Vector2.from_angle(global_rotation).rotated(PI) * weapon.recoil_strength)
 	MainCam.shake(weapon.camera_shake_shake, weapon.camera_shake_speed, weapon.camera_shake_decay)
 	flash.restart()
 	if weapon.shot_cooldown > 0.0:

@@ -27,6 +27,8 @@ var tail_outline: PackedVector2Array
 
 var color: Color = Color.WHITE
 
+var dashing: bool = false
+
 func _ready() -> void:
 	color = default_color
 	MainCam.target = camera_lean
@@ -61,7 +63,8 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	state.linear_velocity = state.linear_velocity.limit_length(max_speed)
+	if not dashing:
+		state.linear_velocity = state.linear_velocity.limit_length(max_speed)
 
 func _draw() -> void:
 	#draw_circle(
@@ -102,7 +105,7 @@ func get_move_vector() -> Vector2:
 
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
-	MainCam.shake(10.0, 10.0, 5.0)
+	MainCam.shake(25.0, 10.0, 5.0)
 	MainCam.hitstop(0.025, 0.75)
 	
 	color = Color("e30035")
@@ -117,3 +120,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
 	apply_central_impulse(knockback)
+
+
+func _on_weapon_handler_recoiled(recoil: Vector2) -> void:
+	apply_central_impulse(recoil)

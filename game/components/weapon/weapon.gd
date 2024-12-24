@@ -13,4 +13,5 @@ extends Resource
 @export var camera_shake_shake: float = 5
 @export var camera_shake_speed: float = 15
 @export var camera_shake_decay: float = 15
+@export var recoil_strength: float = 24.0
 @export var payload: Weapon

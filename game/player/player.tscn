@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=27 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -6,12 +6,15 @@
 [ext_resource type="Script" path="res://player/states/idle.gd" id="3_tnhvb"]
 [ext_resource type="Script" path="res://player/states/move.gd" id="4_puc68"]
 [ext_resource type="Texture2D" uid="uid://8jc7c47l6pc7" path="res://assets/textures/small-circle.png" id="5_e7bnn"]
+[ext_resource type="Script" path="res://player/states/dash.gd" id="6_ku7yt"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_qq22e"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="8_7ix7h"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="9_4re1e"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="10_cwhxb"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="11_nmagf"]
 [ext_resource type="Resource" uid="uid://blq3p3i3itxx0" path="res://player/weapons/starter.tres" id="12_rlha0"]
+[ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
+[ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vqc0a"]
 bounce = 0.5
@@ -43,6 +46,30 @@ script = ExtResource("10_cwhxb")
 collision_layer = 16
 collision_mask = 8
 
+[sub_resource type="Curve" id="Curve_gkmno"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dvt62"]
+curve = SubResource("Curve_gkmno")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uhsee"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 15.0
+initial_velocity_min = 250.0
+initial_velocity_max = 350.0
+gravity = Vector3(0, 0, 0)
+damping_min = 250.0
+damping_max = 750.0
+scale_curve = SubResource("CurveTexture_dvt62")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xfnu0"]
+random_pitch = 1.25
+streams_count = 1
+stream_0/stream = ExtResource("15_mnfo3")
+
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler")]
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
@@ -50,7 +77,7 @@ gravity_scale = 0.0
 linear_damp_mode = 1
 linear_damp = 2.5
 script = ExtResource("1_bjr5u")
-camera_lean_amount = 0.333
+camera_lean_amount = 0.2
 coll_shape = NodePath("CollisionShape2D")
 hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
 health = NodePath("Health")
@@ -71,6 +98,16 @@ script = ExtResource("3_tnhvb")
 
 [node name="Move" type="Node" parent="StateMachine"]
 script = ExtResource("4_puc68")
+
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_particles", "dash_timer", "dash_sound")]
+script = ExtResource("6_ku7yt")
+dash_particles = NodePath("../../Dash")
+dash_timer = NodePath("DashTimer")
+dash_sound = NodePath("../../DashSFX")
+
+[node name="DashTimer" type="Timer" parent="StateMachine/Dash"]
+wait_time = 0.25
+one_shot = true
 
 [node name="HealthIndicator" parent="." instance=ExtResource("6_qq22e")]
 entity_name = "YOU"
@@ -98,5 +135,21 @@ shape = SubResource("CircleShape2D_5mix8")
 collision_data = SubResource("Resource_aamsx")
 weapons = Array[ExtResource("11_nmagf")]([ExtResource("12_rlha0")])
 
+[node name="Dash" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_uhsee")
+texture = ExtResource("14_254qx")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[node name="DashSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_xfnu0")
+volume_db = -10.0
+bus = &"sfx"
+
+[connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
+[connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]
