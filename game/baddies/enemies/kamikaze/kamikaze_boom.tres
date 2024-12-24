@@ -10,7 +10,7 @@
 script = ExtResource("1_prxsx")
 damage = 3
 damage_cooldown = 0.5
-knockback_strength = 32.0
+knockback_strength = 256.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xuq6x"]
 random_pitch = 1.5

@@ -54,7 +54,7 @@ func expand() -> void:
 	).from(Vector2.ZERO)
 	tween.tween_property(
 		outline, "width",
-		4.0, attack_data.expand_time
+		attack_data.radius / 4.0, attack_data.expand_time
 	).from(0.0)
 	tween.play()
 	
@@ -62,17 +62,16 @@ func expand() -> void:
 	hitbox_collision.set_deferred("disabled", false)
 
 func fade() -> void:
-	hitbox_collision.set_deferred("disabled", true)
-	
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel()
 	tween.tween_property(
 		outline, "width",
 		0.0, attack_data.expand_time
-	).from(4.0)
+	).from(attack_data.radius / 4.0)
 	tween.play()
 	
 	await tween.finished
+	hitbox_collision.set_deferred("disabled", true)
 	attack_data.expired.emit()
 	queue_free()
 

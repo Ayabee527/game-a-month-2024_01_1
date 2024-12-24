@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://crljjouhl7wqh"]
+
+[ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="1_s3hra"]
+[ext_resource type="Script" path="res://components/blood_splatter/blood_splatter.gd" id="2_a5pmg"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_20dap"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+damping_min = 300.0
+damping_max = 600.0
+scale_min = 0.5
+scale_max = 5.0
+
+[node name="BloodSplatter" type="GPUParticles2D"]
+z_index = -5
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_20dap")
+texture = ExtResource("1_s3hra")
+lifetime = 60.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-128, -128, 256, 256)
+draw_order = 0
+script = ExtResource("2_a5pmg")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -52,6 +52,7 @@ folder_colors={
 player=""
 enemies=""
 kamikazes=""
+world=""
 
 [input]
 

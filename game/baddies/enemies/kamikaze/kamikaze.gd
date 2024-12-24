@@ -16,6 +16,7 @@ signal died()
 @export var health_indicator: HealthIndicator
 @export var trail: Trail
 @export var weapon_handler: WeaponHandler
+@export var bleeder: EntityBleeder
 
 var player: Player
 
@@ -35,7 +36,13 @@ func _ready() -> void:
 	
 	shape = Util.generate_polygon(sides, radius, true)
 	outline = Util.scale_polygon(shape, ((radius + 2.0) / radius))
-
+	
+	var coll := CircleShape2D.new()
+	coll.radius = radius
+	coll_shape.shape = coll
+	var hurt_coll := CircleShape2D.new()
+	hurt_coll.radius = radius + 2.0
+	hurt_coll_shape.shape = hurt_coll
 
 func _process(delta: float) -> void:
 	draw_rotation = fposmod(draw_rotation, TAU)
@@ -60,16 +67,17 @@ func _draw() -> void:
 
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
-	MainCam.shake(5.0, 10.0, 5.0)
+	MainCam.shake(10.0, 10.0, 5.0)
+	
+	health.hurt(damage)
+	health_indicator.update_health(health.health, health.max_health)
+	bleeder.bleed(damage)
 	
 	color = Color.YELLOW
 	trail.modulate = color
 	await get_tree().create_timer(invinc_time, false).timeout
 	color = default_color
 	trail.modulate = color
-	
-	health.hurt(damage)
-	health_indicator.update_health(health.health, health.max_health)
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:

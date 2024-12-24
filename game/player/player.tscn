@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=28 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://player/states/dash.gd" id="6_ku7yt"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_qq22e"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="8_7ix7h"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_das43"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="9_4re1e"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="10_cwhxb"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="11_nmagf"]
@@ -72,7 +73,7 @@ random_pitch = 1.25
 streams_count = 1
 stream_0/stream = ExtResource("15_mnfo3")
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler", "bleeder") groups=["player"]]
 collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
@@ -87,6 +88,7 @@ health_indicator = NodePath("HealthIndicator")
 trail = NodePath("Trail")
 camera_lean = NodePath("CameraLean")
 weapon_handler = NodePath("WeaponHandler")
+bleeder = NodePath("Bleeder")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_jb453")
@@ -117,6 +119,9 @@ entity_name = "YOU"
 radius = 20.0
 name_radius = 10.0
 outline_color = Color(1, 1, 1, 0.2)
+
+[node name="Bleeder" parent="." instance=ExtResource("8_das43")]
+blood_color = Color(0.355314, 0.355314, 0.355314, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2go1a")

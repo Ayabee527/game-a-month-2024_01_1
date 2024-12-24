@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxo4frr66t383"]
+[gd_scene load_steps=20 format=3 uid="uid://dxo4frr66t383"]
 
 [ext_resource type="Script" path="res://baddies/enemies/kamikaze/kamikaze.gd" id="1_6rbnp"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_f0mjq"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_c6akf"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="7_1rioc"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="7_mjlr7"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_mjmku"]
 [ext_resource type="PackedScene" uid="uid://bw8338ilrtcwc" path="res://components/trail/trail.tscn" id="9_sl6he"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="10_5ts24"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="11_ywgq7"]
@@ -31,7 +32,7 @@ collision_mask = 12
 [sub_resource type="CircleShape2D" id="CircleShape2D_ftv11"]
 radius = 16.0
 
-[node name="Kamikaze" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "weapon_handler") groups=["enemies", "kamikazes"]]
+[node name="Kamikaze" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "weapon_handler", "bleeder") groups=["enemies", "kamikazes"]]
 collision_layer = 10
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_qnpms")
@@ -45,6 +46,7 @@ health = NodePath("Health")
 health_indicator = NodePath("HealthIndicator")
 trail = NodePath("TrailHolder/Trail")
 weapon_handler = NodePath("WeaponHandler")
+bleeder = NodePath("Bleeder")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_f0mjq")
@@ -69,6 +71,8 @@ radius = 16.0
 name_radius = 8.0
 
 [node name="PlayerTracker" parent="." instance=ExtResource("7_mjlr7")]
+
+[node name="Bleeder" parent="." instance=ExtResource("8_mjmku")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kyhnh")

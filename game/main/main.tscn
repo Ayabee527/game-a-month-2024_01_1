@@ -9,7 +9,7 @@
 script = ExtResource("1_wpomo")
 
 [node name="Back" type="CanvasLayer" parent="."]
-layer = -1
+layer = -10
 
 [node name="BG" type="Parallax2D" parent="Back"]
 repeat_size = Vector2(256, 256)
@@ -34,7 +34,7 @@ modulate = Color(0.0605303, 0.0605304, 0.0605303, 1)
 position = Vector2(128, 128)
 texture = ExtResource("1_ag615")
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." groups=["world"]]
 
 [node name="Player" parent="World" instance=ExtResource("2_n5tbv")]
 

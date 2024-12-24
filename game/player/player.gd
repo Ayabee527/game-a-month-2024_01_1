@@ -20,6 +20,7 @@ signal died()
 @export var trail: GPUParticles2D
 @export var camera_lean: Marker2D
 @export var weapon_handler: WeaponHandler
+@export var bleeder: EntityBleeder
 
 var hull_shape: PackedVector2Array
 var hull_outline: PackedVector2Array
@@ -36,10 +37,10 @@ func _ready() -> void:
 	MainCam.target = camera_lean
 	
 	hull_shape = Util.generate_polygon(sides, radius, true)
-	hull_outline = Util.scale_polygon(hull_shape, ((radius + 2.0) / radius))
+	hull_outline = Util.generate_polygon(sides, radius + 2.0, true)
 	
 	tail_shape = Util.generate_polygon(sides, tail_radius, true, Vector2(-radius - 2.0, 0), 180.0)
-	tail_outline = Util.scale_polygon(tail_shape, ((tail_radius + 2.0) / tail_radius))
+	tail_outline = Util.generate_polygon(sides, tail_radius + 2.0, true, Vector2(-radius - 2.0, 0), 180)
 	
 	var coll := CircleShape2D.new()
 	coll.radius = radius
@@ -110,14 +111,15 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.shake(25.0, 10.0, 5.0)
 	MainCam.hitstop(0.025, 0.75)
 	
+	health.hurt(damage)
+	health_indicator.update_health(health.health, health.max_health)
+	bleeder.bleed(damage)
+	
 	color = Color("e30035")
 	trail.modulate = color
 	await get_tree().create_timer(invinc_time, false).timeout
 	color = default_color
 	trail.modulate = color
-	
-	health.hurt(damage)
-	health_indicator.update_health(health.health, health.max_health)
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:

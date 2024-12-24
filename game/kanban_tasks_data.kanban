@@ -18,8 +18,7 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"51b01ad2-f90f-4523-9474-2219019e5311",
-				"4886cfb3-ede5-4ff3-84b8-e0e09c392622",
+				"f19e33f4-2e29-4474-b4f0-27688d78f683",
 				"b02c3e70-6bda-49ea-bbb7-27e353a23c20",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b"
 			]
@@ -28,6 +27,7 @@
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"51b01ad2-f90f-4523-9474-2219019e5311",
 				"8a2df019-e162-4b5f-ba30-fd03645748b8",
 				"0fed9a66-ca9b-40b0-aa99-1a80d364feed",
 				"69aa419e-447f-4014-ba3c-0842ba4aaf03",
@@ -94,15 +94,15 @@
 			"steps": []
 		},
 		{
-			"uuid": "4886cfb3-ede5-4ff3-84b8-e0e09c392622",
-			"title": "explosion rework",
+			"uuid": "51b01ad2-f90f-4523-9474-2219019e5311",
+			"title": "blood_splatter",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []
 		},
 		{
-			"uuid": "51b01ad2-f90f-4523-9474-2219019e5311",
-			"title": "blood_splatter",
+			"uuid": "f19e33f4-2e29-4474-b4f0-27688d78f683",
+			"title": "second enemy",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []
