@@ -4,7 +4,7 @@ extends RigidBody2D
 signal died()
 
 @export var default_color: Color = Color.GREEN
-@export var max_speed: float = 150.0
+@export var max_speed: float = 250.0
 
 @export_group("Inner Dependencies")
 @export var coll_shape: CollisionShape2D
