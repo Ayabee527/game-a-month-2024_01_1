@@ -42,9 +42,16 @@ folder_colors={
 "res://addons/": "gray",
 "res://assets/": "purple",
 "res://autoloads/": "yellow",
+"res://baddies/": "red",
 "res://components/": "yellow",
 "res://player/": "teal"
 }
+
+[global_group]
+
+player=""
+enemies=""
+kamikazes=""
 
 [input]
 

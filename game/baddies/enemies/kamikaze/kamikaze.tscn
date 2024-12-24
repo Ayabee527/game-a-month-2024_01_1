@@ -1,0 +1,106 @@
+[gd_scene load_steps=19 format=3 uid="uid://dxo4frr66t383"]
+
+[ext_resource type="Script" path="res://baddies/enemies/kamikaze/kamikaze.gd" id="1_6rbnp"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="2_f0mjq"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_ny8wa"]
+[ext_resource type="Script" path="res://baddies/enemies/kamikaze/states/chase.gd" id="4_wo7au"]
+[ext_resource type="Script" path="res://baddies/enemies/kamikaze/states/die.gd" id="5_u2dk4"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_c6akf"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="7_1rioc"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="7_mjlr7"]
+[ext_resource type="PackedScene" uid="uid://bw8338ilrtcwc" path="res://components/trail/trail.tscn" id="9_sl6he"]
+[ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="10_5ts24"]
+[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="11_ywgq7"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="12_ud54t"]
+[ext_resource type="Resource" uid="uid://cmm2vqacy0l6j" path="res://baddies/enemies/kamikaze/kamikaze_boom.tres" id="13_jpwmp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qnpms"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kyhnh"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0dxgf"]
+radius = 6.0
+
+[sub_resource type="Resource" id="Resource_ekhpg"]
+script = ExtResource("11_ywgq7")
+collision_layer = 64
+collision_mask = 12
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftv11"]
+radius = 16.0
+
+[node name="Kamikaze" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "weapon_handler") groups=["enemies", "kamikazes"]]
+collision_layer = 10
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_qnpms")
+gravity_scale = 0.0
+linear_damp = 2.5
+angular_damp = 7.5
+script = ExtResource("1_6rbnp")
+coll_shape = NodePath("CollisionShape2D")
+hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
+health = NodePath("Health")
+health_indicator = NodePath("HealthIndicator")
+trail = NodePath("TrailHolder/Trail")
+weapon_handler = NodePath("WeaponHandler")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_f0mjq")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_ny8wa")
+initial_state = NodePath("Chase")
+
+[node name="Chase" type="Node" parent="StateMachine"]
+script = ExtResource("4_wo7au")
+
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_timer")]
+script = ExtResource("5_u2dk4")
+die_timer = NodePath("DieTimer")
+
+[node name="DieTimer" type="Timer" parent="StateMachine/Die"]
+one_shot = true
+
+[node name="HealthIndicator" parent="." instance=ExtResource("6_c6akf")]
+entity_name = "KAMIKAZE"
+radius = 16.0
+name_radius = 8.0
+
+[node name="PlayerTracker" parent="." instance=ExtResource("7_mjlr7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kyhnh")
+
+[node name="Hurtbox" parent="." instance=ExtResource("7_1rioc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_0dxgf")
+
+[node name="TrailHolder" type="Marker2D" parent="."]
+position = Vector2(-8, 0)
+
+[node name="Trail" parent="TrailHolder" instance=ExtResource("9_sl6he")]
+z_index = -2
+width = 4.0
+length = 32
+
+[node name="WeaponHandler" parent="." instance=ExtResource("10_5ts24")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_ekhpg")
+weapons = Array[ExtResource("12_ud54t")]([ExtResource("13_jpwmp")])
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_ftv11")
+
+[connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
+[connection signal="timeout" from="StateMachine/Die/DieTimer" to="StateMachine/Die" method="_on_die_timer_timeout"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
+[connection signal="body_entered" from="PlayerDetector" to="StateMachine/Chase" method="_on_player_detector_body_entered"]

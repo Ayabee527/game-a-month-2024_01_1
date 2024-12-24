@@ -6,6 +6,13 @@ extends PlayerState
 @export var dash_sound: AudioStreamPlayer
 
 func enter(_msg:={}) -> void:
+	if not dash_timer.is_stopped():
+		if player.get_move_vector():
+			state_machine.transition_to("Move")
+		else:
+			state_machine.transition_to("Idle")
+		return
+	
 	player.linear_velocity = Vector2.ZERO
 	player.dashing = true
 	player.linear_damp = 0.75

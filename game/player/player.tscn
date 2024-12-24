@@ -31,6 +31,7 @@ curve = SubResource("Curve_8uxni")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6yhwd"]
 particle_flag_disable_z = true
+emission_shape_offset = Vector3(-6, 0, 0)
 gravity = Vector3(0, 0, 0)
 tangential_accel_min = -10.0
 tangential_accel_max = 10.0
@@ -56,6 +57,7 @@ curve = SubResource("Curve_gkmno")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uhsee"]
 particle_flag_align_y = true
 particle_flag_disable_z = true
+emission_shape_offset = Vector3(-6, 0, 0)
 direction = Vector3(-1, 0, 0)
 spread = 15.0
 initial_velocity_min = 250.0
@@ -70,14 +72,14 @@ random_pitch = 1.25
 streams_count = 1
 stream_0/stream = ExtResource("15_mnfo3")
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler")]
-collision_layer = 2
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler") groups=["player"]]
+collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
 linear_damp_mode = 1
 linear_damp = 2.5
 script = ExtResource("1_bjr5u")
-camera_lean_amount = 0.2
+camera_lean_amount = 0.3
 coll_shape = NodePath("CollisionShape2D")
 hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
 health = NodePath("Health")
@@ -88,6 +90,7 @@ weapon_handler = NodePath("WeaponHandler")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_jb453")
+max_health = 15
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_hcc0c")
@@ -111,8 +114,8 @@ one_shot = true
 
 [node name="HealthIndicator" parent="." instance=ExtResource("6_qq22e")]
 entity_name = "YOU"
-radius = 16.0
-name_radius = 8.0
+radius = 20.0
+name_radius = 10.0
 outline_color = Color(1, 1, 1, 0.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

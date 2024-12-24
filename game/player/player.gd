@@ -1,6 +1,8 @@
 class_name Player
 extends RigidBody2D
 
+signal died()
+
 @export var default_color: Color = Color.WHITE
 @export var move_speed: float = 600.0
 @export var max_speed: float = 225.0
