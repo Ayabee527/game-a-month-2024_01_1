@@ -109,7 +109,7 @@ func get_move_vector() -> Vector2:
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.shake(25.0, 10.0, 5.0)
-	MainCam.hitstop(0.025, 0.75)
+	MainCam.hitstop(0.05, 0.75)
 	
 	health.hurt(damage)
 	health_indicator.update_health(health.health, health.max_health)

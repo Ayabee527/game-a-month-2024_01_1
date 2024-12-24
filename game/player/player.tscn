@@ -133,6 +133,8 @@ process_material = SubResource("ParticleProcessMaterial_6yhwd")
 texture = ExtResource("5_e7bnn")
 
 [node name="Hurtbox" parent="." instance=ExtResource("8_7ix7h")]
+collision_layer = 4
+collision_mask = 96
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_5mix8")

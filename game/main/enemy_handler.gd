@@ -3,11 +3,13 @@ extends Node2D
 signal enemy_killed(enemy: Node2D)
 
 const ENEMIES = {
-	"KAMIKAZE": preload("res://baddies/enemies/kamikaze/kamikaze.tscn")
+	"SACRIFICE": preload("res://baddies/enemies/kamikaze/kamikaze.tscn"),
+	"MAGE I": preload("res://baddies/enemies/thrower/thrower.tscn"),
 }
 
 const COSTS = {
-	"KAMIKAZE": 3
+	"SACRIFICE": 3,
+	"MAGE I": 4,
 }
 
 @export var player: Player
@@ -75,6 +77,7 @@ func spawn_wave() -> void:
 
 func kill_enemy(enemy: Node2D) -> void:
 	enemy_killed.emit(enemy)
+	spawn_points += 1
 
 func _on_spawn_timer_timeout() -> void:
 	spawn_wave()
@@ -82,5 +85,5 @@ func _on_spawn_timer_timeout() -> void:
 	
 	spawn_points += points_per
 	
-	if spawns % 10 * points_per == 0:
+	if spawns % (15 * points_per) == 0:
 		points_per += 1

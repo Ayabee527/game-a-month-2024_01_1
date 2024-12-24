@@ -53,6 +53,7 @@ player=""
 enemies=""
 kamikazes=""
 world=""
+throwers=""
 
 [input]
 

@@ -57,12 +57,18 @@ func _draw() -> void:
 	draw_colored_polygon(
 		outline, Util.BG_COLOR
 	)
-	draw_polyline(
-		shape, color, 1.0
+	#draw_polyline(
+		#shape, color, 1.0
+	#)
+	draw_colored_polygon(
+		shape, color
 	)
 	draw_set_transform(offset, -draw_rotation)
-	draw_polyline(
-		shape, color, 1.0
+	#draw_polyline(
+		#shape, color, 1.0
+	#)
+	draw_colored_polygon(
+		shape, color
 	)
 
 
@@ -73,7 +79,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	health_indicator.update_health(health.health, health.max_health)
 	bleeder.bleed(damage)
 	
-	color = Color.YELLOW
+	color = default_color.inverted()
 	trail.modulate = color
 	await get_tree().create_timer(invinc_time, false).timeout
 	color = default_color

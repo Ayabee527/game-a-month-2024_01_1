@@ -18,15 +18,18 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"f19e33f4-2e29-4474-b4f0-27688d78f683",
+				"1fa6cc34-969f-4800-9a2e-140895ae34d5",
 				"b02c3e70-6bda-49ea-bbb7-27e353a23c20",
-				"d451fd41-a2ec-4a8f-adef-358738aabe9b"
+				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
+				"0f38c5b4-6ca8-4dd5-b514-f96ae60259ab",
+				"af9b82a4-c798-40fa-9394-11e4b7d87e53"
 			]
 		},
 		{
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"f19e33f4-2e29-4474-b4f0-27688d78f683",
 				"51b01ad2-f90f-4523-9474-2219019e5311",
 				"8a2df019-e162-4b5f-ba30-fd03645748b8",
 				"0fed9a66-ca9b-40b0-aa99-1a80d364feed",
@@ -103,6 +106,27 @@
 		{
 			"uuid": "f19e33f4-2e29-4474-b4f0-27688d78f683",
 			"title": "second enemy",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "1fa6cc34-969f-4800-9a2e-140895ae34d5",
+			"title": "kamikaze sprite",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "0f38c5b4-6ca8-4dd5-b514-f96ae60259ab",
+			"title": "squash and stretch",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "af9b82a4-c798-40fa-9394-11e4b7d87e53",
+			"title": "player sprite",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

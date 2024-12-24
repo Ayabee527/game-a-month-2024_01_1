@@ -45,6 +45,6 @@ time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="World/EnemyHandler"]
-wait_time = 1.5
+wait_time = 2.5
 
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
