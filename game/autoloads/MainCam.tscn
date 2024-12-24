@@ -4,11 +4,6 @@
 
 [node name="MainCam" type="Camera2D"]
 ignore_rotation = false
-limit_left = 0
-limit_top = 0
-limit_right = 256
-limit_bottom = 256
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("1_ubem2")
-min_shake_stength = 2.0

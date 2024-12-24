@@ -8,7 +8,7 @@ signal hitstop_done()
 @export var default_shake_speed: float = 15.0
 @export var default_shake_strength: float = 4.0
 @export var default_decay_rate: float = 5.0
-@export var min_shake_stength: float = 1.0
+@export var min_shake_stength: float = 0.0
 
 var noise_i: float = 0.0
 var shake_strength: float = 1.0

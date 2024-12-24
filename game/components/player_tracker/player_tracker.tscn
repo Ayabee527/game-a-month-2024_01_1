@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bitvuxp6davs1"]
+
+[ext_resource type="Script" path="res://components/player_tracker/player_tracker.gd" id="1_ic6ir"]
+
+[node name="PlayerTracker" type="Node2D"]
+z_index = -2
+script = ExtResource("1_ic6ir")

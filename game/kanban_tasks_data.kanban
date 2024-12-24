@@ -1,0 +1,83 @@
+{
+	"categories": [
+		{
+			"uuid": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"title": "Task",
+			"color": "569eff"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "5ee09da6-738b-4b01-ba99-ee4f39647609",
+			"title": "Todo",
+			"tasks": []
+		},
+		{
+			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
+			"title": "Doing",
+			"tasks": [
+				"8a2df019-e162-4b5f-ba30-fd03645748b8",
+				"09149492-c480-4a98-974a-946abf88efe7"
+			]
+		},
+		{
+			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
+			"title": "Done",
+			"tasks": [
+				"69aa419e-447f-4014-ba3c-0842ba4aaf03",
+				"9ed8f378-b3fa-40cc-8caa-54b9fe82256e",
+				"6949c782-11c0-4fe7-b3cb-8e9575468339"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "6949c782-11c0-4fe7-b3cb-8e9575468339",
+			"title": "aesthetic",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "9ed8f378-b3fa-40cc-8caa-54b9fe82256e",
+			"title": "basic player movement",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "69aa419e-447f-4014-ba3c-0842ba4aaf03",
+			"title": "player weapon",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "8a2df019-e162-4b5f-ba30-fd03645748b8",
+			"title": "first enemy",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "09149492-c480-4a98-974a-946abf88efe7",
+			"title": "hitbox invincibility fix",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"5ee09da6-738b-4b01-ba99-ee4f39647609"
+			],
+			[
+				"b6fdba55-fc14-4611-aa62-e7f47e812a8f"
+			],
+			[
+				"c019edc9-41eb-4e56-964c-0fc1c735b702"
+			]
+		]
+	}
+}
