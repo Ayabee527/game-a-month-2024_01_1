@@ -3,6 +3,12 @@ extends EnemyKamikazeState
 @export var anim_player: AnimationPlayer
 
 func enter(_msg:={}) -> void:
+	Util.squish(
+		enemy.sprite, 1.0, 4.0, true, true
+	)
+	enemy.health_indicator.kill()
+	enemy.player_tracker.kill()
+	
 	enemy.hurt_coll_shape.set_deferred("disabled", true)
 	enemy.coll_shape.set_deferred("disabled", true)
 	
@@ -14,7 +20,6 @@ func physics_update(delta: float) -> void:
 
 func _on_health_has_died() -> void:
 	if not is_active:
-		enemy.health_indicator.kill()
 		state_machine.transition_to("Die")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -22,6 +27,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		"explode":
 			enemy.bleeder.bleed(enemy.health.max_health, 2.0)
 			enemy.weapon_handler.shoot()
-			enemy.hide()
+			enemy.sprite.hide()
 			await get_tree().create_timer(2.0, false).timeout
 			enemy.queue_free()

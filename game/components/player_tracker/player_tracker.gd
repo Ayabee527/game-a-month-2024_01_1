@@ -3,7 +3,7 @@ extends Node2D
 
 signal killed()
 
-@export var color: Color = Color(0.216, 0.216, 0.216, 0.25)
+@export var color: Color = Color(1, 1, 1, 0.5)
 @export var width: float = 1.0
 
 var player: Player
@@ -37,9 +37,14 @@ func kill() -> void:
 func draw_target() -> void:
 	draw_set_transform(Vector2.ZERO, -global_rotation)
 	
+	var line_width: float = draw_width * health_fraction
 	draw_line(
 		Vector2.ZERO, player.global_position - global_position,
-		color, draw_width * health_fraction
+		Util.BG_COLOR, line_width * 2.0
+	)
+	draw_line(
+		Vector2.ZERO, player.global_position - global_position,
+		color, line_width
 	)
 
 func update_health(new_health: int, max_health: int) -> void:

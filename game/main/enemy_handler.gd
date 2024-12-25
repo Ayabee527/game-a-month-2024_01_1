@@ -9,7 +9,7 @@ const ENEMIES = {
 
 const COSTS = {
 	"SACRIFICE": 3,
-	"MAGE I": 4,
+	"MAGE I": 3,
 }
 
 @export var player: Player
@@ -21,7 +21,7 @@ const COSTS = {
 @export var spawn_timer: Timer
 
 var spawns: int = 0
-var points_per: int = 1
+var points_per: int = 2
 
 var spawn_points: int = 3
 

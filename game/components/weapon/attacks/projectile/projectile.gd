@@ -17,6 +17,8 @@ extends Area2D
 @export var hitbox: Hitbox
 @export var collision: CollisionShape2D
 @export var hitbox_collision: CollisionShape2D
+@export var health_indicator: HealthIndicator
+@export var offscreen_warning: OffscreenWarning
 
 var pierces: int = 0
 
@@ -57,6 +59,15 @@ func _ready() -> void:
 	
 	life_timer.start(attack_data.life_time)
 	cur_speed = attack_data.start_speed
+	
+	health_indicator.radius = attack_data.radius * 4.0
+	health_indicator.outline_color = attack_data.color.lightened(0.75)
+	health_indicator.entity_name = attack_data.attack_name
+	offscreen_warning.out_color = health_indicator.outline_color
+	offscreen_warning.color = attack_data.color
+	
+	health_indicator.visible = attack_data.show_indicator
+	offscreen_warning.visible = attack_data.show_indicator
 	
 	await get_tree().process_frame
 	find_target()
@@ -131,6 +142,9 @@ func expire() -> void:
 	
 	attack_data.expired.emit()
 	expired = true
+	
+	health_indicator.kill()
+	offscreen_warning.kill()
 	
 	expire_particles.restart()
 	shadow.hide()

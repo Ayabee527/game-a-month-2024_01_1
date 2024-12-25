@@ -21,6 +21,7 @@ signal died()
 @export var camera_lean: Marker2D
 @export var weapon_handler: WeaponHandler
 @export var bleeder: EntityBleeder
+@export var draw_control: Marker2D
 
 var hull_shape: PackedVector2Array
 var hull_outline: PackedVector2Array
@@ -77,6 +78,7 @@ func _draw() -> void:
 		#Vector2.ZERO, radius, Util.BORDER_COLOR, true
 	#)
 	
+	draw_set_transform(Vector2.ZERO, 0.0, draw_control.scale)
 	draw_hull()
 	draw_tail()
 
@@ -114,6 +116,9 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	health.hurt(damage)
 	health_indicator.update_health(health.health, health.max_health)
 	bleeder.bleed(damage)
+	Util.squish(
+		draw_control, 1.0, 5.0, true, false
+	)
 	
 	color = Color("e30035")
 	trail.modulate = color
@@ -128,3 +133,6 @@ func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
 
 func _on_weapon_handler_recoiled(recoil: Vector2) -> void:
 	apply_central_impulse(recoil)
+	Util.squish(
+		draw_control, 0.5, 2.0, true, false
+	)

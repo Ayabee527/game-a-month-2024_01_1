@@ -6,6 +6,7 @@ extends PlayerState
 @export var dash_sound: AudioStreamPlayer
 
 func enter(_msg:={}) -> void:
+	player.hurt_coll_shape.set_deferred("disabled", true)
 	if not dash_timer.is_stopped():
 		if player.get_move_vector():
 			state_machine.transition_to("Move")
@@ -47,8 +48,10 @@ func physics_update(delta: float) -> void:
 			state_machine.transition_to("Idle")
 
 func exit() -> void:
+	player.hurt_coll_shape.set_deferred("disabled", false)
 	player.dashing = false
 	player.linear_damp = 2.5
 
 func _on_dash_timer_timeout() -> void:
+	player.hurt_coll_shape.set_deferred("disabled", false)
 	player.linear_damp = 2.5

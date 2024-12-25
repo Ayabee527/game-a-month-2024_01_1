@@ -36,14 +36,16 @@ end_home_speed = 90.0
 home_accel_time = 4.0
 texture = ExtResource("4_bap5p")
 trail_visible = false
+show_indicator = true
+attack_name = ""
 hitbox_data = SubResource("Resource_qvcb6")
 sound = SubResource("AudioStreamRandomizer_5rri6")
-color = Color(0, 1, 0, 1)
+color = Color(0.537255, 1, 0.505882, 1)
 
 [resource]
 script = ExtResource("1_xsu7i")
 attack_data = SubResource("Resource_jecix")
-spread = 30.0
+spread = 45.0
 rotation_offset = 0.0
 shots_per_shot = 1
 shots_per_burst = 1

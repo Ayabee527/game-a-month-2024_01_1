@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ug32obmfm4v8"]
+
+[ext_resource type="Script" path="res://components/offscreen_warning/offscreen_warning.gd" id="1_1vf4a"]
+
+[node name="OffscreenWarning" type="VisibleOnScreenNotifier2D"]
+z_index = 1
+rect = Rect2(-16, -16, 32, 32)
+script = ExtResource("1_1vf4a")
+
+[connection signal="screen_entered" from="." to="." method="_on_screen_entered"]
+[connection signal="screen_exited" from="." to="." method="_on_screen_exited"]

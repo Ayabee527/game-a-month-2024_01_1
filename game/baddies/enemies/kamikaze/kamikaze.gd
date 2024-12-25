@@ -12,6 +12,7 @@ signal died()
 @export var sprite: Sprite2D
 @export var health: Health
 @export var health_indicator: HealthIndicator
+@export var player_tracker: PlayerTracker
 @export var weapon_handler: WeaponHandler
 @export var bleeder: EntityBleeder
 
@@ -39,6 +40,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	
 	health.hurt(damage)
 	health_indicator.update_health(health.health, health.max_health)
+	player_tracker.update_health(health.health, health.max_health)
 	bleeder.bleed(damage)
 	
 	color = default_color.inverted()
@@ -46,6 +48,10 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	await get_tree().create_timer(invinc_time, false).timeout
 	color = default_color
 	sprite.modulate = color
+	
+	Util.squish(
+		sprite, 0.5, 5.0, true, false
+	)
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:

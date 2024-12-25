@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7aeni8wqem5v"]
+[gd_scene load_steps=20 format=3 uid="uid://c7aeni8wqem5v"]
 
 [ext_resource type="Script" path="res://components/weapon/attacks/projectile/projectile.gd" id="1_7n0r6"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="1_xf07n"]
@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bw8338ilrtcwc" path="res://components/trail/trail.tscn" id="4_rmoac"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="4_sckh2"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="6_be8xx"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="8_g1hca"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="8_pspcb"]
+[ext_resource type="PackedScene" uid="uid://ug32obmfm4v8" path="res://components/offscreen_warning/offscreen_warning.tscn" id="9_w1h8x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gotf8"]
 resource_local_to_scene = true
@@ -56,7 +58,7 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_bod3x"]
 radius = 3.0
 
-[node name="Projectile" type="Area2D" node_paths=PackedStringArray("sprite", "shadow", "trail_holder", "trail", "expire_particles", "life_timer", "hitbox", "collision", "hitbox_collision")]
+[node name="Projectile" type="Area2D" node_paths=PackedStringArray("sprite", "shadow", "trail_holder", "trail", "expire_particles", "life_timer", "hitbox", "collision", "hitbox_collision", "health_indicator", "offscreen_warning")]
 script = ExtResource("1_7n0r6")
 sprite = NodePath("Sprite")
 shadow = NodePath("Shadow")
@@ -67,6 +69,8 @@ life_timer = NodePath("LifeTimer")
 hitbox = NodePath("Hitbox")
 collision = NodePath("CollisionShape2D")
 hitbox_collision = NodePath("Hitbox/CollisionShape2D")
+health_indicator = NodePath("HealthIndicator")
+offscreen_warning = NodePath("OffscreenWarning")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_611jr")
@@ -89,6 +93,12 @@ randomness = 1.0
 
 [node name="Trail" parent="TrailHolder" instance=ExtResource("4_rmoac")]
 width = 6.0
+
+[node name="HealthIndicator" parent="." instance=ExtResource("8_g1hca")]
+entity_name = ""
+outline_color = Color(1, 1, 1, 0.501961)
+
+[node name="OffscreenWarning" parent="." instance=ExtResource("9_w1h8x")]
 
 [node name="Sprite" parent="." instance=ExtResource("2_lfhux")]
 modulate = Color(0, 1, 1, 1)

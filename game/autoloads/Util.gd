@@ -25,3 +25,25 @@ func scale_polygon(polygon: PackedVector2Array, scale: float = 1.0) -> PackedVec
 		new_polygon.append(new_point)
 	
 	return new_polygon
+
+func squish(node: Node2D, squish_time: float, amount: float = 1.5, rotate: bool = true, flat: bool = true) -> void:
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.set_parallel()
+	
+	var squish_scale := Vector2(
+		amount,
+		(2.0 / amount)
+	) if flat else Vector2(
+		(2.0 / amount),
+		amount
+	)
+	
+	tween.tween_property(
+		node, "global_scale", Vector2.ONE, squish_time
+	).from(squish_scale)
+	
+	if rotate:
+		tween.tween_property(
+			node, "global_rotation_degrees", 0.0, squish_time
+		).from(randf_range(-60, 60))

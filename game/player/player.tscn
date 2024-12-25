@@ -73,7 +73,7 @@ random_pitch = 1.25
 streams_count = 1
 stream_0/stream = ExtResource("15_mnfo3")
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler", "bleeder") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control") groups=["player"]]
 collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
@@ -89,6 +89,7 @@ trail = NodePath("Trail")
 camera_lean = NodePath("CameraLean")
 weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
+draw_control = NodePath("DrawControl")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_jb453")
@@ -158,6 +159,8 @@ explosiveness = 1.0
 stream = SubResource("AudioStreamRandomizer_xfnu0")
 volume_db = -10.0
 bus = &"sfx"
+
+[node name="DrawControl" type="Marker2D" parent="."]
 
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]

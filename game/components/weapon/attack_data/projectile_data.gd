@@ -22,3 +22,5 @@ extends AttackData
 @export_group("Graphics")
 @export var texture: Texture2D
 @export var trail_visible: bool = true
+@export var show_indicator: bool = true
+@export var attack_name: String = ""

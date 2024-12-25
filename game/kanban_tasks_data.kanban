@@ -18,7 +18,6 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"0f38c5b4-6ca8-4dd5-b514-f96ae60259ab",
 				"b02c3e70-6bda-49ea-bbb7-27e353a23c20",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
 				"af9b82a4-c798-40fa-9394-11e4b7d87e53"
@@ -28,6 +27,9 @@
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"238de33c-7207-4ab1-93d0-7607854a3cda",
+				"0f38c5b4-6ca8-4dd5-b514-f96ae60259ab",
+				"f736033b-cddf-4c1d-a7e0-bf0a0af36ef8",
 				"1fa6cc34-969f-4800-9a2e-140895ae34d5",
 				"f19e33f4-2e29-4474-b4f0-27688d78f683",
 				"51b01ad2-f90f-4523-9474-2219019e5311",
@@ -127,6 +129,20 @@
 		{
 			"uuid": "af9b82a4-c798-40fa-9394-11e4b7d87e53",
 			"title": "player sprite",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "f736033b-cddf-4c1d-a7e0-bf0a0af36ef8",
+			"title": "dash invincibility",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "238de33c-7207-4ab1-93d0-7607854a3cda",
+			"title": "offscreen warning",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []
