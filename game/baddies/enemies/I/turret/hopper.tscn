@@ -1,0 +1,150 @@
+[gd_scene load_steps=29 format=3 uid="uid://dkv4bcfkf0svp"]
+
+[ext_resource type="Script" path="res://baddies/enemies/I/turret/hopper.gd" id="1_ux76i"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="2_wv6t4"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_qa112"]
+[ext_resource type="Script" path="res://baddies/enemies/I/turret/states/hop.gd" id="4_cpup7"]
+[ext_resource type="Script" path="res://baddies/enemies/I/turret/states/die.gd" id="5_x73tl"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_1oqtt"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="7_o78vp"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_rd5id"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_siokj"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_gxgiu"]
+[ext_resource type="Texture2D" uid="uid://cwk518qxd7fcb" path="res://assets/textures/enemies/hopper.png" id="11_od6ms"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="12_gq684"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="13_d0anb"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="14_acc2v"]
+[ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="15_qmck2"]
+[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="16_fku15"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="17_12c6c"]
+[ext_resource type="Resource" uid="uid://cf85qtasegg0f" path="res://baddies/enemies/I/turret/hopper_land.tres" id="18_jugbn"]
+[ext_resource type="AudioStream" uid="uid://hexl5isn6gri" path="res://assets/sounds/boom5.wav" id="20_edh4n"]
+[ext_resource type="AudioStream" uid="uid://p6baf6x2iilo" path="res://assets/sounds/hurt5.wav" id="25_vsyqp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rrdtc"]
+bounce = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlg4v"]
+resource_local_to_scene = true
+shader = ExtResource("10_gxgiu")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0c10"]
+resource_local_to_scene = true
+shader = ExtResource("13_d0anb")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3nfqt"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nrj57"]
+radius = 16.0
+
+[sub_resource type="Resource" id="Resource_vccma"]
+script = ExtResource("16_fku15")
+collision_layer = 32
+collision_mask = 4
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_or2hv"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("25_vsyqp")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ihurg"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("20_edh4n")
+
+[node name="Hopper" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx")]
+collision_layer = 10
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_rrdtc")
+gravity_scale = 0.0
+linear_damp_mode = 1
+angular_damp = 2.5
+script = ExtResource("1_ux76i")
+coll_shape = NodePath("CollisionShape2D")
+hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
+hurtbox = NodePath("Hurtbox")
+health = NodePath("Health")
+health_indicator = NodePath("HealthIndicator")
+player_tracker = NodePath("PlayerTracker")
+sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
+weapon_handler = NodePath("WeaponHandler")
+bleeder = NodePath("Bleeder")
+hurt_sfx = NodePath("HurtSFX")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_wv6t4")
+max_health = 7
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_qa112")
+initial_state = NodePath("Hop")
+
+[node name="Hop" type="Node" parent="StateMachine" node_paths=PackedStringArray("hop_timer")]
+script = ExtResource("4_cpup7")
+hop_timer = NodePath("HopCooldown")
+
+[node name="HopCooldown" type="Timer" parent="StateMachine/Hop"]
+one_shot = true
+
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_sfx")]
+script = ExtResource("5_x73tl")
+die_sfx = NodePath("../../DieSFX")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("6_1oqtt")]
+entity_name = "HOPPER I"
+hurt_color = Color(0, 0, 1, 0.2)
+outline_color = Color(0, 0, 1, 0.2)
+
+[node name="PlayerTracker" parent="." instance=ExtResource("7_o78vp")]
+color = Color(0, 0, 1, 0.501961)
+
+[node name="Bleeder" parent="." instance=ExtResource("8_rd5id")]
+blood_color = Color(0, 0, 0.537255, 1)
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_siokj")]
+material = SubResource("ShaderMaterial_qlg4v")
+texture = ExtResource("11_od6ms")
+caster = NodePath("../HeightSprite")
+
+[node name="HeightSprite" parent="." instance=ExtResource("12_gq684")]
+material = SubResource("ShaderMaterial_g0c10")
+texture = ExtResource("11_od6ms")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3nfqt")
+
+[node name="Hurtbox" parent="." instance=ExtResource("14_acc2v")]
+height_radius = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_nrj57")
+
+[node name="WeaponHandler" parent="." instance=ExtResource("15_qmck2")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_vccma")
+weapons = Array[ExtResource("17_12c6c")]([ExtResource("18_jugbn")])
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_or2hv")
+volume_db = -10.0
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ihurg")
+max_distance = 512.0
+bus = &"sfx"
+
+[connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
+[connection signal="timeout" from="StateMachine/Hop/HopCooldown" to="StateMachine/Hop" method="_on_hop_cooldown_timeout"]
+[connection signal="ground_hit" from="HeightSprite" to="StateMachine/Hop" method="_on_height_sprite_ground_hit"]
+[connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
+[connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]

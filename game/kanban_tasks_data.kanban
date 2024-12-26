@@ -10,14 +10,16 @@
 		{
 			"uuid": "5ee09da6-738b-4b01-ba99-ee4f39647609",
 			"title": "Todo",
-			"tasks": [
-				"09149492-c480-4a98-974a-946abf88efe7"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
+				"30ffd15e-6de1-4c6f-87dc-02421fac367e",
+				"60fb1d9a-7648-4055-8bd5-dee03810a445",
+				"41150c8d-fbca-4d1f-9200-c3620691148a",
+				"09149492-c480-4a98-974a-946abf88efe7",
 				"b02c3e70-6bda-49ea-bbb7-27e353a23c20",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
 				"fe96a420-00ce-4fd3-85ff-c6c9e89d6101"
@@ -159,6 +161,27 @@
 		{
 			"uuid": "0f28d8b5-89ef-4316-923f-d12eda9937d7",
 			"title": "hurt sounds",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "60fb1d9a-7648-4055-8bd5-dee03810a445",
+			"title": "more enemies",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "41150c8d-fbca-4d1f-9200-c3620691148a",
+			"title": "logarithmic difficulty curve",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "30ffd15e-6de1-4c6f-87dc-02421fac367e",
+			"title": "laser attack",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

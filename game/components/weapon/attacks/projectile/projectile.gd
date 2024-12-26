@@ -60,7 +60,7 @@ func _ready() -> void:
 	life_timer.start(attack_data.life_time)
 	cur_speed = attack_data.start_speed
 	
-	health_indicator.radius = attack_data.radius * 4.0
+	health_indicator.radius = attack_data.indicator_radius
 	health_indicator.outline_color = attack_data.color.lightened(0.75)
 	health_indicator.entity_name = attack_data.attack_name
 	offscreen_warning.out_color = health_indicator.outline_color

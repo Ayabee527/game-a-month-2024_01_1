@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvpral0g7tve"
-path="res://.godot/imported/thrower.png-47651df075b07b28389b8c1a74d9210d.ctex"
+uid="uid://ic7qq70ui46u"
+path="res://.godot/imported/dasher.png-ab9769f0fe6cca82f6db357583b60d2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/thrower.png"
-dest_files=["res://.godot/imported/thrower.png-47651df075b07b28389b8c1a74d9210d.ctex"]
+source_file="res://assets/textures/enemies/dasher.png"
+dest_files=["res://.godot/imported/dasher.png-ab9769f0fe6cca82f6db357583b60d2b.ctex"]
 
 [params]
 

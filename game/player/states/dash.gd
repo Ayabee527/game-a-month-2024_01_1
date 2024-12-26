@@ -37,7 +37,7 @@ func enter(_msg:={}) -> void:
 	)
 	
 	player.weapon_handler.firing = false
-	MainCam.min_shake_stength = 5.0
+	MainCam.min_shake_stength = 3.0
 
 func physics_update(delta: float) -> void:
 	if dash_timer.is_stopped():

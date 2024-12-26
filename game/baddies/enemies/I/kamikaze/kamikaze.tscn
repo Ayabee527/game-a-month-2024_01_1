@@ -1,10 +1,10 @@
 [gd_scene load_steps=28 format=3 uid="uid://dxo4frr66t383"]
 
-[ext_resource type="Script" path="res://baddies/enemies/kamikaze/kamikaze.gd" id="1_6rbnp"]
+[ext_resource type="Script" path="res://baddies/enemies/I/kamikaze/kamikaze.gd" id="1_6rbnp"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_f0mjq"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_ny8wa"]
-[ext_resource type="Script" path="res://baddies/enemies/kamikaze/states/chase.gd" id="4_wo7au"]
-[ext_resource type="Script" path="res://baddies/enemies/kamikaze/states/die.gd" id="5_u2dk4"]
+[ext_resource type="Script" path="res://baddies/enemies/I/kamikaze/states/chase.gd" id="4_wo7au"]
+[ext_resource type="Script" path="res://baddies/enemies/I/kamikaze/states/die.gd" id="5_u2dk4"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_c6akf"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="7_1rioc"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="7_mjlr7"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="11_ywgq7"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="12_2beie"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="12_ud54t"]
-[ext_resource type="Resource" uid="uid://cmm2vqacy0l6j" path="res://baddies/enemies/kamikaze/kamikaze_boom.tres" id="13_jpwmp"]
+[ext_resource type="Resource" uid="uid://cmm2vqacy0l6j" path="res://baddies/enemies/I/kamikaze/kamikaze_boom.tres" id="13_jpwmp"]
 [ext_resource type="AudioStream" uid="uid://dnvm2tdk6y7xi" path="res://assets/sounds/hurt1.wav" id="19_2qoyy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qnpms"]
@@ -58,7 +58,6 @@ collision_layer = 10
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_qnpms")
 gravity_scale = 0.0
-lock_rotation = true
 linear_damp = 2.5
 angular_damp = 7.5
 script = ExtResource("1_6rbnp")
@@ -75,6 +74,7 @@ hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_f0mjq")
+max_health = 3
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_ny8wa")
@@ -91,7 +91,7 @@ explode_timer = NodePath("ExplodeTimer")
 one_shot = true
 
 [node name="HealthIndicator" parent="." instance=ExtResource("6_c6akf")]
-entity_name = "SACRIFICE"
+entity_name = "SACRIFICE I"
 radius = 16.0
 name_radius = 8.0
 
@@ -105,6 +105,7 @@ shape = SubResource("CircleShape2D_kyhnh")
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_s12fi")]
 material = SubResource("ShaderMaterial_55fa5")
+texture = ExtResource("9_n5q47")
 caster = NodePath("../HeightSprite")
 
 [node name="HeightSprite" parent="." instance=ExtResource("11_trhjc")]
@@ -131,6 +132,7 @@ shape = SubResource("CircleShape2D_ftv11")
 
 [node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_08nff")
+volume_db = -10.0
 max_distance = 512.0
 bus = &"sfx"
 

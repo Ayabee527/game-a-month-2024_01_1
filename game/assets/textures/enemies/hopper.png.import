@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvpral0g7tve"
-path="res://.godot/imported/thrower.png-47651df075b07b28389b8c1a74d9210d.ctex"
+uid="uid://cwk518qxd7fcb"
+path="res://.godot/imported/hopper.png-4c6ca561821a2159a3aeec0b84be537d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/thrower.png"
-dest_files=["res://.godot/imported/thrower.png-47651df075b07b28389b8c1a74d9210d.ctex"]
+source_file="res://assets/textures/enemies/hopper.png"
+dest_files=["res://.godot/imported/hopper.png-4c6ca561821a2159a3aeec0b84be537d.ctex"]
 
 [params]
 

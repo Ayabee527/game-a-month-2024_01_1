@@ -10,9 +10,10 @@ var world: Node2D
 func _ready() -> void:
 	world = get_tree().get_first_node_in_group("world")
 
-func bleed(bleeds: int, size: float = 1.0) -> void:
+func bleed(bleeds: int, size: float = 1.0, particles: int = 20) -> void:
 	for i: int in bleeds:
 		var splatter = SPLATTER.instantiate()
+		splatter.amount = particles
 		splatter.amount_ratio = randf_range(
 			clamp(bleeds * 0.2, 0.2, 1.0),
 			1.0

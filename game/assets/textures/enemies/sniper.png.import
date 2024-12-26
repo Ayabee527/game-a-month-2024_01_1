@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvpral0g7tve"
-path="res://.godot/imported/thrower.png-47651df075b07b28389b8c1a74d9210d.ctex"
+uid="uid://vripikrvurjk"
+path="res://.godot/imported/sniper.png-ae4d81662ccae531ae28aee06ba1f270.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/thrower.png"
-dest_files=["res://.godot/imported/thrower.png-47651df075b07b28389b8c1a74d9210d.ctex"]
+source_file="res://assets/textures/enemies/sniper.png"
+dest_files=["res://.godot/imported/sniper.png-ae4d81662ccae531ae28aee06ba1f270.ctex"]
 
 [params]
 

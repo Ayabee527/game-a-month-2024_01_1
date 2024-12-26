@@ -53,8 +53,8 @@ emission_shape_offset = Vector3(-10, 0, 0)
 gravity = Vector3(0, 0, 0)
 tangential_accel_min = -10.0
 tangential_accel_max = 10.0
-scale_min = 0.25
-scale_max = 0.5
+scale_min = 0.5
+scale_max = 0.75
 scale_curve = SubResource("CurveTexture_f4fjb")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5mix8"]

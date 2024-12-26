@@ -23,4 +23,5 @@ extends AttackData
 @export var texture: Texture2D
 @export var trail_visible: bool = true
 @export var show_indicator: bool = true
+@export var indicator_radius: float = 12.0
 @export var attack_name: String = ""

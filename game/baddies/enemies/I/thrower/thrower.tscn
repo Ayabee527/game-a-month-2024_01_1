@@ -1,13 +1,13 @@
 [gd_scene load_steps=29 format=3 uid="uid://ddn02ng0ipkqn"]
 
-[ext_resource type="Script" path="res://baddies/enemies/thrower/thrower.gd" id="1_3ai8r"]
+[ext_resource type="Script" path="res://baddies/enemies/I/thrower/thrower.gd" id="1_3ai8r"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="1_jf4kt"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_d455j"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="3_lfnd6"]
-[ext_resource type="Texture2D" uid="uid://beuvsu83gm0v5" path="res://assets/textures/enemies/thrower.png" id="3_uct4v"]
+[ext_resource type="Texture2D" uid="uid://duvpral0g7tve" path="res://assets/textures/enemies/thrower.png" id="3_uct4v"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="4_387q3"]
-[ext_resource type="Script" path="res://baddies/enemies/thrower/states/throw.gd" id="4_hgwhu"]
-[ext_resource type="Script" path="res://baddies/enemies/thrower/states/die.gd" id="5_8xvhx"]
+[ext_resource type="Script" path="res://baddies/enemies/I/thrower/states/throw.gd" id="4_hgwhu"]
+[ext_resource type="Script" path="res://baddies/enemies/I/thrower/states/die.gd" id="5_8xvhx"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="5_jrtah"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="7_5j6dh"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="8_26lv7"]
@@ -15,10 +15,10 @@
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="9_jk1an"]
 [ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_ae8dd"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="10_lxcx4"]
-[ext_resource type="Resource" uid="uid://wvllr6cw8ldw" path="res://baddies/enemies/thrower/thrower_weapon.tres" id="11_af5sn"]
+[ext_resource type="Resource" uid="uid://wvllr6cw8ldw" path="res://baddies/enemies/I/thrower/thrower_weapon.tres" id="11_af5sn"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="11_f8ncc"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="12_c72be"]
-[ext_resource type="Resource" uid="uid://d3p62hseqixjr" path="res://baddies/enemies/thrower/thrower_explode.tres" id="15_ugd8p"]
+[ext_resource type="Resource" uid="uid://d3p62hseqixjr" path="res://baddies/enemies/I/thrower/thrower_explode.tres" id="15_ugd8p"]
 [ext_resource type="AudioStream" uid="uid://dun1vau5rc4l6" path="res://assets/sounds/hurt3.wav" id="20_oloc5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ty6j3"]
@@ -62,7 +62,6 @@ collision_mask = 9
 mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_ty6j3")
 gravity_scale = 0.0
-lock_rotation = true
 linear_damp = 2.5
 script = ExtResource("1_3ai8r")
 coll_shape = NodePath("CollisionShape2D")
@@ -78,7 +77,6 @@ hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("1_jf4kt")
-max_health = 8
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_d455j")
@@ -109,6 +107,7 @@ shape = SubResource("CircleShape2D_qpcyf")
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_6n556")]
 material = SubResource("ShaderMaterial_7m11w")
+texture = ExtResource("3_uct4v")
 caster = NodePath("../HeightSprite")
 
 [node name="HeightSprite" parent="." instance=ExtResource("11_f8ncc")]
@@ -132,6 +131,7 @@ weapons = Array[ExtResource("10_lxcx4")]([ExtResource("15_ugd8p")])
 
 [node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_i1weo")
+volume_db = -10.0
 max_distance = 512.0
 bus = &"sfx"
 

@@ -56,4 +56,4 @@ burst_cooldown = 0.0
 camera_shake_shake = 5.0
 camera_shake_speed = 15.0
 camera_shake_decay = 15.0
-recoil_strength = 512.0
+recoil_strength = 128.0

@@ -3,7 +3,7 @@ extends Sprite2D
 
 @export var caster: HeightSprite:
 	set = set_caster
-@export var shadow_offset: Vector2 = Vector2(-4, 4)
+@export var shadow_offset: Vector2 = Vector2(-2, 2)
 @export var shadow_scale: Vector2 = Vector2.ONE
 @export var max_height: float = 128.0
 

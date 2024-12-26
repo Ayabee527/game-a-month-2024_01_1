@@ -37,7 +37,7 @@ func _on_health_has_died() -> void:
 		state_machine.transition_to("Die")
 
 func explode() -> void:
-	enemy.bleeder.bleed(enemy.health.max_health, 2.0)
+	enemy.bleeder.bleed(enemy.health.max_health, 2.0, 40)
 	enemy.weapon_handler.shoot()
 	enemy.sprite.hide()
 	enemy.shadow.hide()
