@@ -16,6 +16,7 @@ signal died()
 @export var player_tracker: PlayerTracker
 @export var weapon_handler: WeaponHandler
 @export var bleeder: EntityBleeder
+@export var hurt_sfx: AudioStreamPlayer2D
 
 var player: Player
 
@@ -47,6 +48,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	sprite.squish(
 		0.5, 5.0, true, false
 	)
+	hurt_sfx.play()
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:

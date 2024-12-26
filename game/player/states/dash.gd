@@ -37,6 +37,7 @@ func enter(_msg:={}) -> void:
 	)
 	
 	player.weapon_handler.firing = false
+	MainCam.min_shake_stength = 5.0
 
 func physics_update(delta: float) -> void:
 	if dash_timer.is_stopped():
@@ -63,6 +64,7 @@ func exit() -> void:
 	player.hurt_coll_shape.set_deferred("disabled", false)
 	player.dashing = false
 	player.linear_damp = 2.5
+	MainCam.min_shake_stength = 0.0
 
 func _on_dash_timer_timeout() -> void:
 	player.hurt_coll_shape.set_deferred("disabled", false)

@@ -1,6 +1,5 @@
 extends EnemyKamikazeState
 
-@export var steering: Marker2D
 @export var max_chase_speed: float = 600.0
 @export var min_chase_speed: float = 400.0
 @export var max_turn_speed: float = 15.0

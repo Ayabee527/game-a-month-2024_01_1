@@ -20,6 +20,7 @@ signal died()
 @export var weapon_handler: WeaponHandler
 @export var bleeder: EntityBleeder
 @export var draw_control: Marker2D
+@export var hurt_sfx: AudioStreamPlayer2D
 
 var color: Color = Color.WHITE
 
@@ -65,6 +66,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	sprite.squish(
 		1.0, 5.0, true, false
 	)
+	hurt_sfx.play()
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
