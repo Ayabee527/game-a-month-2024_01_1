@@ -81,15 +81,24 @@ func play_hurt() -> void:
 	
 	hurt_player.play("hurt")
 
-func squish(amount: float = 4.0, flat: bool = true, time: float = 0.5) -> void:
-	var start_scale: Vector2 = Vector2.ONE
-	if flat:
-		start_scale = Vector2(amount, 1.0 / amount)
-	else:
-		start_scale = Vector2(1.0 / amount, amount)
+func squish(squish_time: float, amount: float = 1.5, rotate: bool = true, flat: bool = true) -> void:
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.set_parallel()
 	
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	var squish_scale := Vector2(
+		amount,
+		(2.0 / amount)
+	) if flat else Vector2(
+		(2.0 / amount),
+		amount
+	)
+	
 	tween.tween_property(
-		self, "scale",
-		Vector2.ONE, time
-	).from(start_scale)
+		self, "scale", Vector2.ONE, squish_time
+	).from(squish_scale)
+	
+	if rotate:
+		tween.tween_property(
+			self, "rotation_degrees", 0.0, squish_time
+		).from(randf_range(-60, 60))

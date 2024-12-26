@@ -4,7 +4,7 @@
 
 [node name="OffscreenWarning" type="VisibleOnScreenNotifier2D"]
 z_index = 1
-rect = Rect2(-16, -16, 32, 32)
+rect = Rect2(-8, -8, 16, 16)
 script = ExtResource("1_1vf4a")
 
 [connection signal="screen_entered" from="." to="." method="_on_screen_entered"]

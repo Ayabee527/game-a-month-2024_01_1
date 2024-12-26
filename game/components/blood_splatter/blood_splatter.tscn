@@ -10,20 +10,18 @@ particle_flag_disable_z = true
 angle_min = 1.07288e-05
 angle_max = 360.0
 spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 250.0
+initial_velocity_min = 10.0
+initial_velocity_max = 300.0
 gravity = Vector3(0, 0, 0)
 damping_min = 300.0
 damping_max = 600.0
 scale_min = 0.5
 scale_max = 5.0
-hue_variation_min = -0.05
-hue_variation_max = 0.05
 
 [node name="BloodSplatter" type="GPUParticles2D"]
 z_index = -5
 emitting = false
-amount = 10
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_20dap")
 texture = ExtResource("1_s3hra")
 lifetime = 60.0

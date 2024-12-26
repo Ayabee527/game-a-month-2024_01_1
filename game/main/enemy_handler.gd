@@ -9,7 +9,7 @@ const ENEMIES = {
 
 const COSTS = {
 	"SACRIFICE": 3,
-	"MAGE I": 3,
+	"MAGE I": 5,
 }
 
 @export var player: Player

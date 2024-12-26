@@ -9,7 +9,8 @@ signal died()
 @export_group("Inner Dependencies")
 @export var coll_shape: CollisionShape2D
 @export var hurt_coll_shape: CollisionShape2D
-@export var sprite: Sprite2D
+@export var sprite: HeightSprite
+@export var shadow: Shadow
 @export var health: Health
 @export var health_indicator: HealthIndicator
 @export var player_tracker: PlayerTracker
@@ -23,14 +24,12 @@ var color: Color
 func _ready() -> void:
 	color = default_color
 	sprite.modulate = color
+	sprite.hurt_color = color.inverted()
 	
 	player = get_tree().get_first_node_in_group("player")
 
 func _process(delta: float) -> void:
-	if player.global_position.x < global_position.x:
-		sprite.flip_h = true
-	else:
-		sprite.flip_h = false
+	pass
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.linear_velocity = state.linear_velocity.limit_length(max_speed)
@@ -43,14 +42,10 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	player_tracker.update_health(health.health, health.max_health)
 	bleeder.bleed(damage)
 	
-	color = default_color.inverted()
-	sprite.modulate = color
-	await get_tree().create_timer(invinc_time, false).timeout
-	color = default_color
-	sprite.modulate = color
+	sprite.play_hurt()
 	
-	Util.squish(
-		sprite, 0.5, 5.0, true, false
+	sprite.squish(
+		0.5, 5.0, true, false
 	)
 
 

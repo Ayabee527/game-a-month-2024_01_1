@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=35 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -11,14 +11,30 @@
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="8_7ix7h"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_das43"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="9_4re1e"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_fkcu6"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="10_cwhxb"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_wgpa7"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="11_abeu7"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="11_nmagf"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="12_fpi6m"]
 [ext_resource type="Resource" uid="uid://blq3p3i3itxx0" path="res://player/weapons/starter.tres" id="12_rlha0"]
+[ext_resource type="Texture2D" uid="uid://dyxea0hxqw4w" path="res://assets/textures/player.png" id="13_865qx"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
 [ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vqc0a"]
 bounce = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bdmr3"]
+resource_local_to_scene = true
+shader = ExtResource("10_wgpa7")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aqg70"]
+resource_local_to_scene = true
+shader = ExtResource("12_fpi6m")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2go1a"]
 radius = 6.0
@@ -32,7 +48,7 @@ curve = SubResource("Curve_8uxni")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6yhwd"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(-6, 0, 0)
+emission_shape_offset = Vector3(-10, 0, 0)
 gravity = Vector3(0, 0, 0)
 tangential_accel_min = -10.0
 tangential_accel_max = 10.0
@@ -73,7 +89,7 @@ random_pitch = 1.25
 streams_count = 1
 stream_0/stream = ExtResource("15_mnfo3")
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control") groups=["player"]]
 collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
@@ -85,6 +101,8 @@ coll_shape = NodePath("CollisionShape2D")
 hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
 health = NodePath("Health")
 health_indicator = NodePath("HealthIndicator")
+sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
 trail = NodePath("Trail")
 camera_lean = NodePath("CameraLean")
 weapon_handler = NodePath("WeaponHandler")
@@ -123,6 +141,14 @@ outline_color = Color(1, 1, 1, 0.2)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_das43")]
 blood_color = Color(0.355314, 0.355314, 0.355314, 1)
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_fkcu6")]
+material = SubResource("ShaderMaterial_bdmr3")
+caster = NodePath("../HeightSprite")
+
+[node name="HeightSprite" parent="." instance=ExtResource("11_abeu7")]
+material = SubResource("ShaderMaterial_aqg70")
+texture = ExtResource("13_865qx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2go1a")

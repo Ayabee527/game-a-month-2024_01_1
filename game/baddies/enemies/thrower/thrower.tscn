@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ddn02ng0ipkqn"]
+[gd_scene load_steps=27 format=3 uid="uid://ddn02ng0ipkqn"]
 
 [ext_resource type="Script" path="res://baddies/enemies/thrower/thrower.gd" id="1_3ai8r"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="1_jf4kt"]
@@ -11,55 +11,31 @@
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="5_jrtah"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="7_5j6dh"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="8_26lv7"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_6n556"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="9_jk1an"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_ae8dd"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="10_lxcx4"]
 [ext_resource type="Resource" uid="uid://wvllr6cw8ldw" path="res://baddies/enemies/thrower/thrower_weapon.tres" id="11_af5sn"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="11_f8ncc"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="12_c72be"]
 [ext_resource type="Resource" uid="uid://d3p62hseqixjr" path="res://baddies/enemies/thrower/thrower_explode.tres" id="15_ugd8p"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ty6j3"]
 bounce = 1.0
 
-[sub_resource type="Animation" id="Animation_sl8c1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_8febj"]
-resource_name = "idle"
-length = 0.5
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_02par"]
-_data = {
-"RESET": SubResource("Animation_sl8c1"),
-"idle": SubResource("Animation_8febj")
-}
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpcyf"]
 radius = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7m11w"]
+resource_local_to_scene = true
+shader = ExtResource("10_ae8dd")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1j3k"]
+resource_local_to_scene = true
+shader = ExtResource("12_c72be")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1vfq7"]
 radius = 16.0
@@ -74,7 +50,7 @@ script = ExtResource("9_jk1an")
 collision_layer = 32
 collision_mask = 4
 
-[node name="Thrower" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "player_tracker", "sprite", "weapon_handler", "bleeder")]
+[node name="Thrower" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder")]
 collision_layer = 10
 collision_mask = 9
 mass = 2.0
@@ -88,7 +64,8 @@ hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
 health = NodePath("Health")
 health_indicator = NodePath("HealthIndicator")
 player_tracker = NodePath("PlayerTracker")
-sprite = NodePath("Sprite2D")
+sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
 weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
 
@@ -100,9 +77,8 @@ max_health = 8
 script = ExtResource("3_d455j")
 initial_state = NodePath("Throw")
 
-[node name="Throw" type="Node" parent="StateMachine" node_paths=PackedStringArray("steering")]
+[node name="Throw" type="Node" parent="StateMachine"]
 script = ExtResource("4_hgwhu")
-steering = NodePath("../../Steering")
 
 [node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_burst")]
 script = ExtResource("5_8xvhx")
@@ -121,19 +97,16 @@ color = Color(0, 1, 0, 0.501961)
 [node name="Bleeder" parent="." instance=ExtResource("5_jrtah")]
 blood_color = Color(0, 0.447059, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 0, 1)
-texture = ExtResource("3_uct4v")
-hframes = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
-libraries = {
-"": SubResource("AnimationLibrary_02par")
-}
-autoplay = "idle"
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qpcyf")
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_6n556")]
+material = SubResource("ShaderMaterial_7m11w")
+caster = NodePath("../HeightSprite")
+
+[node name="HeightSprite" parent="." instance=ExtResource("11_f8ncc")]
+material = SubResource("ShaderMaterial_m1j3k")
+texture = ExtResource("3_uct4v")
 
 [node name="Hurtbox" parent="." groups=["enemies", "throwers"] instance=ExtResource("7_5j6dh")]
 
@@ -143,8 +116,6 @@ shape = SubResource("CircleShape2D_1vfq7")
 [node name="WeaponHandler" parent="." instance=ExtResource("8_26lv7")]
 collision_data = SubResource("Resource_aesdc")
 weapons = Array[ExtResource("10_lxcx4")]([ExtResource("11_af5sn")])
-
-[node name="Steering" type="Marker2D" parent="."]
 
 [node name="DieBurst" parent="." instance=ExtResource("8_26lv7")]
 muzzle_distance = 0.0

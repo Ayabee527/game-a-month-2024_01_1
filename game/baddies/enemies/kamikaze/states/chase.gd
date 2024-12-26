@@ -14,16 +14,16 @@ func enter(_msg:={}) -> void:
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
 
 func physics_update(delta: float) -> void:
-	var new_transform = steering.global_transform.looking_at(enemy.player.global_position)
-	steering.global_transform = steering.global_transform.interpolate_with(
+	var new_transform = enemy.global_transform.looking_at(enemy.player.global_position)
+	enemy.global_transform = enemy.global_transform.interpolate_with(
 		new_transform, turn_speed * delta
 	)
 	
 	enemy.apply_central_force(
-		Vector2.from_angle(steering.global_rotation) * chase_speed
+		Vector2.from_angle(enemy.global_rotation) * chase_speed
 	)
 
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if is_active:
-		state_machine.transition_to("Die")
+		state_machine.transition_to("Die", {"fuse": true})

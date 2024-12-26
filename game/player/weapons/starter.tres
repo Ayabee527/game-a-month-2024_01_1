@@ -37,6 +37,7 @@ home_accel_time = 0.0
 texture = ExtResource("5_xp44m")
 trail_visible = true
 show_indicator = false
+attack_name = ""
 hitbox_data = SubResource("Resource_3v4bo")
 sound = SubResource("AudioStreamRandomizer_f5bu0")
 color = Color(1, 1, 1, 1)
