@@ -55,7 +55,7 @@ func hop() -> void:
 
 func _on_height_sprite_ground_hit() -> void:
 	if is_active:
-		enemy.bleeder.bleed(1, 1.0, 10)
+		enemy.bleeder.bleed(1, 2.0, 10)
 		enemy.weapon_handler.shoot()
 		enemy.linear_velocity = Vector2.ZERO
 		hop_timer.start()

@@ -37,6 +37,7 @@ home_accel_time = 4.0
 texture = ExtResource("4_bap5p")
 trail_visible = false
 show_indicator = true
+indicator_radius = 12.0
 attack_name = ""
 hitbox_data = SubResource("Resource_qvcb6")
 sound = SubResource("AudioStreamRandomizer_5rri6")

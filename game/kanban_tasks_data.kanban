@@ -29,6 +29,7 @@
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"81675a88-594c-48fc-825a-051ff265ca7c",
 				"0f28d8b5-89ef-4316-923f-d12eda9937d7",
 				"8799afd6-376c-4a69-bdb7-f7e8d9c598fd",
 				"238de33c-7207-4ab1-93d0-7607854a3cda",
@@ -182,6 +183,13 @@
 		{
 			"uuid": "30ffd15e-6de1-4c6f-87dc-02421fac367e",
 			"title": "laser attack",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "81675a88-594c-48fc-825a-051ff265ca7c",
+			"title": "cleaner blood",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []
