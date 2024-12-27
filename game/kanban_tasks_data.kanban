@@ -16,17 +16,19 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"41150c8d-fbca-4d1f-9200-c3620691148a",
 				"b02c3e70-6bda-49ea-bbb7-27e353a23c20",
 				"30ffd15e-6de1-4c6f-87dc-02421fac367e",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
-				"fe96a420-00ce-4fd3-85ff-c6c9e89d6101"
+				"418048a7-712e-4acc-9ee1-f568352fdb92",
+				"fe96a420-00ce-4fd3-85ff-c6c9e89d6101",
+				"35ab89a1-9b26-468b-9923-5a91d2873ea5"
 			]
 		},
 		{
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"41150c8d-fbca-4d1f-9200-c3620691148a",
 				"60fb1d9a-7648-4055-8bd5-dee03810a445",
 				"09149492-c480-4a98-974a-946abf88efe7",
 				"81675a88-594c-48fc-825a-051ff265ca7c",
@@ -190,6 +192,20 @@
 		{
 			"uuid": "81675a88-594c-48fc-825a-051ff265ca7c",
 			"title": "cleaner blood",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "35ab89a1-9b26-468b-9923-5a91d2873ea5",
+			"title": "roguelike upgrades",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "418048a7-712e-4acc-9ee1-f568352fdb92",
+			"title": "2nd tier enemies",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

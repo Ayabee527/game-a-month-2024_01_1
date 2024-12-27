@@ -27,6 +27,7 @@ func _ready() -> void:
 	debri.modulate = attack_data.color
 	
 	hitbox.damage = attack_data.hitbox_data.damage
+	hitbox.trigger_invinc = attack_data.hitbox_data.trigger_invinc
 	hitbox.damage_cooldown = attack_data.hitbox_data.damage_cooldown
 	hitbox.knockback_strength = attack_data.hitbox_data.knockback_strength
 	

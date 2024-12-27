@@ -36,6 +36,7 @@ func _ready() -> void:
 	hitbox.collision_layer = collision_data.collision_layer
 	hitbox.collision_mask = collision_data.collision_mask
 	hitbox.damage = attack_data.hitbox_data.damage
+	hitbox.trigger_invinc = attack_data.hitbox_data.trigger_invinc
 	hitbox.damage_cooldown = attack_data.hitbox_data.damage_cooldown
 	hitbox.knockback_strength = attack_data.hitbox_data.knockback_strength
 	

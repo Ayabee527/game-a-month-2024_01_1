@@ -4,6 +4,7 @@ extends Area2D
 signal hit(hurtbox: Hurtbox)
 
 @export var damage: int = 1
+@export var trigger_invinc: bool = false
 @export var damage_cooldown: float = 0.5
 @export var knockback_strength: float = 32.0
 @export var knockback_skew: Vector2 = Vector2.ZERO

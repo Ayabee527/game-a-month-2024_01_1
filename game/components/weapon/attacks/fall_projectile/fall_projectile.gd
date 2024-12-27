@@ -42,6 +42,7 @@ func _ready() -> void:
 	trail.width = (attack_data.radius - 1.0) * 2.0
 	
 	hitbox.damage = attack_data.hitbox_data.damage
+	hitbox.trigger_invinc = attack_data.hitbox_data.trigger_invinc
 	hitbox.damage_cooldown = attack_data.hitbox_data.damage_cooldown
 	hitbox.height_radius = attack_data.radius
 	

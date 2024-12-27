@@ -42,6 +42,7 @@ texture = ExtResource("1_ag615")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 time_before_start = 1.0
+starting_points_per = 0
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="World/EnemyHandler"]

@@ -113,7 +113,7 @@ hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("1_skbmj")
-max_health = 6
+max_health = 10
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_whg0r")

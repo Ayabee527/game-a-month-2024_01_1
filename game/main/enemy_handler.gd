@@ -21,6 +21,7 @@ const COSTS = {
 @export var active: bool = true
 @export var time_before_start: float = 3.0
 @export var starting_spawn_points: int = 3
+@export var starting_points_per: int = 2
 
 @export var spawn_timer: Timer
 
@@ -89,5 +90,6 @@ func _on_spawn_timer_timeout() -> void:
 	
 	spawn_points += points_per
 	
-	if spawns % (15 * points_per) == 0:
-		points_per += 1
+	points_per = ceili(
+		log(0.5 * spawns) + ( (0.005 * spawns) * sin(spawns) )
+	) + starting_points_per
