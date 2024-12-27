@@ -1,0 +1,213 @@
+[gd_scene load_steps=41 format=3 uid="uid://clifi5r4t5suu"]
+
+[ext_resource type="Script" path="res://baddies/bosses/I/boss_i.gd" id="1_7jahb"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="2_yi5bl"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_4p1a6"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="4_amltf"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/intro.gd" id="4_e2lqs"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/summon.gd" id="4_tns2k"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/phase_switch.gd" id="5_f7x6o"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/melee.gd" id="5_ld364"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="5_srgw8"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="6_stcmo"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/hop.gd" id="6_uytia"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/sacrifice.gd" id="7_3ia1e"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="7_d570u"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="8_32yfj"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/mage.gd" id="8_dkxt2"]
+[ext_resource type="Script" path="res://baddies/bosses/I/states/die.gd" id="9_8ubgp"]
+[ext_resource type="Texture2D" uid="uid://oqqsevjiaa7e" path="res://assets/textures/enemies/boss.png" id="9_f6dtx"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="10_1lo04"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="11_v52au"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="12_uf6p8"]
+[ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="13_rmtqp"]
+[ext_resource type="AudioStream" uid="uid://cuqil2kfiff0" path="res://assets/sounds/spawn1.wav" id="14_a3bid"]
+[ext_resource type="AudioStream" uid="uid://p26kkvv51h33" path="res://assets/sounds/crash.wav" id="14_inff7"]
+[ext_resource type="AudioStream" uid="uid://bcjdxvwjesjua" path="res://assets/sounds/spawn2.wav" id="15_g5w56"]
+[ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="25_wski8"]
+[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="26_kkevj"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="27_se2ub"]
+[ext_resource type="Resource" uid="uid://dmwrfxijsfi1b" path="res://baddies/bosses/I/dash_boom.tres" id="28_wghfi"]
+[ext_resource type="Resource" uid="uid://c026i1gn3rtqp" path="res://baddies/bosses/I/hop_boom.tres" id="29_amih5"]
+[ext_resource type="Resource" uid="uid://ddfonfgb8yptb" path="res://baddies/bosses/I/mage_shot.tres" id="30_pd4vo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ln4yk"]
+bounce = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdijj"]
+resource_local_to_scene = true
+shader = ExtResource("8_32yfj")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o53sm"]
+resource_local_to_scene = true
+shader = ExtResource("11_v52au")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ddg1"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ss5vd"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqjam"]
+size = Vector2(56, 56)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1hxr5"]
+random_pitch = 1.5
+streams_count = 2
+stream_0/stream = ExtResource("14_a3bid")
+stream_1/stream = ExtResource("15_g5w56")
+
+[sub_resource type="Resource" id="Resource_no18v"]
+script = ExtResource("26_kkevj")
+collision_layer = 32
+collision_mask = 4
+
+[sub_resource type="Resource" id="Resource_81dxa"]
+script = ExtResource("26_kkevj")
+collision_layer = 32
+collision_mask = 4
+
+[sub_resource type="Resource" id="Resource_eoiod"]
+script = ExtResource("26_kkevj")
+collision_layer = 32
+collision_mask = 4
+
+[node name="BossI" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx")]
+collision_layer = 10
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_ln4yk")
+gravity_scale = 0.0
+linear_damp = 2.5
+angular_damp = 2.5
+script = ExtResource("1_7jahb")
+coll_shape = NodePath("CollisionShape2D")
+hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
+hit_coll_shape = NodePath("Hitbox/CollisionShape2D")
+hurtbox = NodePath("Hurtbox")
+hitbox = NodePath("Hitbox")
+health = NodePath("Health")
+health_indicator = NodePath("HealthIndicator")
+player_tracker = NodePath("PlayerTracker")
+sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
+bleeder = NodePath("Bleeder")
+hurt_sfx = NodePath("HurtSFX")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_yi5bl")
+max_health = 100
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_4p1a6")
+initial_state = NodePath("Intro")
+
+[node name="Intro" type="Node" parent="StateMachine"]
+script = ExtResource("4_e2lqs")
+
+[node name="PhaseSwitch" type="Node" parent="StateMachine"]
+script = ExtResource("5_f7x6o")
+
+[node name="Melee" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer", "dash_boom")]
+script = ExtResource("5_ld364")
+dash_timer = NodePath("DashTimer")
+dash_boom = NodePath("../../DashBoom")
+
+[node name="DashTimer" type="Timer" parent="StateMachine/Melee"]
+
+[node name="Hop" type="Node" parent="StateMachine" node_paths=PackedStringArray("hop_boom")]
+script = ExtResource("6_uytia")
+hop_boom = NodePath("../../HopBoom")
+
+[node name="Sacrifice" type="Node" parent="StateMachine"]
+script = ExtResource("7_3ia1e")
+
+[node name="Mage" type="Node" parent="StateMachine" node_paths=PackedStringArray("mage_shot")]
+script = ExtResource("8_dkxt2")
+mage_shot = NodePath("../../MageShot")
+
+[node name="Summon" type="Node" parent="StateMachine"]
+script = ExtResource("4_tns2k")
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource("9_8ubgp")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("4_amltf")]
+entity_name = "BOSS I"
+radius = 96.0
+name_radius = 64.0
+hurt_color = Color(1, 1, 1, 0.2)
+outline_color = Color(1, 1, 1, 0.2)
+
+[node name="PlayerTracker" parent="." instance=ExtResource("5_srgw8")]
+modulate = Color(1, 1, 1, 0)
+width = 2.0
+
+[node name="Bleeder" parent="." instance=ExtResource("6_stcmo")]
+blood_color = Color(1, 1, 1, 1)
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("7_d570u")]
+material = SubResource("ShaderMaterial_hdijj")
+texture = ExtResource("9_f6dtx")
+caster = NodePath("../HeightSprite")
+
+[node name="HeightSprite" parent="." instance=ExtResource("10_1lo04")]
+material = SubResource("ShaderMaterial_o53sm")
+texture = ExtResource("9_f6dtx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7ddg1")
+
+[node name="Hurtbox" parent="." instance=ExtResource("12_uf6p8")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_ss5vd")
+disabled = true
+
+[node name="Hitbox" parent="." instance=ExtResource("13_rmtqp")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_lqjam")
+disabled = true
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_1hxr5")
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_inff7")
+volume_db = 10.0
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="DashBoom" parent="." instance=ExtResource("25_wski8")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_no18v")
+weapons = Array[ExtResource("27_se2ub")]([ExtResource("28_wghfi")])
+
+[node name="HopBoom" parent="." instance=ExtResource("25_wski8")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_81dxa")
+weapons = Array[ExtResource("27_se2ub")]([ExtResource("29_amih5")])
+
+[node name="MageShot" parent="." instance=ExtResource("25_wski8")]
+muzzle_distance = 72.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_eoiod")
+weapons = Array[ExtResource("27_se2ub")]([ExtResource("30_pd4vo")])
+
+[connection signal="color_set" from="." to="StateMachine/Melee" method="_on_boss_i_color_set"]
+[connection signal="color_set" from="." to="StateMachine/Hop" method="_on_boss_i_color_set"]
+[connection signal="color_set" from="." to="StateMachine/Mage" method="_on_boss_i_color_set"]
+[connection signal="timeout" from="StateMachine/Melee/DashTimer" to="StateMachine/Melee" method="_on_dash_timer_timeout"]
+[connection signal="ground_hit" from="HeightSprite" to="StateMachine/Hop" method="_on_height_sprite_ground_hit"]
+[connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
+[connection signal="fired" from="MageShot" to="StateMachine/Mage" method="_on_mage_shot_fired"]
+[connection signal="recoiled" from="MageShot" to="." method="_on_mage_shot_recoiled"]

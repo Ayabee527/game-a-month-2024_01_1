@@ -30,7 +30,7 @@ func _ready() -> void:
 	color = default_color
 	sprite.modulate = default_color
 	sprite.hurt_color = Color("e30035")
-	MainCam.target = camera_lean
+	grab_camera()
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("left_click"):
@@ -44,6 +44,9 @@ func _process(delta: float) -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if not dashing:
 		state.linear_velocity = state.linear_velocity.limit_length(max_speed)
+
+func grab_camera() -> void:
+	MainCam.target = camera_lean
 
 func lean_camera() -> void:
 	var lean_point := (

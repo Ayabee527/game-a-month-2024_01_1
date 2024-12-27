@@ -9,6 +9,7 @@
 [sub_resource type="Resource" id="Resource_ryenj"]
 script = ExtResource("2_nir7n")
 damage = 2
+trigger_invinc = false
 damage_cooldown = 1.0
 knockback_strength = 32.0
 

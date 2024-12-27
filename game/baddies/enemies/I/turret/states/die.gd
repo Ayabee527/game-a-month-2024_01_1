@@ -5,6 +5,7 @@ extends EnemyHopperState
 func enter(_msg:={}) -> void:
 	enemy.health_indicator.kill()
 	enemy.player_tracker.kill()
+	enemy.coll_shape.set_deferred("disabled", true)
 	enemy.hurt_coll_shape.set_deferred("disabled", true)
 	enemy.set_deferred("freeze", true)
 	die_sfx.play()

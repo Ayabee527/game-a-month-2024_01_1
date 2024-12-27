@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="16_fku15"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="17_12c6c"]
 [ext_resource type="Resource" uid="uid://cf85qtasegg0f" path="res://baddies/enemies/I/turret/hopper_land.tres" id="18_jugbn"]
-[ext_resource type="AudioStream" uid="uid://hexl5isn6gri" path="res://assets/sounds/boom5.wav" id="20_edh4n"]
+[ext_resource type="AudioStream" uid="uid://bdl4ex6cex7k2" path="res://assets/sounds/boom9.wav" id="20_16ow2"]
 [ext_resource type="AudioStream" uid="uid://p6baf6x2iilo" path="res://assets/sounds/hurt5.wav" id="25_vsyqp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rrdtc"]
@@ -51,10 +51,10 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("25_vsyqp")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ihurg"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_41xw0"]
 random_pitch = 1.5
 streams_count = 1
-stream_0/stream = ExtResource("20_edh4n")
+stream_0/stream = ExtResource("20_16ow2")
 
 [node name="Hopper" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx")]
 collision_layer = 10
@@ -106,7 +106,7 @@ outline_color = Color(0, 0, 1, 0.2)
 color = Color(0, 0, 1, 0.501961)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_rd5id")]
-blood_color = Color(0, 0, 0.537255, 1)
+blood_color = Color(0, 0, 1, 1)
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_siokj")]
 material = SubResource("ShaderMaterial_qlg4v")
@@ -139,7 +139,7 @@ max_distance = 512.0
 bus = &"sfx"
 
 [node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_ihurg")
+stream = SubResource("AudioStreamRandomizer_41xw0")
 max_distance = 512.0
 bus = &"sfx"
 

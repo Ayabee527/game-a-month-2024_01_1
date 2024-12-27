@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=6 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
 [ext_resource type="PackedScene" uid="uid://c6eounl1wmnfu" path="res://player/player.tscn" id="2_n5tbv"]
 [ext_resource type="Script" path="res://main/enemy_handler.gd" id="4_ws8n8"]
+[ext_resource type="PackedScene" uid="uid://clifi5r4t5suu" path="res://baddies/bosses/I/boss_I.tscn" id="5_ol8rr"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_wpomo")
@@ -41,11 +42,15 @@ texture = ExtResource("1_ag615")
 [node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer")]
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
+active = false
 time_before_start = 1.0
 starting_points_per = 0
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="World/EnemyHandler"]
 wait_time = 2.5
+
+[node name="BossI" parent="World/EnemyHandler" instance=ExtResource("5_ol8rr")]
+position = Vector2(256, 0)
 
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]

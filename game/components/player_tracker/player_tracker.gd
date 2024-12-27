@@ -3,7 +3,7 @@ extends Node2D
 
 signal killed()
 
-@export var color: Color = Color(1, 1, 1, 0.5)
+@export var color: Color = Color(1, 1, 1, 0.5): set = set_color
 @export var width: float = 1.0
 
 var player: Player
@@ -24,6 +24,10 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	draw_target()
+
+func set_color(new_color: Color):
+	new_color.a = 0.5
+	color = new_color
 
 func kill() -> void:
 	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)

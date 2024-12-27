@@ -1,6 +1,12 @@
 extends Node2D
 
 signal enemy_killed(enemy: Node2D)
+signal boss_killed(boss: Node2D)
+
+# Harder bosses on top
+const BOSSES = [
+	
+]
 
 const ENEMIES = {
 	"SACRIFICE I": preload("res://baddies/enemies/I/kamikaze/kamikaze.tscn"),
@@ -26,9 +32,12 @@ const COSTS = {
 @export var spawn_timer: Timer
 
 var spawns: int = 0
+var bosses_killed: int = 0
 var points_per: int = 2
 
 var spawn_points: int = 3
+
+var boss_alive: bool = true
 
 func _ready() -> void:
 	if not active:
@@ -84,12 +93,34 @@ func kill_enemy(enemy: Node2D) -> void:
 	enemy_killed.emit(enemy)
 	spawn_points += 1
 
+func spawn_boss() -> void:
+	var boss: Node2D = BOSSES[bosses_killed].instantiate()
+	boss.global_position = player.global_position + (
+		Vector2.from_angle(TAU * randf()) * 400.0
+	)
+	if boss.has_signal("died"):
+		boss.died.connect(kill_enemy.bind(boss))
+	else:
+		boss.tree_exiting.connect(kill_enemy.bind(boss))
+	add_child(boss)
+	boss_alive = true
+	spawn_timer.stop()
+
+func kill_boss(boss: Node2D) -> void:
+	boss_killed.emit(boss)
+	bosses_killed += 1
+	boss_alive = false
+	spawn_timer.start()
+
 func _on_spawn_timer_timeout() -> void:
 	spawn_wave()
 	spawns += 1
 	
 	spawn_points += points_per
 	
-	points_per = ceili(
+	points_per = roundi(
 		log(0.5 * spawns) + ( (0.005 * spawns) * sin(spawns) )
 	) + starting_points_per
+	
+	if spawns % (50 * bosses_killed) == 0:
+		spawn_boss()

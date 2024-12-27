@@ -10,6 +10,7 @@
 [sub_resource type="Resource" id="Resource_3v4bo"]
 script = ExtResource("1_ciqsf")
 damage = 1
+trigger_invinc = false
 damage_cooldown = 0.2
 knockback_strength = 32.0
 

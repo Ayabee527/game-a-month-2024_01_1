@@ -4,4 +4,3 @@
 
 [node name="Bleeder" type="Node2D"]
 script = ExtResource("1_l4en3")
-blood_color = Color(0.352572, 4.42201e-07, 1.44392e-07, 1)

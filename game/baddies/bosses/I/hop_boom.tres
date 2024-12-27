@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=9 format=3 uid="uid://c026i1gn3rtqp"]
+
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_3yee7"]
+[ext_resource type="PackedScene" uid="uid://tymv7bs6vjd2" path="res://components/weapon/attacks/explosion/explosion.tscn" id="1_r6lrj"]
+[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="2_m7mct"]
+[ext_resource type="Script" path="res://components/weapon/attack_data/explosion_data.gd" id="3_fceve"]
+[ext_resource type="AudioStream" uid="uid://hexl5isn6gri" path="res://assets/sounds/boom5.wav" id="4_p85dc"]
+
+[sub_resource type="Resource" id="Resource_bhptp"]
+script = ExtResource("2_m7mct")
+damage = 2
+trigger_invinc = true
+damage_cooldown = 0.5
+knockback_strength = 32.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1flqu"]
+streams_count = 1
+stream_0/stream = ExtResource("4_p85dc")
+
+[sub_resource type="Resource" id="Resource_y367f"]
+script = ExtResource("3_fceve")
+attack = ExtResource("1_r6lrj")
+radius = 192.0
+sides = 5
+expand_time = 0.25
+sustain_time = 0.25
+fade_time = 0.3
+hitbox_data = SubResource("Resource_bhptp")
+sound = SubResource("AudioStreamRandomizer_1flqu")
+color = Color(0, 0, 1, 1)
+
+[resource]
+script = ExtResource("1_3yee7")
+attack_data = SubResource("Resource_y367f")
+spread = 0.0
+rotation_offset = 0.0
+shots_per_shot = 1
+shots_per_burst = 1
+angle_per_shot = 0.0
+angle_offset = 0.0
+shot_cooldown = 0.1
+burst_cooldown = 0.0
+camera_shake_shake = 5.0
+camera_shake_speed = 15.0
+camera_shake_decay = 15.0
+recoil_strength = 24.0

@@ -20,6 +20,7 @@
 				"30ffd15e-6de1-4c6f-87dc-02421fac367e",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
+				"37a5b8ad-6bc1-48f5-a1b0-53bb9e185cf5",
 				"fe96a420-00ce-4fd3-85ff-c6c9e89d6101",
 				"35ab89a1-9b26-468b-9923-5a91d2873ea5"
 			]
@@ -206,6 +207,13 @@
 		{
 			"uuid": "418048a7-712e-4acc-9ee1-f568352fdb92",
 			"title": "2nd tier enemies",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "37a5b8ad-6bc1-48f5-a1b0-53bb9e185cf5",
+			"title": "make blood not particles",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

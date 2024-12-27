@@ -101,7 +101,7 @@ outline_color = Color(0, 1, 0, 0.2)
 color = Color(0, 1, 0, 0.501961)
 
 [node name="Bleeder" parent="." instance=ExtResource("5_jrtah")]
-blood_color = Color(0, 0.447059, 0, 1)
+blood_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qpcyf")

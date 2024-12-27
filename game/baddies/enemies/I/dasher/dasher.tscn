@@ -141,7 +141,7 @@ outline_color = Color(1, 1, 0, 0.2)
 color = Color(1, 1, 0, 0.501961)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_fo8ow")]
-blood_color = Color(0.679402, 0.679402, 0, 1)
+blood_color = Color(1, 1, 0, 1)
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_7sqt5")]
 material = SubResource("ShaderMaterial_ggjf8")
