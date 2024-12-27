@@ -12,9 +12,12 @@ signal hit(hurtbox: Hurtbox)
 @export var height: float = 0.0
 @export var height_radius: float = 0.0
 
-@export_group("Outer Dependencies")
-@export var coll_shape: CollisionShape2D
+var cool: bool = false
 
+func can_damage() -> bool:
+	return not cool
 
-func _on_cool_timer_timeout() -> void:
-	pass # Replace with function body.
+func cooldown() -> void:
+	cool = true
+	await get_tree().create_timer(damage_cooldown, false).timeout
+	cool = false

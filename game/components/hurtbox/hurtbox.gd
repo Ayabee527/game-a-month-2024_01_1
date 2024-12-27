@@ -21,6 +21,9 @@ func _process(_delta: float) -> void:
 func take_damage() -> void:
 	var chosen_hitbox: Hitbox = active_hitboxes.back() as Hitbox
 	
+	if not chosen_hitbox.can_damage():
+		return
+	
 	if chosen_hitbox.height_based:
 		if not is_in_height_range(chosen_hitbox):
 			return
@@ -35,10 +38,11 @@ func take_damage() -> void:
 	)
 	knocked_back.emit(knockback)
 	
+	chosen_hitbox.cooldown()
 	chosen_hitbox.hit.emit(self)
 	hurt.emit(chosen_hitbox, chosen_hitbox.damage, chosen_hitbox.damage_cooldown)
 	
-	invinc_timer.start(chosen_hitbox.damage_cooldown)
+	#invinc_timer.start(chosen_hitbox.damage_cooldown)
 
 func is_in_height_range(hitbox: Hitbox) -> bool:
 	var hit_range: float = height_radius + hitbox.height_radius

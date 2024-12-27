@@ -6,8 +6,3 @@
 collision_layer = 32
 collision_mask = 4
 script = ExtResource("1_rasd1")
-
-[node name="CoolTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="CoolTimer" to="." method="_on_cool_timer_timeout"]

@@ -9,7 +9,7 @@ func enter(_msg:={}) -> void:
 	enemy.set_deferred("freeze", true)
 	die_sfx.play()
 	
-	enemy.bleeder.bleed(enemy.health.max_health, 2.0, 40)
+	enemy.bleeder.bleed(5, 2.0, 40)
 	enemy.sprite.hide()
 	enemy.shadow.hide()
 	await get_tree().create_timer(2.0, false).timeout

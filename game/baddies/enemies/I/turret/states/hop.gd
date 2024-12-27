@@ -50,6 +50,7 @@ func hop() -> void:
 	
 	enemy.sprite.jump(48.0, time_to_peak, time_to_fall)
 	enemy.linear_damp = 0.0
+	enemy.linear_velocity = Vector2.ZERO
 	enemy.apply_central_impulse( Vector2.from_angle(enemy.global_rotation) * jump_velocity )
 
 
