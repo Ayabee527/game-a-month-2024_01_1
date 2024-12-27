@@ -89,3 +89,8 @@ func _on_mage_shot_recoiled(recoil: Vector2) -> void:
 	sprite.squish(
 		0.5, 1.5, true, true
 	)
+
+func _on_bullet_hell_fired() -> void:
+	sprite.squish(
+		0.5, 1.5, true, true
+	)

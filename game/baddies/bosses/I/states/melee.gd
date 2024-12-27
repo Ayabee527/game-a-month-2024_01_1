@@ -7,7 +7,6 @@ extends BossIState
 @export var turn_speed: float = 20.0
 
 @export var dash_timer: Timer
-@export var dash_boom: WeaponHandler
 
 var color: Color
 var dashes: int = 0
@@ -26,6 +25,9 @@ func physics_update(delta: float) -> void:
 	if boss.linear_velocity.length() < 128.0 and not boss.hit_coll_shape.disabled:
 		boss.hit_coll_shape.set_deferred("disabled", true)
 
+func exit() -> void:
+	boss.hit_coll_shape.set_deferred("disabled", true)
+
 func dash() -> void:
 	#boss.sprite.modulate = Color.WHITE
 	boss.sprite.squish(
@@ -34,7 +36,7 @@ func dash() -> void:
 	
 	await get_tree().create_timer(warn_time, false).timeout
 	
-	dash_boom.shoot()
+	#dash_boom.shoot()
 	boss.linear_velocity = Vector2.ZERO
 	boss.sprite.squish(
 		warn_time, 1.5, true, false

@@ -24,11 +24,13 @@ func physics_update(delta: float) -> void:
 	)
 
 func exit() -> void:
+	boss.hit_coll_shape.set_deferred("disabled", true)
 	mage_shot.firing = false
 
 func _on_boss_i_color_set(new_color: Color) -> void:
 	if is_active:
 		mage_shot.firing = true
+		boss.hit_coll_shape.set_deferred("disabled", false)
 
 
 func _on_mage_shot_fired() -> void:

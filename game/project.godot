@@ -54,6 +54,7 @@ enemies=""
 kamikazes=""
 world=""
 throwers=""
+bosses=""
 
 [input]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://clifi5r4t5suu"]
+[gd_scene load_steps=44 format=3 uid="uid://clifi5r4t5suu"]
 
 [ext_resource type="Script" path="res://baddies/bosses/I/boss_i.gd" id="1_7jahb"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_yi5bl"]
@@ -30,6 +30,8 @@
 [ext_resource type="Resource" uid="uid://dmwrfxijsfi1b" path="res://baddies/bosses/I/dash_boom.tres" id="28_wghfi"]
 [ext_resource type="Resource" uid="uid://c026i1gn3rtqp" path="res://baddies/bosses/I/hop_boom.tres" id="29_amih5"]
 [ext_resource type="Resource" uid="uid://ddfonfgb8yptb" path="res://baddies/bosses/I/mage_shot.tres" id="30_pd4vo"]
+[ext_resource type="Script" path="res://baddies/bosses/I/sacri_target.gd" id="31_71gn4"]
+[ext_resource type="Resource" uid="uid://dh1gi7o6pboh2" path="res://baddies/bosses/I/rain.tres" id="32_j3w1t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ln4yk"]
 bounce = 1.0
@@ -75,9 +77,13 @@ script = ExtResource("26_kkevj")
 collision_layer = 32
 collision_mask = 4
 
-[node name="BossI" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx")]
+[sub_resource type="Resource" id="Resource_kj6sn"]
+script = ExtResource("26_kkevj")
+collision_layer = 64
+collision_mask = 12
+
+[node name="BossI" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx") groups=["bosses"]]
 collision_layer = 10
-collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_ln4yk")
 gravity_scale = 0.0
 linear_damp = 2.5
@@ -98,7 +104,7 @@ hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_yi5bl")
-max_health = 100
+max_health = 200
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_4p1a6")
@@ -110,10 +116,9 @@ script = ExtResource("4_e2lqs")
 [node name="PhaseSwitch" type="Node" parent="StateMachine"]
 script = ExtResource("5_f7x6o")
 
-[node name="Melee" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer", "dash_boom")]
+[node name="Melee" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer")]
 script = ExtResource("5_ld364")
 dash_timer = NodePath("DashTimer")
-dash_boom = NodePath("../../DashBoom")
 
 [node name="DashTimer" type="Timer" parent="StateMachine/Melee"]
 
@@ -121,8 +126,10 @@ dash_boom = NodePath("../../DashBoom")
 script = ExtResource("6_uytia")
 hop_boom = NodePath("../../HopBoom")
 
-[node name="Sacrifice" type="Node" parent="StateMachine"]
+[node name="Sacrifice" type="Node" parent="StateMachine" node_paths=PackedStringArray("sacri_target", "rain")]
 script = ExtResource("7_3ia1e")
+sacri_target = NodePath("../../SacriTarget")
+rain = NodePath("../../SacriTarget/Rain")
 
 [node name="Mage" type="Node" parent="StateMachine" node_paths=PackedStringArray("mage_shot")]
 script = ExtResource("8_dkxt2")
@@ -131,8 +138,9 @@ mage_shot = NodePath("../../MageShot")
 [node name="Summon" type="Node" parent="StateMachine"]
 script = ExtResource("4_tns2k")
 
-[node name="Die" type="Node" parent="StateMachine"]
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_sfx")]
 script = ExtResource("9_8ubgp")
+die_sfx = NodePath("../../DieSFX")
 
 [node name="HealthIndicator" parent="." instance=ExtResource("4_amltf")]
 entity_name = "BOSS I"
@@ -161,6 +169,7 @@ texture = ExtResource("9_f6dtx")
 shape = SubResource("RectangleShape2D_7ddg1")
 
 [node name="Hurtbox" parent="." instance=ExtResource("12_uf6p8")]
+knockback_modifier = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_ss5vd")
@@ -201,9 +210,22 @@ muzzle_is_origin = false
 collision_data = SubResource("Resource_eoiod")
 weapons = Array[ExtResource("27_se2ub")]([ExtResource("30_pd4vo")])
 
+[node name="SacriTarget" type="Marker2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+script = ExtResource("31_71gn4")
+
+[node name="Rain" parent="SacriTarget" instance=ExtResource("25_wski8")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_kj6sn")
+weapons = Array[ExtResource("27_se2ub")]([ExtResource("32_j3w1t")])
+
 [connection signal="color_set" from="." to="StateMachine/Melee" method="_on_boss_i_color_set"]
 [connection signal="color_set" from="." to="StateMachine/Hop" method="_on_boss_i_color_set"]
+[connection signal="color_set" from="." to="StateMachine/Sacrifice" method="_on_boss_i_color_set"]
 [connection signal="color_set" from="." to="StateMachine/Mage" method="_on_boss_i_color_set"]
+[connection signal="color_set" from="." to="StateMachine/Summon" method="_on_boss_i_color_set"]
+[connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
 [connection signal="timeout" from="StateMachine/Melee/DashTimer" to="StateMachine/Melee" method="_on_dash_timer_timeout"]
 [connection signal="ground_hit" from="HeightSprite" to="StateMachine/Hop" method="_on_height_sprite_ground_hit"]
 [connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
@@ -211,3 +233,4 @@ weapons = Array[ExtResource("27_se2ub")]([ExtResource("30_pd4vo")])
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="fired" from="MageShot" to="StateMachine/Mage" method="_on_mage_shot_fired"]
 [connection signal="recoiled" from="MageShot" to="." method="_on_mage_shot_recoiled"]
+[connection signal="fired" from="SacriTarget/Rain" to="StateMachine/Sacrifice" method="_on_rain_fired"]

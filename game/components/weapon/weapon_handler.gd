@@ -71,9 +71,9 @@ func shoot() -> void:
 		else:
 			attack.global_position = (
 				global_position
-				+ (Vector2.from_angle(global_rotation).rotated(shoot_angle) * muzzle_distance)
+				+ (Vector2.from_angle(global_rotation).rotated(deg_to_rad(shoot_angle)) * muzzle_distance)
 			)
-		attack.global_rotation = muzzle.global_rotation + weapon.angle_offset
+		attack.global_rotation_degrees = muzzle.global_rotation_degrees + weapon.angle_offset
 		attack.global_rotation += deg_to_rad(shoot_angle)
 		attack.global_rotation += deg_to_rad(
 			randf_range(-weapon.spread, weapon.spread)

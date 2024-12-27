@@ -38,6 +38,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("left_click"):
 		weapon_handler.firing = false
 
+func toggle_invinc(invinc: bool) -> void:
+	hurt_coll_shape.set_deferred("disabled", invinc)
+
 func _process(delta: float) -> void:
 	lean_camera()
 
