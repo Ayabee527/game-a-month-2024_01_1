@@ -147,7 +147,7 @@ name_radius = 10.0
 outline_color = Color(1, 1, 1, 0.2)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_das43")]
-blood_color = Color(0.355314, 0.355314, 0.355314, 1)
+blood_color = Color(1, 1, 1, 1)
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_fkcu6")]
 material = SubResource("ShaderMaterial_bdmr3")

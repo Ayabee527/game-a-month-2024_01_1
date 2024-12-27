@@ -4,7 +4,7 @@ extends Node2D
 const SPLATTER = preload("res://components/blood_splatter/blood_splatter.tscn")
 
 @export var blood_color: Color = Color.RED
-@export var darken_amount: float = 0.25
+@export var darken_amount: float = 0.6
 
 var world: Node2D
 

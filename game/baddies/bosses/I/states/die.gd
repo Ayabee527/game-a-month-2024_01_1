@@ -7,11 +7,6 @@ func enter(_msg:={}) -> void:
 	MainCam.min_shake_stength = 5.0
 	boss.player.toggle_invinc(true)
 	
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if "health" in enemy:
-			print(enemy.name)
-			enemy.health.hurt(10000)
-	
 	boss.health_indicator.kill()
 	boss.player_tracker.kill()
 	boss.coll_shape.set_deferred("disabled", true)

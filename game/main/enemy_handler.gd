@@ -5,7 +5,7 @@ signal boss_killed(boss: Node2D)
 
 # Harder bosses on top
 const BOSSES = [
-	
+	preload("res://baddies/bosses/I/boss_I.tscn")
 ]
 
 const ENEMIES = {
@@ -99,9 +99,9 @@ func spawn_boss() -> void:
 		Vector2.from_angle(TAU * randf()) * 400.0
 	)
 	if boss.has_signal("died"):
-		boss.died.connect(kill_enemy.bind(boss))
+		boss.died.connect(kill_boss.bind(boss))
 	else:
-		boss.tree_exiting.connect(kill_enemy.bind(boss))
+		boss.tree_exiting.connect(kill_boss.bind(boss))
 	add_child(boss)
 	boss_alive = true
 	spawn_timer.stop()
@@ -122,5 +122,5 @@ func _on_spawn_timer_timeout() -> void:
 		log(0.5 * spawns) + ( (0.005 * spawns) * sin(spawns) )
 	) + starting_points_per
 	
-	if spawns % (50 * bosses_killed) == 0:
+	if spawns % (50 * (bosses_killed + 1)) == 0:
 		spawn_boss()

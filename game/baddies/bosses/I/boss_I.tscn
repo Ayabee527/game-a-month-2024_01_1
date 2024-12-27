@@ -180,12 +180,13 @@ disabled = true
 
 [node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_1hxr5")
+volume_db = -10.0
 max_distance = 512.0
 bus = &"sfx"
 
 [node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_inff7")
-volume_db = 10.0
+volume_db = 5.0
 max_distance = 512.0
 bus = &"sfx"
 
