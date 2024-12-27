@@ -19,6 +19,7 @@ signal died()
 @export var shadow: Shadow
 @export var bleeder: EntityBleeder
 @export var hurt_sfx: AudioStreamPlayer2D
+@export var boss_music: AudioStreamPlayer
 
 var player: Player
 

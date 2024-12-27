@@ -5,5 +5,8 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	draw_circle(
-		Vector2.ZERO, 8.0, Color.RED, false, 3.0
+		Vector2.ZERO, 16.0, Color.RED, false, 4.0
+	)
+	draw_circle(
+		Vector2.ZERO, 18.0, Color.RED, false, 1.0
 	)

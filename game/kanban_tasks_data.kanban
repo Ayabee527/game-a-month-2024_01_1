@@ -17,6 +17,7 @@
 			"title": "Doing",
 			"tasks": [
 				"79572fcb-433f-4068-a19c-b4c609f51db2",
+				"f4d7eb99-88b0-4106-8536-318dbae40979",
 				"30ffd15e-6de1-4c6f-87dc-02421fac367e",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
@@ -230,6 +231,13 @@
 		{
 			"uuid": "79572fcb-433f-4068-a19c-b4c609f51db2",
 			"title": "boss sounds",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "f4d7eb99-88b0-4106-8536-318dbae40979",
+			"title": "clean up boss 1 music",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

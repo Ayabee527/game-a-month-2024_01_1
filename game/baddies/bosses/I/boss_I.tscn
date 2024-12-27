@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://clifi5r4t5suu"]
+[gd_scene load_steps=43 format=3 uid="uid://clifi5r4t5suu"]
 
 [ext_resource type="Script" path="res://baddies/bosses/I/boss_i.gd" id="1_7jahb"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_yi5bl"]
@@ -27,10 +27,10 @@
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="25_wski8"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="26_kkevj"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="27_se2ub"]
-[ext_resource type="Resource" uid="uid://dmwrfxijsfi1b" path="res://baddies/bosses/I/dash_boom.tres" id="28_wghfi"]
 [ext_resource type="Resource" uid="uid://c026i1gn3rtqp" path="res://baddies/bosses/I/hop_boom.tres" id="29_amih5"]
 [ext_resource type="Resource" uid="uid://ddfonfgb8yptb" path="res://baddies/bosses/I/mage_shot.tres" id="30_pd4vo"]
 [ext_resource type="Script" path="res://baddies/bosses/I/sacri_target.gd" id="31_71gn4"]
+[ext_resource type="AudioStream" uid="uid://blyeqlcw2sxum" path="res://assets/music/boss_1.ogg" id="32_5ruho"]
 [ext_resource type="Resource" uid="uid://dh1gi7o6pboh2" path="res://baddies/bosses/I/rain.tres" id="32_j3w1t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ln4yk"]
@@ -62,11 +62,6 @@ streams_count = 2
 stream_0/stream = ExtResource("14_a3bid")
 stream_1/stream = ExtResource("15_g5w56")
 
-[sub_resource type="Resource" id="Resource_no18v"]
-script = ExtResource("26_kkevj")
-collision_layer = 32
-collision_mask = 4
-
 [sub_resource type="Resource" id="Resource_81dxa"]
 script = ExtResource("26_kkevj")
 collision_layer = 32
@@ -82,7 +77,7 @@ script = ExtResource("26_kkevj")
 collision_layer = 64
 collision_mask = 12
 
-[node name="BossI" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx") groups=["bosses"]]
+[node name="BossI" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "boss_music") groups=["bosses"]]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_ln4yk")
 gravity_scale = 0.0
@@ -101,6 +96,7 @@ sprite = NodePath("HeightSprite")
 shadow = NodePath("Shadow")
 bleeder = NodePath("Bleeder")
 hurt_sfx = NodePath("HurtSFX")
+boss_music = NodePath("BossMusic")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_yi5bl")
@@ -176,6 +172,7 @@ shape = SubResource("RectangleShape2D_ss5vd")
 disabled = true
 
 [node name="Hitbox" parent="." instance=ExtResource("13_rmtqp")]
+damage = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_lqjam")
@@ -191,12 +188,6 @@ stream = ExtResource("14_inff7")
 volume_db = 10.0
 max_distance = 512.0
 bus = &"sfx"
-
-[node name="DashBoom" parent="." instance=ExtResource("25_wski8")]
-muzzle_distance = 0.0
-muzzle_is_origin = false
-collision_data = SubResource("Resource_no18v")
-weapons = Array[ExtResource("27_se2ub")]([ExtResource("28_wghfi")])
 
 [node name="HopBoom" parent="." instance=ExtResource("25_wski8")]
 muzzle_distance = 0.0
@@ -219,6 +210,11 @@ muzzle_distance = 0.0
 muzzle_is_origin = false
 collision_data = SubResource("Resource_kj6sn")
 weapons = Array[ExtResource("27_se2ub")]([ExtResource("32_j3w1t")])
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("32_5ruho")
+volume_db = -10.0
+bus = &"music"
 
 [connection signal="color_set" from="." to="StateMachine/Melee" method="_on_boss_i_color_set"]
 [connection signal="color_set" from="." to="StateMachine/Hop" method="_on_boss_i_color_set"]

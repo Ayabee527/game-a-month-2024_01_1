@@ -9,6 +9,7 @@ func enter(_msg:={}) -> void:
 	
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if "health" in enemy:
+			print(enemy.name)
 			enemy.health.hurt(10000)
 	
 	boss.health_indicator.kill()
@@ -25,7 +26,11 @@ func enter(_msg:={}) -> void:
 	tween.tween_property(
 		MainCam, "zoom_factor", 1.0, 3.0
 	)
+	tween.tween_property(
+		boss.boss_music, "pitch_scale", 0.01, 3.0
+	)
 	await tween.finished
+	boss.boss_music.stop()
 	die()
 
 func die() -> void:
@@ -36,7 +41,7 @@ func die() -> void:
 	boss.bleeder.bleed(10, 4.0, 100)
 	boss.sprite.hide()
 	boss.shadow.hide()
-	await get_tree().create_timer(2.0, false).timeout
+	await get_tree().create_timer(4.0, false).timeout
 	MainCam.min_shake_stength = 0.0
 	boss.player.grab_camera()
 	boss.player.toggle_invinc(false)
