@@ -5,13 +5,15 @@ signal enemy_killed(enemy: Node2D)
 const ENEMIES = {
 	"SACRIFICE I": preload("res://baddies/enemies/I/kamikaze/kamikaze.tscn"),
 	"MAGE I": preload("res://baddies/enemies/I/thrower/thrower.tscn"),
-	"HOPPER I": preload("res://baddies/enemies/I/turret/hopper.tscn")
+	"HOPPER I": preload("res://baddies/enemies/I/turret/hopper.tscn"),
+	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn")
 }
 
 const COSTS = {
 	"SACRIFICE I": 3,
 	"MAGE I": 4,
-	"HOPPER I": 4
+	"HOPPER I": 4,
+	"MELEE I": 4
 }
 
 @export var player: Player

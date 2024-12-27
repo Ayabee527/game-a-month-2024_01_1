@@ -97,6 +97,8 @@ die_sfx = NodePath("../../DieSFX")
 
 [node name="HealthIndicator" parent="." instance=ExtResource("6_1oqtt")]
 entity_name = "HOPPER I"
+radius = 16.0
+name_radius = 8.0
 hurt_color = Color(0, 0, 1, 0.2)
 outline_color = Color(0, 0, 1, 0.2)
 

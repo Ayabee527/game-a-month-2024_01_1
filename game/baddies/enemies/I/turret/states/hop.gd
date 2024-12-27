@@ -16,10 +16,6 @@ var turn_speed: float
 var chase_speed: float
 
 func enter(_msg:={}) -> void:
-	#var dir_to_target = enemy.global_position.direction_to(enemy.player.global_position)
-	#var angle_to = Vector2.RIGHT.angle_to(dir_to_target)
-	#angle_to += deg_to_rad(randf_range(-max_turn, max_turn))
-	
 	turn_speed = randf_range(min_turn_speed, max_turn_speed)
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
 	

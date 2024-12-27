@@ -44,7 +44,7 @@ radius = 6.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_f4fjb"]
+[sub_resource type="CurveTexture" id="CurveTexture_qukwg"]
 curve = SubResource("Curve_8uxni")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6yhwd"]
@@ -55,7 +55,7 @@ tangential_accel_min = -10.0
 tangential_accel_max = 10.0
 scale_min = 0.5
 scale_max = 0.75
-scale_curve = SubResource("CurveTexture_f4fjb")
+scale_curve = SubResource("CurveTexture_qukwg")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5mix8"]
 radius = 5.0
@@ -69,7 +69,7 @@ collision_mask = 8
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_dvt62"]
+[sub_resource type="CurveTexture" id="CurveTexture_6003u"]
 curve = SubResource("Curve_gkmno")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uhsee"]
@@ -83,7 +83,7 @@ initial_velocity_max = 350.0
 gravity = Vector3(0, 0, 0)
 damping_min = 250.0
 damping_max = 750.0
-scale_curve = SubResource("CurveTexture_dvt62")
+scale_curve = SubResource("CurveTexture_6003u")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xfnu0"]
 random_pitch = 1.25
