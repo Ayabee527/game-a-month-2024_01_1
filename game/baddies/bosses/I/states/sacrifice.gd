@@ -1,6 +1,8 @@
 extends BossIState
 
 @export var max_shots: int = 30
+@export var chase_speed: float = 600.0
+@export var turn_speed: float = 15.0
 
 @export var sacri_target: Marker2D
 @export var rain: WeaponHandler
@@ -10,6 +12,7 @@ var shots: int = 0
 func enter(_msg:={}) -> void:
 	shots = 0
 	boss.set_color(Color.RED)
+	sacri_target.global_position = boss.player.global_position
 	
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(
@@ -17,7 +20,16 @@ func enter(_msg:={}) -> void:
 	).from(0.0)
 
 func physics_update(delta: float) -> void:
-	sacri_target.global_position = boss.player.global_position
+	var new_transform = sacri_target.global_transform.looking_at(
+		boss.player.global_position + boss.player.linear_velocity
+	)
+	sacri_target.global_transform = sacri_target.global_transform.interpolate_with(
+		new_transform, turn_speed * delta
+	)
+	
+	sacri_target.global_position += Vector2.from_angle(
+		sacri_target.global_rotation
+	) * chase_speed * delta
 
 func exit() -> void:
 	rain.firing = false

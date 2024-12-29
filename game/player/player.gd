@@ -25,6 +25,7 @@ signal died()
 var color: Color = Color.WHITE
 
 var dashing: bool = false
+var is_invinc: bool = false
 
 func _ready() -> void:
 	color = default_color
@@ -39,6 +40,7 @@ func _physics_process(delta: float) -> void:
 		weapon_handler.firing = false
 
 func toggle_invinc(invinc: bool) -> void:
+	is_invinc = invinc
 	hurt_coll_shape.set_deferred("disabled", invinc)
 
 func _process(delta: float) -> void:

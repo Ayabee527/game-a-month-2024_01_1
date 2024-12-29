@@ -61,7 +61,8 @@ func physics_update(delta: float) -> void:
 			state_machine.transition_to("Idle")
 
 func exit() -> void:
-	player.hurt_coll_shape.set_deferred("disabled", false)
+	if not player.is_invinc:
+		player.hurt_coll_shape.set_deferred("disabled", false)
 	player.dashing = false
 	player.linear_damp = 2.5
 	MainCam.min_shake_stength = 0.0

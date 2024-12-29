@@ -30,6 +30,7 @@ const COSTS = {
 @export var starting_points_per: int = 2
 
 @export var spawn_timer: Timer
+@export var music: AudioStreamPlayer
 
 var spawns: int = 0
 var bosses_killed: int = 0
@@ -44,6 +45,11 @@ func _ready() -> void:
 		return
 	
 	spawn_points = starting_spawn_points
+	
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		music, "pitch_scale", 1.0, 2.0
+	).from(0.01)
 	
 	await get_tree().create_timer(time_before_start, false).timeout
 	spawn_wave()
@@ -105,12 +111,25 @@ func spawn_boss() -> void:
 	add_child(boss)
 	boss_alive = true
 	spawn_timer.stop()
+	
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		music, "pitch_scale", 0.01, 1.0
+	).from(1.0)
+	await tween.finished
+	music.stream_paused = true
 
 func kill_boss(boss: Node2D) -> void:
 	boss_killed.emit(boss)
 	bosses_killed += 1
 	boss_alive = false
 	spawn_timer.start()
+	
+	music.stream_paused = false
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		music, "pitch_scale", 1.0, 1.0
+	).from(0.01)
 
 func _on_spawn_timer_timeout() -> void:
 	spawn_wave()
@@ -122,5 +141,5 @@ func _on_spawn_timer_timeout() -> void:
 		log(0.5 * spawns) + ( (0.005 * spawns) * sin(spawns) )
 	) + starting_points_per
 	
-	if spawns % (50 * (bosses_killed + 1)) == 0:
+	if spawns % 25 == 0:
 		spawn_boss()

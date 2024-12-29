@@ -124,6 +124,8 @@ hop_boom = NodePath("../../HopBoom")
 
 [node name="Sacrifice" type="Node" parent="StateMachine" node_paths=PackedStringArray("sacri_target", "rain")]
 script = ExtResource("7_3ia1e")
+chase_speed = 400.0
+turn_speed = 5.0
 sacri_target = NodePath("../../SacriTarget")
 rain = NodePath("../../SacriTarget/Rain")
 
@@ -165,6 +167,7 @@ texture = ExtResource("9_f6dtx")
 shape = SubResource("RectangleShape2D_7ddg1")
 
 [node name="Hurtbox" parent="." instance=ExtResource("12_uf6p8")]
+height_radius = 24.0
 knockback_modifier = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
