@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 MainCam="*res://autoloads/MainCam.tscn"
 SceneSwitcher="*res://autoloads/SceneSwitcher.tscn"
 Util="*res://autoloads/Util.gd"
+RogueHandler="*res://autoloads/RogueHandler.gd"
 
 [display]
 
@@ -55,6 +56,7 @@ kamikazes=""
 world=""
 throwers=""
 bosses=""
+blood_points=""
 
 [input]
 
@@ -103,6 +105,7 @@ dash={
 2d_physics/layer_5="player_attacks"
 2d_physics/layer_6="enemy_attacks"
 2d_physics/layer_7="global_attacks"
+2d_physics/layer_8="collectibles"
 
 [rendering]
 

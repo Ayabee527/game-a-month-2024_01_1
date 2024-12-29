@@ -86,3 +86,9 @@ func _on_weapon_handler_recoiled(recoil: Vector2) -> void:
 	sprite.squish(
 		0.5, 2.5, true, false
 	)
+
+
+func _on_blood_detect_body_entered(body: Node2D) -> void:
+	if body.is_in_group("blood_points"):
+		body = body as BloodPoint
+		body.grab()

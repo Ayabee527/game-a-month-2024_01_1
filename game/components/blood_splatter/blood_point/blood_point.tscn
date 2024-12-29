@@ -1,0 +1,63 @@
+[gd_scene load_steps=13 format=3 uid="uid://bi5fm8fmp4kyx"]
+
+[ext_resource type="Script" path="res://components/blood_splatter/blood_point/blood_point.gd" id="1_sh11g"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="2_bxr7w"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="3_um13s"]
+[ext_resource type="Texture2D" uid="uid://cui50b65y0til" path="res://assets/textures/bloodpoint.png" id="4_x52iq"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="5_4s176"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="6_67dv8"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="7_be1es"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kum8u"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7o7mh"]
+radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfid"]
+resource_local_to_scene = true
+shader = ExtResource("3_um13s")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8shf"]
+resource_local_to_scene = true
+shader = ExtResource("6_67dv8")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0lsid"]
+radius = 24.0
+
+[node name="BloodPoint" type="RigidBody2D" node_paths=PackedStringArray("sprite") groups=["blood_points"]]
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_kum8u")
+gravity_scale = 0.0
+linear_damp = 2.5
+angular_damp = 2.5
+script = ExtResource("1_sh11g")
+spin_speed = -360.0
+sprite = NodePath("HeightSprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7o7mh")
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("2_bxr7w")]
+material = SubResource("ShaderMaterial_fqfid")
+texture = ExtResource("4_x52iq")
+caster = NodePath("../HeightSprite")
+
+[node name="HeightSprite" parent="." instance=ExtResource("5_4s176")]
+material = SubResource("ShaderMaterial_u8shf")
+texture = ExtResource("4_x52iq")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("7_be1es")]
+entity_name = ""
+radius = 10.0
+name_radius = 5.0
+
+[node name="ChaseDetect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseDetect"]
+shape = SubResource("CircleShape2D_0lsid")
+
+[connection signal="body_entered" from="ChaseDetect" to="." method="_on_chase_detect_body_entered"]

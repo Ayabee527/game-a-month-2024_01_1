@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=38 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -94,6 +94,9 @@ stream_0/stream = ExtResource("15_mnfo3")
 random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("22_l1n2k")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xiiy0"]
+radius = 8.0
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx") groups=["player"]]
 collision_layer = 6
@@ -200,7 +203,13 @@ stream = SubResource("AudioStreamRandomizer_7byk1")
 max_distance = 512.0
 bus = &"sfx"
 
+[node name="BloodDetect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BloodDetect"]
+shape = SubResource("CircleShape2D_xiiy0")
+
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]
+[connection signal="body_entered" from="BloodDetect" to="." method="_on_blood_detect_body_entered"]

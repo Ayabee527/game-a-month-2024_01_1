@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=7 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
 [ext_resource type="PackedScene" uid="uid://c6eounl1wmnfu" path="res://player/player.tscn" id="2_n5tbv"]
 [ext_resource type="Script" path="res://main/enemy_handler.gd" id="4_ws8n8"]
 [ext_resource type="AudioStream" uid="uid://5sbcje1lyosi" path="res://assets/music/gameplay.ogg" id="5_otw4m"]
+[ext_resource type="PackedScene" uid="uid://bi5fm8fmp4kyx" path="res://components/blood_splatter/blood_point/blood_point.tscn" id="6_urqfh"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_wpomo")
@@ -55,5 +56,7 @@ stream = ExtResource("5_otw4m")
 volume_db = -15.0
 autoplay = true
 bus = &"music"
+
+[node name="BloodPoint" parent="." instance=ExtResource("6_urqfh")]
 
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
