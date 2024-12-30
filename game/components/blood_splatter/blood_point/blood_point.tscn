@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bi5fm8fmp4kyx"]
+[gd_scene load_steps=16 format=3 uid="uid://bi5fm8fmp4kyx"]
 
 [ext_resource type="Script" path="res://components/blood_splatter/blood_point/blood_point.gd" id="1_sh11g"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="2_bxr7w"]
@@ -7,12 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="5_4s176"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="6_67dv8"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="7_be1es"]
+[ext_resource type="AudioStream" uid="uid://crytmbavpxfm3" path="res://assets/sounds/blip1.wav" id="8_poq4r"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="9_csumu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kum8u"]
 bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7o7mh"]
-radius = 3.0
+radius = 4.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfid"]
 resource_local_to_scene = true
@@ -26,10 +28,15 @@ shader_parameter/active = false
 shader_parameter/tint = Color(1, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0lsid"]
-radius = 24.0
+radius = 112.0
 
-[node name="BloodPoint" type="RigidBody2D" node_paths=PackedStringArray("sprite") groups=["blood_points"]]
-collision_layer = 2
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_njq73"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("8_poq4r")
+
+[node name="BloodPoint" type="RigidBody2D" node_paths=PackedStringArray("sprite", "shadow", "health_indicator", "grab_sfx", "bleeder", "coll_shape", "chase_coll_shape", "life_timer", "blink_timer") groups=["blood_points"]]
+collision_layer = 130
 physics_material_override = SubResource("PhysicsMaterial_kum8u")
 gravity_scale = 0.0
 linear_damp = 2.5
@@ -37,6 +44,14 @@ angular_damp = 2.5
 script = ExtResource("1_sh11g")
 spin_speed = -360.0
 sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
+health_indicator = NodePath("HealthIndicator")
+grab_sfx = NodePath("GrabSFX")
+bleeder = NodePath("Bleeder")
+coll_shape = NodePath("CollisionShape2D")
+chase_coll_shape = NodePath("ChaseDetect/CollisionShape2D")
+life_timer = NodePath("LifeTimer")
+blink_timer = NodePath("BlinkTimer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7o7mh")
@@ -56,8 +71,25 @@ radius = 10.0
 name_radius = 5.0
 
 [node name="ChaseDetect" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseDetect"]
 shape = SubResource("CircleShape2D_0lsid")
 
+[node name="GrabSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_njq73")
+volume_db = -20.0
+bus = &"sfx"
+
+[node name="Bleeder" parent="." instance=ExtResource("9_csumu")]
+
+[node name="LifeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BlinkTimer" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="body_entered" from="ChaseDetect" to="." method="_on_chase_detect_body_entered"]
+[connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
+[connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]

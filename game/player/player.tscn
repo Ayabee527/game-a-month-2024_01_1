@@ -96,7 +96,7 @@ streams_count = 1
 stream_0/stream = ExtResource("22_l1n2k")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xiiy0"]
-radius = 8.0
+radius = 12.0
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx") groups=["player"]]
 collision_layer = 6
@@ -204,6 +204,8 @@ max_distance = 512.0
 bus = &"sfx"
 
 [node name="BloodDetect" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BloodDetect"]
 shape = SubResource("CircleShape2D_xiiy0")

@@ -60,6 +60,9 @@ func lean_camera() -> void:
 	)
 	camera_lean.global_position = lean_point
 
+func set_weapons(new_weapons: Array[Weapon]) -> void:
+	weapon_handler.weapons = new_weapons
+
 func get_move_vector() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
 

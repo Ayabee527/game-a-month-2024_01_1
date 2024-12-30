@@ -10,4 +10,7 @@ func enter(_msg:={}) -> void:
 		cycle.shuffle()
 	
 	var next_state = cycle.pop_back()
-	state_machine.transition_to(next_state)
+	if boss.health.health > 0:
+		state_machine.transition_to(next_state)
+	else:
+		state_machine.transition_to("Die")

@@ -24,6 +24,7 @@ func physics_update(delta: float) -> void:
 func exit() -> void:
 	boss.linear_damp = 2.5
 	boss.linear_velocity = Vector2.ZERO
+	hop_boom.firing = false
 
 func hop() -> void:
 	boss.sprite.squish(

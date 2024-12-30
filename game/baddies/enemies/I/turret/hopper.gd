@@ -17,6 +17,7 @@ signal died()
 @export var shadow: Shadow
 @export var weapon_handler: WeaponHandler
 @export var bleeder: EntityBleeder
+@export var pointer: BloodPointer
 @export var hurt_sfx: AudioStreamPlayer2D
 
 var player: Player
@@ -45,6 +46,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	health_indicator.update_health(health.health, health.max_health)
 	player_tracker.update_health(health.health, health.max_health)
 	bleeder.bleed(damage, 1.0, 20)
+	pointer.bleed(damage)
 	
 	sprite.play_hurt()
 	

@@ -18,6 +18,7 @@ signal died()
 @export var sprite: HeightSprite
 @export var shadow: Shadow
 @export var bleeder: EntityBleeder
+@export var pointer: BloodPointer
 @export var hurt_sfx: AudioStreamPlayer2D
 @export var boss_music: AudioStreamPlayer
 

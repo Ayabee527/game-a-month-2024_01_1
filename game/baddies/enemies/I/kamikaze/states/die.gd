@@ -38,6 +38,7 @@ func _on_health_has_died() -> void:
 
 func explode() -> void:
 	enemy.bleeder.bleed(enemy.health.max_health, 2.0, 40)
+	enemy.pointer.bleed(enemy.health.max_health)
 	enemy.weapon_handler.shoot()
 	enemy.sprite.hide()
 	enemy.shadow.hide()

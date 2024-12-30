@@ -68,7 +68,8 @@ func exit() -> void:
 	MainCam.min_shake_stength = 0.0
 
 func _on_dash_timer_timeout() -> void:
-	player.hurt_coll_shape.set_deferred("disabled", false)
+	if not player.is_invinc:
+		player.hurt_coll_shape.set_deferred("disabled", false)
 	player.linear_damp = 2.5
 	
 	if Input.is_action_pressed("left_click"):

@@ -34,6 +34,12 @@ func die() -> void:
 	die_sfx.play()
 	
 	boss.bleeder.bleed(10, 4.0, 100)
+	
+	var colors = [Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW]
+	for i: int in range(50):
+		boss.pointer.blood_color = colors.pick_random()
+		boss.pointer.bleed(1, 200.0, 600.0, 10.0)
+	
 	boss.sprite.hide()
 	boss.shadow.hide()
 	await get_tree().create_timer(4.0, false).timeout
