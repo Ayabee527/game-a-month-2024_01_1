@@ -16,7 +16,7 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"6840e7bc-34dc-4f5c-80c5-931ff6b7326d",
+				"0c48e72c-9d26-4fbc-af21-4c07d5d46cc8",
 				"35ab89a1-9b26-468b-9923-5a91d2873ea5",
 				"30ffd15e-6de1-4c6f-87dc-02421fac367e",
 				"1e4cea9a-a8d1-4ce0-b7f1-ac95a95b98a9",
@@ -30,6 +30,7 @@
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"6840e7bc-34dc-4f5c-80c5-931ff6b7326d",
 				"c71a90ca-1c3f-40b1-8c97-a5d2bacca025",
 				"fe96a420-00ce-4fd3-85ff-c6c9e89d6101",
 				"e434803a-aec1-4bd5-8f7a-971015958ba9",
@@ -269,6 +270,13 @@
 		{
 			"uuid": "6840e7bc-34dc-4f5c-80c5-931ff6b7326d",
 			"title": "make game wave based",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "0c48e72c-9d26-4fbc-af21-4c07d5d46cc8",
+			"title": "shop",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

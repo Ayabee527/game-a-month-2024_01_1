@@ -33,6 +33,7 @@ const COSTS = {
 @export var spawn_timer: Timer
 @export var music: AudioStreamPlayer
 @export var world: Node2D
+@export var shop_menu: ShopMenu
 
 var spawns: int = 0
 var enemy_kills: int = 0
@@ -126,7 +127,10 @@ func kill_enemy(enemy: Node2D) -> void:
 		if (spawns + 1) % 25 == 0:
 			spawn_boss()
 		else:
-			spawn_wave()
+			if (spawns + 1) % 5 == 0:
+				shop_menu.open()
+			else:
+				spawn_wave()
 
 func spawn_boss() -> void:
 	var boss: Node2D = BOSSES[bosses_killed].instantiate()
