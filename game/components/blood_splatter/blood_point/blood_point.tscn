@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bi5fm8fmp4kyx"]
+[gd_scene load_steps=17 format=3 uid="uid://bi5fm8fmp4kyx"]
 
 [ext_resource type="Script" path="res://components/blood_splatter/blood_point/blood_point.gd" id="1_sh11g"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="2_bxr7w"]
@@ -35,8 +35,12 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("8_poq4r")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tlfhv"]
+radius = 12.0
+
 [node name="BloodPoint" type="RigidBody2D" node_paths=PackedStringArray("sprite", "shadow", "health_indicator", "grab_sfx", "bleeder", "coll_shape", "chase_coll_shape", "life_timer", "blink_timer") groups=["blood_points"]]
 collision_layer = 130
+collision_mask = 257
 physics_material_override = SubResource("PhysicsMaterial_kum8u")
 gravity_scale = 0.0
 linear_damp = 2.5
@@ -90,6 +94,15 @@ one_shot = true
 [node name="BlinkTimer" type="Timer" parent="."]
 wait_time = 0.25
 
+[node name="GrabDetect" type="Area2D" parent="." groups=["blood_points"]]
+collision_layer = 128
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabDetect"]
+shape = SubResource("CircleShape2D_tlfhv")
+
 [connection signal="body_entered" from="ChaseDetect" to="." method="_on_chase_detect_body_entered"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]
+[connection signal="area_entered" from="GrabDetect" to="." method="_on_grab_detect_area_entered"]
+[connection signal="body_entered" from="GrabDetect" to="." method="_on_grab_detect_body_entered"]

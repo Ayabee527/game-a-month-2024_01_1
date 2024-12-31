@@ -3,7 +3,6 @@ extends Node2D
 signal enemy_killed(enemy: Node2D)
 signal boss_killed(boss: Node2D)
 
-# Harder bosses on top
 const BOSSES = [
 	preload("res://baddies/bosses/I/boss_I.tscn")
 ]
@@ -31,8 +30,10 @@ const COSTS = {
 
 @export var spawn_timer: Timer
 @export var music: AudioStreamPlayer
+@export var world: Node2D
 
 var spawns: int = 0
+var enemy_kills: int = 0
 var bosses_killed: int = 0
 var points_per: int = 2
 
@@ -98,6 +99,7 @@ func spawn_wave() -> void:
 func kill_enemy(enemy: Node2D) -> void:
 	enemy_killed.emit(enemy)
 	spawn_points += 1
+	enemy_kills += 1
 
 func spawn_boss() -> void:
 	var boss: Node2D = BOSSES[bosses_killed].instantiate()

@@ -1,6 +1,8 @@
 class_name BloodPoint
 extends RigidBody2D
 
+signal grabbed(target_group: String)
+
 @export var color: Color = Color.WHITE
 @export var chase_radius: float = 112.0
 @export var spin_speed: float = -270.0
@@ -8,6 +10,7 @@ extends RigidBody2D
 @export var max_speed: float = 1000.0
 @export var life_time: float = 1.0
 @export var max_blinks: int = 3
+@export var target_group: String = "player"
 
 @export_group("Inner Dependencies")
 @export var sprite: HeightSprite
@@ -54,7 +57,6 @@ func _physics_process(delta: float) -> void:
 		)
 
 func grab() -> void:
-	RogueHandler.points += 1
 	sprite.hide()
 	shadow.hide()
 	MainCam.shake(9.0, 5.0, 5.0)
@@ -92,7 +94,7 @@ func blink(new_off: bool) -> void:
 		shadow.show()
 
 func _on_chase_detect_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and not chasing:
+	if body.is_in_group(target_group) and not chasing:
 		target = body
 		chasing = true
 		blink_timer.stop()
@@ -106,3 +108,8 @@ func _on_life_timer_timeout() -> void:
 
 func _on_blink_timer_timeout() -> void:
 	blink(not off)
+
+func _on_grab_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group(target_group):
+		grabbed.emit(target_group)
+		grab()

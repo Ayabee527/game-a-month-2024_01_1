@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=8 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
 [ext_resource type="PackedScene" uid="uid://c6eounl1wmnfu" path="res://player/player.tscn" id="2_n5tbv"]
 [ext_resource type="Script" path="res://main/enemy_handler.gd" id="4_ws8n8"]
 [ext_resource type="AudioStream" uid="uid://5sbcje1lyosi" path="res://assets/music/gameplay.ogg" id="5_otw4m"]
+[ext_resource type="Script" path="res://main/ui.gd" id="6_ppvwr"]
+[ext_resource type="FontFile" uid="uid://dujxw7jilwnxa" path="res://assets/fonts/NotJamScrawl12.ttf" id="6_x562i"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_wpomo")
@@ -39,13 +41,14 @@ texture = ExtResource("1_ag615")
 
 [node name="Player" parent="World" instance=ExtResource("2_n5tbv")]
 
-[node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer", "music")]
+[node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer", "music", "world")]
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 time_before_start = 1.0
 starting_points_per = 1
 spawn_timer = NodePath("SpawnTimer")
 music = NodePath("../../Music")
+world = NodePath("..")
 
 [node name="SpawnTimer" type="Timer" parent="World/EnemyHandler"]
 wait_time = 2.5
@@ -55,5 +58,30 @@ stream = ExtResource("5_otw4m")
 volume_db = -15.0
 autoplay = true
 bus = &"music"
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("point_count")]
+script = ExtResource("6_ppvwr")
+point_count = NodePath("MarginContainer/PointCount")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+custom_minimum_size = Vector2(256, 256)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="PointCount" type="RichTextLabel" parent="UI/MarginContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]POINTS: 0"
+fit_content = true
+autowrap_mode = 0
 
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]

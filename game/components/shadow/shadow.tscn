@@ -12,5 +12,5 @@ shader_parameter/color = Color(0, 0, 0, 1)
 z_index = -1
 z_as_relative = false
 material = SubResource("ShaderMaterial_fgq88")
-offset = Vector2(-4, 4)
+offset = Vector2(-2, 2)
 script = ExtResource("2_gr2cp")
