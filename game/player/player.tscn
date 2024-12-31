@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=39 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_qq22e"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="8_7ix7h"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_das43"]
+[ext_resource type="PackedScene" uid="uid://d10bs0byoutqy" path="res://components/blood_splatter/blood_point/blood_pointer.tscn" id="9_4b80k"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="9_4re1e"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_fkcu6"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="10_cwhxb"]
@@ -96,9 +97,9 @@ streams_count = 1
 stream_0/stream = ExtResource("22_l1n2k")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sy6g1"]
-radius = 12.0
+radius = 18.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "blood_pointer", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx", "blood_detect_coll") groups=["player"]]
 collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
@@ -110,6 +111,7 @@ coll_shape = NodePath("CollisionShape2D")
 hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
 health = NodePath("Health")
 health_indicator = NodePath("HealthIndicator")
+blood_pointer = NodePath("BloodPointer")
 sprite = NodePath("HeightSprite")
 shadow = NodePath("Shadow")
 trail = NodePath("Trail")
@@ -118,6 +120,7 @@ weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
 draw_control = NodePath("DrawControl")
 hurt_sfx = NodePath("HurtSFX")
+blood_detect_coll = NodePath("BloodDetect/CollisionShape2D")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_jb453")
@@ -150,6 +153,9 @@ name_radius = 10.0
 outline_color = Color(1, 1, 1, 0.2)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_das43")]
+blood_color = Color(1, 1, 1, 1)
+
+[node name="BloodPointer" parent="." instance=ExtResource("9_4b80k")]
 blood_color = Color(1, 1, 1, 1)
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_fkcu6")]
@@ -214,5 +220,4 @@ shape = SubResource("CircleShape2D_sy6g1")
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]
-[connection signal="area_entered" from="BloodDetect" to="." method="_on_blood_detect_area_entered"]
 [connection signal="body_entered" from="BloodDetect" to="." method="_on_blood_detect_body_entered"]

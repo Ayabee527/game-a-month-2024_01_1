@@ -14,7 +14,7 @@
 bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7o7mh"]
-radius = 4.0
+radius = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfid"]
 resource_local_to_scene = true
@@ -28,7 +28,7 @@ shader_parameter/active = false
 shader_parameter/tint = Color(1, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0lsid"]
-radius = 112.0
+radius = 128.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_njq73"]
 random_pitch = 1.5
@@ -36,11 +36,11 @@ streams_count = 1
 stream_0/stream = ExtResource("8_poq4r")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tlfhv"]
-radius = 12.0
+radius = 6.0
 
-[node name="BloodPoint" type="RigidBody2D" node_paths=PackedStringArray("sprite", "shadow", "health_indicator", "grab_sfx", "bleeder", "coll_shape", "chase_coll_shape", "life_timer", "blink_timer") groups=["blood_points"]]
-collision_layer = 130
-collision_mask = 257
+[node name="BloodPoint" type="RigidBody2D" node_paths=PackedStringArray("sprite", "shadow", "health_indicator", "grab_sfx", "bleeder", "coll_shape", "chase_coll_shape", "grab_coll_shape", "life_timer", "blink_timer") groups=["blood_points"]]
+collision_layer = 128
+collision_mask = 256
 physics_material_override = SubResource("PhysicsMaterial_kum8u")
 gravity_scale = 0.0
 linear_damp = 2.5
@@ -54,6 +54,7 @@ grab_sfx = NodePath("GrabSFX")
 bleeder = NodePath("Bleeder")
 coll_shape = NodePath("CollisionShape2D")
 chase_coll_shape = NodePath("ChaseDetect/CollisionShape2D")
+grab_coll_shape = NodePath("GrabDetect/CollisionShape2D")
 life_timer = NodePath("LifeTimer")
 blink_timer = NodePath("BlinkTimer")
 
@@ -80,6 +81,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseDetect"]
 shape = SubResource("CircleShape2D_0lsid")
+disabled = true
 
 [node name="GrabSFX" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_njq73")

@@ -4,7 +4,7 @@ extends RigidBody2D
 signal grabbed(target_group: String)
 
 @export var color: Color = Color.WHITE
-@export var chase_radius: float = 112.0
+@export var chase_radius: float = 128.0
 @export var spin_speed: float = -270.0
 @export var chase_speed: float = 1500.0
 @export var max_speed: float = 1000.0
@@ -20,6 +20,7 @@ signal grabbed(target_group: String)
 @export var bleeder: EntityBleeder
 @export var coll_shape: CollisionShape2D
 @export var chase_coll_shape: CollisionShape2D
+@export var grab_coll_shape: CollisionShape2D
 
 @export var life_timer: Timer
 @export var blink_timer: Timer
@@ -39,6 +40,9 @@ func _ready() -> void:
 	chase_shape.radius = chase_radius
 	chase_coll_shape.shape = chase_shape
 	life_timer.start(life_time)
+	
+	await get_tree().create_timer(life_time * 0.25, false).timeout
+	chase_coll_shape.set_deferred("disabled", false)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.linear_velocity = state.linear_velocity.limit_length(max_speed)
@@ -65,6 +69,7 @@ func grab() -> void:
 	bleeder.bleed(1, 1.0, 20)
 	coll_shape.set_deferred("disabled", true)
 	chase_coll_shape.set_deferred("disabled", true)
+	grab_coll_shape.set_deferred("disabled", true)
 	set_deferred("freeze", true)
 	await get_tree().create_timer(1.0, false).timeout
 	queue_free()
@@ -77,6 +82,7 @@ func expire() -> void:
 	set_deferred("freeze", true)
 	coll_shape.set_deferred("disabled", true)
 	chase_coll_shape.set_deferred("disabled", true)
+	grab_coll_shape.set_deferred("disabled", true)
 	await get_tree().create_timer(1.0, false).timeout
 	queue_free()
 

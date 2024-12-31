@@ -13,6 +13,7 @@ signal died()
 @export var hurt_coll_shape: CollisionShape2D
 @export var health: Health
 @export var health_indicator: HealthIndicator
+@export var blood_pointer: BloodPointer
 @export var sprite: HeightSprite
 @export var shadow: Shadow
 @export var trail: GPUParticles2D
@@ -21,6 +22,7 @@ signal died()
 @export var bleeder: EntityBleeder
 @export var draw_control: Marker2D
 @export var hurt_sfx: AudioStreamPlayer2D
+@export var blood_detect_coll: CollisionShape2D
 
 var color: Color = Color.WHITE
 
@@ -74,10 +76,19 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	health.hurt(damage)
 	health_indicator.update_health(health.health, health.max_health)
 	bleeder.bleed(damage, 2.0, 40)
+	blood_detect_coll.set_deferred("disabled", true)
+	blood_pointer.bleed(
+		RogueHandler.points * 0.1, 300, 500.0, 5.0, 56.0
+	)
+	RogueHandler.points -= RogueHandler.points * 0.1
+	
 	sprite.squish(
 		1.0, 5.0, true, false
 	)
 	hurt_sfx.play()
+	
+	await get_tree().create_timer(0.5, false).timeout
+	blood_detect_coll.set_deferred("disabled", false)
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
@@ -90,6 +101,8 @@ func _on_weapon_handler_recoiled(recoil: Vector2) -> void:
 		0.5, 2.5, true, false
 	)
 
-func _on_blood_detect_area_entered(area: Area2D) -> void:
-	if area.is_in_group("blood_points"):
+func _on_blood_detect_body_entered(body: Node2D) -> void:
+	if body.is_in_group("blood_points"):
+		body = body as BloodPoint
+		RogueHandler.last_point_color = body.color
 		RogueHandler.points += 1

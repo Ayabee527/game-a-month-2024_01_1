@@ -36,7 +36,7 @@ func die() -> void:
 	boss.bleeder.bleed(10, 4.0, 100)
 	
 	var colors = [Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW]
-	for i: int in range(50):
+	for i: int in range(100):
 		boss.pointer.blood_color = colors.pick_random()
 		boss.pointer.bleed(1, 200.0, 600.0, 10.0)
 	
