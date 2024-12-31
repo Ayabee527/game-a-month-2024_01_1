@@ -1,8 +1,12 @@
 extends CanvasLayer
 
 @export var point_count: RichTextLabel
+@export var wave_count: RichTextLabel
+
+var waves: int = 1
 
 func _ready() -> void:
+	waves = 1
 	if not RogueHandler.points_updated.is_connected(update_points):
 		RogueHandler.points_updated.connect(update_points)
 	if not RogueHandler.point_color_updated.is_connected(update_point_color):
@@ -18,3 +22,20 @@ func update_points(new_points: int) -> void:
 
 func update_point_color(new_color: Color) -> void:
 	point_count.modulate = new_color
+
+
+func _on_enemy_handler_wave_cleared(size: int) -> void:
+	waves += 1
+	var text_color: Color = Color.WHITE
+	if (waves + 1) % 25 == 0:
+		text_color = Color.RED
+	wave_count.text = "[wave]WAVE " + str(waves)
+	wave_count.pivot_offset = wave_count.size / 2.0
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.set_parallel()
+	tween.tween_property(
+		wave_count, "scale", Vector2.ONE, 2.0
+	).from( Vector2(0.67, 1.5) )
+	tween.tween_property(
+		wave_count, "modulate", text_color, 2.0
+	).from( Color.YELLOW )

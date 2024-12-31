@@ -45,7 +45,7 @@ texture = ExtResource("1_ag615")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 time_before_start = 1.0
-starting_points_per = 1
+starting_points_per = 3
 spawn_timer = NodePath("SpawnTimer")
 music = NodePath("../../Music")
 world = NodePath("..")
@@ -59,9 +59,10 @@ volume_db = -15.0
 autoplay = true
 bus = &"music"
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("point_count")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("point_count", "wave_count")]
 script = ExtResource("6_ppvwr")
 point_count = NodePath("MarginContainer/PointCount")
+wave_count = NodePath("MarginContainer/WaveCount")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 custom_minimum_size = Vector2(256, 256)
@@ -86,4 +87,19 @@ text = "[wave][shake]POINTS: 0"
 fit_content = true
 autowrap_mode = 0
 
+[node name="WaveCount" type="RichTextLabel" parent="UI/MarginContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]WAVE 1"
+fit_content = true
+autowrap_mode = 0
+
+[connection signal="wave_cleared" from="World/EnemyHandler" to="UI" method="_on_enemy_handler_wave_cleared"]
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]

@@ -3,6 +3,7 @@ extends EnemyHopperState
 @export var die_sfx: AudioStreamPlayer2D
 
 func enter(_msg:={}) -> void:
+	enemy.died.emit()
 	enemy.health_indicator.kill()
 	enemy.player_tracker.kill()
 	enemy.coll_shape.set_deferred("disabled", true)

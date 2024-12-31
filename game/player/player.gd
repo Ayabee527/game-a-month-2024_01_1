@@ -78,7 +78,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	bleeder.bleed(damage, 2.0, 40)
 	blood_detect_coll.set_deferred("disabled", true)
 	blood_pointer.bleed(
-		RogueHandler.points * 0.1, 300, 500.0, 5.0, 56.0
+		RogueHandler.points * 0.1, 300, 500.0, 5.0, 92.0
 	)
 	RogueHandler.points -= RogueHandler.points * 0.1
 	

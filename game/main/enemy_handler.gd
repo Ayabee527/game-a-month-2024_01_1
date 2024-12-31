@@ -1,5 +1,6 @@
 extends Node2D
 
+signal wave_cleared(size: int)
 signal enemy_killed(enemy: Node2D)
 signal boss_killed(boss: Node2D)
 
@@ -25,6 +26,7 @@ const COSTS = {
 
 @export var active: bool = true
 @export var time_before_start: float = 3.0
+@export var time_between_waves: float = 1.0
 @export var starting_spawn_points: int = 3
 @export var starting_points_per: int = 2
 
@@ -41,6 +43,10 @@ var spawn_points: int = 3
 
 var boss_alive: bool = true
 
+var wave_size: int = 0
+var wave_kills: int = 0
+var current_wave: Array[Node2D] = []
+
 func _ready() -> void:
 	if not active:
 		return
@@ -54,7 +60,7 @@ func _ready() -> void:
 	
 	await get_tree().create_timer(time_before_start, false).timeout
 	spawn_wave()
-	spawn_timer.start()
+	#spawn_timer.start()
 
 func spawn_wave() -> void:
 	var chosens: Array = []
@@ -81,6 +87,9 @@ func spawn_wave() -> void:
 		
 		chosens.append(chosen_enemy)
 	
+	wave_size = chosens.size()
+	wave_kills = 0
+	
 	for name: String in chosens:
 		var enemy: Node2D = ENEMIES[name].instantiate()
 		#enemy.global_position = (
@@ -95,11 +104,29 @@ func spawn_wave() -> void:
 		else:
 			enemy.tree_exiting.connect(kill_enemy.bind(enemy))
 		add_child(enemy)
+		current_wave.append(enemy)
 
 func kill_enemy(enemy: Node2D) -> void:
 	enemy_killed.emit(enemy)
 	spawn_points += 1
 	enemy_kills += 1
+	wave_kills += 1
+	
+	current_wave.erase(enemy)
+	if wave_kills >= wave_size:
+		wave_cleared.emit(wave_size)
+		spawns += 1
+		
+		points_per = roundi(
+			log(spawns) + ( (0.005 * spawns) * sin(spawns) )
+		) + starting_points_per
+		spawn_points += points_per
+		
+		await get_tree().create_timer(time_between_waves, false).timeout
+		if (spawns + 1) % 25 == 0:
+			spawn_boss()
+		else:
+			spawn_wave()
 
 func spawn_boss() -> void:
 	var boss: Node2D = BOSSES[bosses_killed].instantiate()
@@ -134,14 +161,16 @@ func kill_boss(boss: Node2D) -> void:
 	).from(0.01)
 
 func _on_spawn_timer_timeout() -> void:
-	spawn_wave()
-	spawns += 1
-	
-	spawn_points += points_per
-	
-	points_per = roundi(
-		log(0.5 * spawns) + ( (0.005 * spawns) * sin(spawns) )
-	) + starting_points_per
-	
-	if spawns % 25 == 0:
-		spawn_boss()
+	return
+	#
+	#spawn_wave()
+	#spawns += 1
+	#
+	#spawn_points += points_per
+	#
+	#points_per = roundi(
+		#log(spawns) + ( (0.005 * spawns) * sin(spawns) )
+	#) + starting_points_per
+	#
+	#if spawns % 25 == 0:
+		#spawn_boss()
