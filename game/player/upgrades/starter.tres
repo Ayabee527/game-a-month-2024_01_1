@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://b5t0ng6eojly5"]
+
+[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_p1ixq"]
+[ext_resource type="Texture2D" uid="uid://cwhq242088d3x" path="res://assets/textures/upgrades/starter.png" id="2_8jcwa"]
+
+[resource]
+script = ExtResource("1_p1ixq")
+upgrade_name = "Starter"
+upgrade_desc = "[color=yellow]WEAPON[/color] - BASIC STARTER WEAPON. [color=red]5 DPS[/color]"
+upgrade_icon = ExtResource("2_8jcwa")
+upgrade_id = 0
+base_price = 100

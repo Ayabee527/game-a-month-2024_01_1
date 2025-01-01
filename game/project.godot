@@ -22,6 +22,7 @@ MainCam="*res://autoloads/MainCam.tscn"
 SceneSwitcher="*res://autoloads/SceneSwitcher.tscn"
 Util="*res://autoloads/Util.gd"
 RogueHandler="*res://autoloads/RogueHandler.gd"
+UpgradeHandler="*res://autoloads/UpgradeHandler.gd"
 
 [display]
 

@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4njc6m8u2vhm"]
+
+[ext_resource type="Texture2D" uid="uid://cwhq242088d3x" path="res://assets/textures/upgrades/starter.png" id="1_ibxd5"]
+[ext_resource type="Script" path="res://main/shop/shop_item.gd" id="2_1vkti"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6hjd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.295412, 0.018585, 0.399012, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwopg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.427449, 0.042449, 0.569847, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5teu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.295412, 0.018585, 0.399012, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csedq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.427449, 0.042449, 0.569847, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc0px"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[node name="ShopItem" type="Button"]
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("1_ibxd5")
+script = ExtResource("2_1vkti")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
