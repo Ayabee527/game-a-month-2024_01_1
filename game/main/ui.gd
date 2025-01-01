@@ -27,15 +27,17 @@ func update_point_color(new_color: Color) -> void:
 func _on_enemy_handler_wave_cleared(size: int) -> void:
 	waves += 1
 	var text_color: Color = Color.WHITE
-	if (waves + 1) % 25 == 0:
+	wave_count.text = "[wave]WAVE " + str(waves) + "/60"
+	if waves % 15 == 0:
 		text_color = Color.RED
-	wave_count.text = "[wave]WAVE " + str(waves)
+		wave_count.text = "[wave][shake]WAVE " + str(waves) + "/60"
+	
 	wave_count.pivot_offset = wave_count.size / 2.0
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.set_parallel()
 	tween.tween_property(
-		wave_count, "scale", Vector2.ONE, 2.0
-	).from( Vector2(0.67, 1.5) )
+		wave_count, "scale", Vector2.ONE, 4.0
+	).from( Vector2(2.0, 2.0) )
 	tween.tween_property(
-		wave_count, "modulate", text_color, 2.0
+		wave_count, "modulate", text_color, 4.0
 	).from( Color.YELLOW )

@@ -36,16 +36,17 @@ func die() -> void:
 	boss.bleeder.bleed(10, 4.0, 100)
 	
 	var colors = [Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW]
-	for i: int in range(100):
+	for i: int in range(150):
 		boss.pointer.blood_color = colors.pick_random()
-		boss.pointer.bleed(1, 200.0, 600.0, 10.0)
+		boss.pointer.bleed(1, 200.0, 600.0, 10.0, 256.0)
 	
 	boss.sprite.hide()
 	boss.shadow.hide()
-	await get_tree().create_timer(4.0, false).timeout
+	await get_tree().create_timer(2.0, false).timeout
 	MainCam.min_shake_stength = 0.0
 	boss.player.grab_camera()
 	boss.player.toggle_invinc(false)
+	await get_tree().create_timer(2.0, false).timeout
 	boss.died.emit()
 	boss.queue_free()
 

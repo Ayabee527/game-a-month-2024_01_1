@@ -115,8 +115,8 @@ func kill_enemy(enemy: Node2D) -> void:
 	
 	current_wave.erase(enemy)
 	if wave_kills >= wave_size:
-		wave_cleared.emit(wave_size)
 		spawns += 1
+		wave_cleared.emit(wave_size)
 		
 		points_per = roundi(
 			log(spawns) + ( (0.005 * spawns) * sin(spawns) )
@@ -124,7 +124,7 @@ func kill_enemy(enemy: Node2D) -> void:
 		spawn_points += points_per
 		
 		await get_tree().create_timer(time_between_waves, false).timeout
-		if (spawns + 1) % 25 == 0:
+		if (spawns + 1) % 15 == 0:
 			spawn_boss()
 		else:
 			if (spawns + 1) % 5 == 0:
@@ -156,13 +156,18 @@ func kill_boss(boss: Node2D) -> void:
 	boss_killed.emit(boss)
 	bosses_killed += 1
 	boss_alive = false
-	spawn_timer.start()
+	spawns += 1
 	
-	music.stream_paused = false
-	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(
-		music, "pitch_scale", 1.0, 1.0
-	).from(0.01)
+	spawns += 1
+	wave_cleared.emit(1)
+	
+	shop_menu.open()
+	
+	#music.stream_paused = false
+	#var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	#tween.tween_property(
+		#music, "pitch_scale", 1.0, 1.0
+	#).from(0.01)
 
 func _on_spawn_timer_timeout() -> void:
 	return
@@ -178,3 +183,7 @@ func _on_spawn_timer_timeout() -> void:
 	#
 	#if spawns % 25 == 0:
 		#spawn_boss()
+
+
+func _on_shop_menu_confirmed() -> void:
+	spawn_wave()

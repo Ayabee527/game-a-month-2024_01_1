@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=28 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -8,9 +8,11 @@
 [ext_resource type="Script" path="res://main/ui.gd" id="6_ppvwr"]
 [ext_resource type="FontFile" uid="uid://dujxw7jilwnxa" path="res://assets/fonts/NotJamScrawl12.ttf" id="6_x562i"]
 [ext_resource type="AudioStream" uid="uid://c0u34jg5lkm7i" path="res://assets/music/shop-intro.ogg" id="8_ekgub"]
-[ext_resource type="Script" path="res://main/shop_menu.gd" id="8_wmvef"]
+[ext_resource type="Script" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
 [ext_resource type="AudioStream" uid="uid://cehuawtgod525" path="res://assets/music/shop-loop.ogg" id="9_rviqu"]
+[ext_resource type="Texture2D" uid="uid://cwhq242088d3x" path="res://assets/textures/upgrades/starter.png" id="11_at3wo"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
+[ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
@@ -24,6 +26,154 @@ clip_0/next_clip = 1
 clip_1/name = &"loop"
 clip_1/stream = ExtResource("9_rviqu")
 clip_1/auto_advance = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebuw5"]
+bg_color = Color(0.329412, 0, 0.341176, 0.752941)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6hjd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.295412, 0.018585, 0.399012, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwopg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.427449, 0.042449, 0.569847, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5teu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.295412, 0.018585, 0.399012, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csedq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.427449, 0.042449, 0.569847, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc0px"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14twl"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.440816, 0.000180009, 0.45793, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53ug8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.718657, 0.000528091, 0.745361, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ty3vl"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.440816, 0.000180009, 0.45793, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0iuq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.718657, 0.000528091, 0.745361, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ch5j"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.329456, 9.71519e-05, 0.342726, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hjbxj"]
 random_pitch = 1.5
@@ -77,6 +227,7 @@ shop_menu = NodePath("../../Menus/ShopMenu")
 wait_time = 2.5
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("5_otw4m")
 volume_db = -15.0
 autoplay = true
@@ -127,7 +278,7 @@ autowrap_mode = 0
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board")]
+[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label")]
 process_mode = 3
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
@@ -140,6 +291,8 @@ open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")
 checker_board = NodePath("Checkerboard")
+tier_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tier")
+points_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Points")
 
 [node name="Checkerboard" type="Parallax2D" parent="Menus/ShopMenu"]
 repeat_size = Vector2(64, 64)
@@ -166,10 +319,31 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Points" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/ShopMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Tier" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer"]
 clip_contents = false
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]TIER 1"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Points" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
@@ -180,19 +354,148 @@ text = "[wave]POINTS: 0"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Shop" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer"]
+[node name="HBoxContainer2" type="VBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sells" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ebuw5")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ITEMS" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[wave]SHOP!"
+text = "[wave]SHOP"
 fit_content = true
 autowrap_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 11
+theme_override_constants/v_separation = 8
+columns = 6
+
+[node name="ShopItem" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("11_at3wo")
+
+[node name="ShopItem2" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("11_at3wo")
+
+[node name="ShopItem3" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("11_at3wo")
+
+[node name="ShopItem4" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("11_at3wo")
+
+[node name="ShopItem5" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("11_at3wo")
+
+[node name="ShopItem6" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_c6hjd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_hwopg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k5teu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_csedq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc0px")
+icon = ExtResource("11_at3wo")
+
+[node name="Equipped" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ebuw5")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer"]
+layout_mode = 2
+
+[node name="EQUIP" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]EQUIPPED"
+fit_content = true
+autowrap_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="Confirm" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("11_mvvmu")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxFlat_14twl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_53ug8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ty3vl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_n0iuq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ch5j")
+text = "CONFIRM!"
 
 [node name="OpenJingle" type="AudioStreamPlayer" parent="Menus/ShopMenu"]
 stream = SubResource("AudioStreamRandomizer_hjbxj")
@@ -201,3 +504,5 @@ bus = &"sfx"
 
 [connection signal="wave_cleared" from="World/EnemyHandler" to="UI" method="_on_enemy_handler_wave_cleared"]
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
+[connection signal="confirmed" from="Menus/ShopMenu" to="World/EnemyHandler" method="_on_shop_menu_confirmed"]
+[connection signal="pressed" from="Menus/ShopMenu/MarginContainer/VBoxContainer/Confirm" to="Menus/ShopMenu" method="_on_confirm_pressed"]
