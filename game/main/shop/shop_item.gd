@@ -31,5 +31,11 @@ func _on_mouse_exited() -> void:
 
 
 func _on_pressed() -> void:
+	pivot_offset = size / 2.0
+	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		self, "scale", Vector2.ZERO, 0.25
+	).from( Vector2(2.0, 0.5) )
+	await tween.finished
 	confirmed.emit()
 	release_focus()

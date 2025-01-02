@@ -118,9 +118,9 @@ func kill_enemy(enemy: Node2D) -> void:
 		spawns += 1
 		wave_cleared.emit(wave_size)
 		
-		points_per = roundi(
-			log(spawns) + ( (0.005 * spawns) * sin(spawns) )
-		) + starting_points_per
+		points_per = 2 * ( roundi(
+			(2 * log(spawns)) + ( (0.05 * spawns) * sin(spawns) )
+		) + starting_points_per )
 		spawn_points += points_per
 		
 		await get_tree().create_timer(time_between_waves, false).timeout

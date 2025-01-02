@@ -10,7 +10,7 @@ var world: Node2D
 func _ready() -> void:
 	world = get_tree().get_first_node_in_group("world")
 
-func bleed(points: int, min_push: float = 200.0, max_push: float = 300.0, life_time: float = 1.0, chase_radius: float = 128.0, target_group: String = "player") -> void:
+func bleed(points: int, min_push: float = 200.0, max_push: float = 300.0, life_time: float = 1.0, chase_radius: float = 192.0, target_group: String = "player") -> void:
 	for i: int in roundi(points * RogueHandler.point_multiplier):
 		var point = BLOOD_POINT.instantiate()
 		point.global_position = global_position

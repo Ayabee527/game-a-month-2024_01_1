@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://blxlelehn0n7j"]
+
+[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_5qpdi"]
+[ext_resource type="Texture2D" uid="uid://ctkdvh2jhj4de" path="res://assets/textures/upgrades/blood.png" id="2_ey1wv"]
+
+[resource]
+script = ExtResource("1_5qpdi")
+upgrade_name = "[color=red][shake]BLOOD RED[/shake][/color]"
+upgrade_desc = "[color=yellow]STYLE UPGRADE[/color] - [color=green]x1.5 STYLE MULTIPLIER[/color] IF LAST COLLECTED POINT COLOR IS [color=red]RED.[/color]"
+upgrade_icon = ExtResource("2_ey1wv")
+upgrade_id = 1
+base_price = 100
+upgrade_tier = 1

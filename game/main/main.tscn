@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=27 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -9,10 +9,12 @@
 [ext_resource type="FontFile" uid="uid://dujxw7jilwnxa" path="res://assets/fonts/NotJamScrawl12.ttf" id="6_x562i"]
 [ext_resource type="AudioStream" uid="uid://c0u34jg5lkm7i" path="res://assets/music/shop-intro.ogg" id="8_ekgub"]
 [ext_resource type="Script" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
+[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="9_nyh41"]
 [ext_resource type="AudioStream" uid="uid://cehuawtgod525" path="res://assets/music/shop-loop.ogg" id="9_rviqu"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
 [ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
 [ext_resource type="PackedScene" uid="uid://d4njc6m8u2vhm" path="res://main/shop/shop_item.tscn" id="11_qcuaa"]
+[ext_resource type="Resource" uid="uid://blxlelehn0n7j" path="res://player/upgrades/blood_red.tres" id="11_sqpnk"]
 [ext_resource type="Resource" uid="uid://b5t0ng6eojly5" path="res://player/upgrades/starter.tres" id="12_yy211"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
@@ -111,6 +113,11 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_size = 1
 shadow_offset = Vector2(1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muj7f"]
+bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
+border_width_top = 2
+border_color = Color(0.329456, 9.71519e-05, 0.342726, 1)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_wpomo")
 
@@ -148,7 +155,7 @@ texture = ExtResource("1_ag615")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 time_before_start = 1.0
-starting_points_per = 3
+starting_points_per = 5
 spawn_timer = NodePath("SpawnTimer")
 music = NodePath("../../Music")
 world = NodePath("..")
@@ -209,7 +216,7 @@ autowrap_mode = 0
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label")]
+[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
@@ -218,12 +225,19 @@ offset_bottom = 40.0
 pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
+upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_sqpnk")])
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")
 checker_board = NodePath("Checkerboard")
 tier_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tier")
 points_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Points")
+shop_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer")
+equip_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer/GridContainer")
+info_name = NodePath("InfoPanel/MarginContainer/VBoxContainer/HBoxContainer/Name")
+info_cost = NodePath("InfoPanel/MarginContainer/VBoxContainer/HBoxContainer/Cost")
+info_desc = NodePath("InfoPanel/MarginContainer/VBoxContainer/Desc")
+info_panel = NodePath("InfoPanel")
 
 [node name="ShopTheme" type="AudioStreamPlayer" parent="Menus/ShopMenu"]
 stream = SubResource("AudioStreamInteractive_yqytu")
@@ -382,6 +396,67 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ty3vl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_n0iuq")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4ch5j")
 text = "CONFIRM!"
+
+[node name="InfoPanel" type="PanelContainer" parent="Menus/ShopMenu"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_muj7f")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/ShopMenu/InfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/ShopMenu/InfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/ShopMenu/InfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="Menus/ShopMenu/InfoPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]UPGRADE NAME"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Cost" type="RichTextLabel" parent="Menus/ShopMenu/InfoPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]COST: [color=yellow]0"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Desc" type="RichTextLabel" parent="Menus/ShopMenu/InfoPanel/MarginContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]UPGRADE DESCRIPTION"
+fit_content = true
 
 [connection signal="wave_cleared" from="World/EnemyHandler" to="UI" method="_on_enemy_handler_wave_cleared"]
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
