@@ -155,7 +155,6 @@ texture = ExtResource("1_ag615")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 time_before_start = 1.0
-starting_points_per = 5
 spawn_timer = NodePath("SpawnTimer")
 music = NodePath("../../Music")
 world = NodePath("..")
@@ -168,6 +167,7 @@ wait_time = 2.5
 process_mode = 3
 stream = ExtResource("5_otw4m")
 volume_db = -15.0
+pitch_scale = 0.01
 autoplay = true
 bus = &"music"
 
@@ -304,13 +304,12 @@ text = "[wave]POINTS: 0"
 fit_content = true
 autowrap_mode = 0
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Sells" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ebuw5")
 
 [node name="MarginContainer" type="MarginContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells"]
@@ -351,7 +350,7 @@ upgrade = ExtResource("12_yy211")
 [node name="Equipped" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ebuw5")
 

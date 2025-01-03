@@ -53,6 +53,7 @@ func restock() -> void:
 		shop_holder.add_child(item)
 		item.hovered.connect(explain.bind(chosen_upgrade))
 		item.unhovered.connect(unexplain)
+		item.confirmed.connect(buy.bind(item))
 
 func update_points(new_points: int) -> void:
 	points_label.text = "[wave]POINTS: " + str(new_points)
@@ -85,18 +86,21 @@ func open() -> void:
 	get_tree().paused = true
 
 func buy(item: ShopItem) -> void:
-	if item.price <= RogueHandler.points:
+	if item.upgrade.base_price <= RogueHandler.points:
+		RogueHandler.points -= item.upgrade.base_price
+		UpgradeHandler
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		tween.tween_property(
 			points_label, "modulate", Color.WHITE, 1.0
 		).from(Color.GOLD)
 	else:
+		RogueHandler.points = RogueHandler.points
 		points_label.pivot_offset = points_label.size / 2.0
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-		tween.set_parallel()
-		tween.tween_property(
-			points_label, "scale", Vector2.ONE, 0.25
-		).from( Vector2(1.5, 0.67) )
+		#tween.set_parallel()
+		#tween.tween_property(
+			#points_label, "scale", Vector2.ONE, 0.25
+		#).from( Vector2(1.5, 0.67) )
 		tween.tween_property(
 			points_label, "modulate", Color.WHITE, 1.0
 		).from(Color.RED)

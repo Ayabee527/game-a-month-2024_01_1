@@ -18,6 +18,7 @@
 			"tasks": [
 				"0c48e72c-9d26-4fbc-af21-4c07d5d46cc8",
 				"35ab89a1-9b26-468b-9923-5a91d2873ea5",
+				"49736d80-b661-42df-a6b8-fc42b0c43248",
 				"30ffd15e-6de1-4c6f-87dc-02421fac367e",
 				"1e4cea9a-a8d1-4ce0-b7f1-ac95a95b98a9",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
@@ -277,6 +278,13 @@
 		{
 			"uuid": "0c48e72c-9d26-4fbc-af21-4c07d5d46cc8",
 			"title": "shop",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "49736d80-b661-42df-a6b8-fc42b0c43248",
+			"title": "style",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

@@ -37,12 +37,13 @@ func take_damage() -> void:
 		)
 		knocked_back.emit(knockback)
 		
-		chosen_hitbox.cooldown()
 		chosen_hitbox.hit.emit(self)
 		hurt.emit(chosen_hitbox, chosen_hitbox.damage, chosen_hitbox.damage_cooldown)
 		
 		if chosen_hitbox.trigger_invinc:
 			invinc_timer.start(chosen_hitbox.damage_cooldown)
+		else:
+			chosen_hitbox.cooldown()
 
 func is_in_height_range(hitbox: Hitbox) -> bool:
 	var hit_range: float = height_radius + hitbox.height_radius

@@ -7,12 +7,17 @@ signal confirmed()
 
 @export var upgrade: RogueUpgrade
 
+var confirming: bool = false
+
 func _ready() -> void:
 	if upgrade:
 		icon = upgrade.upgrade_icon
 
 
 func _on_mouse_entered() -> void:
+	if confirming:
+		return
+	
 	hovered.emit()
 	pivot_offset = size / 2.0
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
@@ -22,6 +27,9 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
+	if confirming:
+		return
+	
 	unhovered.emit()
 	pivot_offset = size / 2.0
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
@@ -31,11 +39,9 @@ func _on_mouse_exited() -> void:
 
 
 func _on_pressed() -> void:
-	pivot_offset = size / 2.0
-	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(
-		self, "scale", Vector2.ZERO, 0.25
-	).from( Vector2(2.0, 0.5) )
-	await tween.finished
 	confirmed.emit()
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(
+		self, "scale", Vector2.ONE * 1.2, 0.25
+	).from( Vector2(2.0, 0.5) )
 	release_focus()

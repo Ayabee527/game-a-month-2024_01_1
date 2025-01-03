@@ -120,7 +120,7 @@ func kill_enemy(enemy: Node2D) -> void:
 		
 		points_per = 2 * ( roundi(
 			(2 * log(spawns)) + ( (0.05 * spawns) * sin(spawns) )
-		) + starting_points_per )
+		) + starting_points_per ) * (bosses_killed + 1)
 		spawn_points += points_per
 		
 		await get_tree().create_timer(time_between_waves, false).timeout
