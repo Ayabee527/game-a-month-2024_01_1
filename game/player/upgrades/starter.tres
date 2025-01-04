@@ -11,5 +11,5 @@ upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - BASIC STARTER WEAPON.
 [color=red]1 damage per bullet[/color]"
 upgrade_icon = ExtResource("2_8jcwa")
 upgrade_id = 0
-base_price = 100
+base_price = 30
 upgrade_tier = 1

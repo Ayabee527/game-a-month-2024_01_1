@@ -12,7 +12,14 @@ var confirming: bool = false
 func _ready() -> void:
 	if upgrade:
 		icon = upgrade.upgrade_icon
+	bounce()
 
+func bounce() -> void:
+	pivot_offset = size / 2.0
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(
+		self, "scale", Vector2.ONE, 0.25
+	).from( Vector2(2.0, 0.5) )
 
 func _on_mouse_entered() -> void:
 	if confirming:

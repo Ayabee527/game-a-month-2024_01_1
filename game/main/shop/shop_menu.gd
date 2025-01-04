@@ -16,6 +16,7 @@ const SHOP_ITEM = preload("res://main/shop/shop_item.tscn")
 @export var shop_holder: GridContainer
 @export var equip_holder: GridContainer
 
+@export var equips_label: RichTextLabel
 @export var info_name: RichTextLabel
 @export var info_cost: RichTextLabel
 @export var info_desc: RichTextLabel
@@ -30,6 +31,8 @@ func _ready() -> void:
 	await owner.ready
 	if not RogueHandler.points_updated.is_connected(update_points):
 		RogueHandler.points_updated.connect(update_points)
+	if not UpgradeHandler.equips_updated.is_connected(update_equips):
+		UpgradeHandler.equips_updated.connect(update_equips)
 
 func restock() -> void:
 	var possible_upgrades: Array[RogueUpgrade]
@@ -63,6 +66,30 @@ func update_points(new_points: int) -> void:
 		points_label, "scale", Vector2.ONE, 0.25
 	).from( Vector2(1.5, 0.67) )
 
+func update_equips(new_equips: Array[RogueUpgrade]) -> void:
+	print('buh')
+	equips_label.text = "[wave]EQUIPPED " + str(new_equips) + "/9"
+	equips_label.pivot_offset = equips_label.size / 2.0
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.set_parallel()
+	tween.tween_property(
+		equips_label, "scale", Vector2.ONE, 0.25
+	).from( Vector2(1.5, 0.67) )
+	tween.tween_property(
+		equips_label, "modulate", Color.WHITE, 1.0
+	).from(Color.GOLD)
+	
+	#for child in equip_holder.get_children():
+		#child.queue_free()
+	
+	#for upgrade: RogueUpgrade in new_equips:
+		#var item = SHOP_ITEM.instantiate()
+		#item.upgrade = upgrade
+		#equip_holder.add_child(item)
+		#item.hovered.connect(explain.bind(upgrade))
+		#item.unhovered.connect(unexplain)
+		#item.confirmed.connect(sell.bind(item))
+
 func open() -> void:
 	unexplain()
 	restock()
@@ -86,13 +113,30 @@ func open() -> void:
 	get_tree().paused = true
 
 func buy(item: ShopItem) -> void:
+	if UpgradeHandler.equips.size() >= 9:
+		equips_label.pivot_offset = equips_label.size / 2.0
+		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.set_parallel()
+		tween.tween_property(
+			equips_label, "scale", Vector2.ONE, 0.25
+		).from( Vector2(1.5, 0.67) )
+		tween.tween_property(
+			equips_label, "modulate", Color.WHITE, 1.0
+		).from(Color.RED)
+		return
+	
 	if item.upgrade.base_price <= RogueHandler.points:
 		RogueHandler.points -= item.upgrade.base_price
-		UpgradeHandler
+		UpgradeHandler.equips.append(item.upgrade)
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		tween.tween_property(
 			points_label, "modulate", Color.WHITE, 1.0
 		).from(Color.GOLD)
+		shop_holder.remove_child(item)
+		equip_holder.add_child(item)
+		item.bounce()
+		item.confirmed.disconnect(buy)
+		unexplain()
 	else:
 		RogueHandler.points = RogueHandler.points
 		points_label.pivot_offset = points_label.size / 2.0
@@ -114,7 +158,10 @@ func explain(upgrade: RogueUpgrade) -> void:
 	info_name.text = "[wave]" + upgrade.upgrade_name
 	info_name.pivot_offset = info_name.size / 2.0
 	
-	info_cost.text = "[wave]COST: [color=gold]" + str(upgrade.base_price)
+	if UpgradeHandler.equips.has(upgrade):
+		info_cost.text = "[wave]SELL FOR [color=gold]" + str(upgrade.base_price / 2)
+	else:
+		info_cost.text = "[wave]BUY FOR [color=gold]" + str(upgrade.base_price)
 	info_cost.pivot_offset = info_cost.size / 2.0
 	
 	info_desc.text = "[wave]" + upgrade.upgrade_desc

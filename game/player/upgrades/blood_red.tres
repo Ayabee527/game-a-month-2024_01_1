@@ -9,5 +9,5 @@ upgrade_name = "[color=red][shake]BLOOD RED[/shake][/color]"
 upgrade_desc = "[color=yellow]STYLE UPGRADE[/color] - [color=green]x1.5 STYLE MULTIPLIER[/color] IF LAST COLLECTED POINT COLOR IS [color=red]RED.[/color]"
 upgrade_icon = ExtResource("2_ey1wv")
 upgrade_id = 1
-base_price = 100
+base_price = 60
 upgrade_tier = 1

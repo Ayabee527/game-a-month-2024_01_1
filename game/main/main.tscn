@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=26 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -13,7 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://cehuawtgod525" path="res://assets/music/shop-loop.ogg" id="9_rviqu"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
 [ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
-[ext_resource type="PackedScene" uid="uid://d4njc6m8u2vhm" path="res://main/shop/shop_item.tscn" id="11_qcuaa"]
 [ext_resource type="Resource" uid="uid://blxlelehn0n7j" path="res://player/upgrades/blood_red.tres" id="11_sqpnk"]
 [ext_resource type="Resource" uid="uid://b5t0ng6eojly5" path="res://player/upgrades/starter.tres" id="12_yy211"]
 
@@ -216,7 +215,7 @@ autowrap_mode = 0
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "info_name", "info_cost", "info_desc", "info_panel")]
+[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
@@ -234,6 +233,7 @@ tier_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tier")
 points_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Points")
 shop_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer")
 equip_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer/GridContainer")
+equips_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer/EQUIP")
 info_name = NodePath("InfoPanel/MarginContainer/VBoxContainer/HBoxContainer/Name")
 info_cost = NodePath("InfoPanel/MarginContainer/VBoxContainer/HBoxContainer/Cost")
 info_desc = NodePath("InfoPanel/MarginContainer/VBoxContainer/Desc")
@@ -310,6 +310,7 @@ size_flags_vertical = 3
 
 [node name="Sells" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ebuw5")
 
 [node name="MarginContainer" type="MarginContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells"]
@@ -341,16 +342,12 @@ autowrap_mode = 0
 layout_mode = 2
 theme_override_constants/h_separation = 11
 theme_override_constants/v_separation = 8
-columns = 6
-
-[node name="ShopItem" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("11_qcuaa")]
-layout_mode = 2
-upgrade = ExtResource("12_yy211")
+columns = 3
 
 [node name="Equipped" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ebuw5")
 
@@ -363,6 +360,7 @@ theme_override_constants/margin_bottom = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="EQUIP" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer"]
 clip_contents = false
@@ -374,13 +372,15 @@ theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[wave]EQUIPPED"
+text = "[wave]EQUIPPED 0/9"
 fit_content = true
 autowrap_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer"]
 layout_mode = 2
-columns = 5
+theme_override_constants/h_separation = 11
+theme_override_constants/v_separation = 8
+columns = 3
 
 [node name="Confirm" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
