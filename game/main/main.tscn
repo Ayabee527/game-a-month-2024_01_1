@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=30 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
 [ext_resource type="PackedScene" uid="uid://c6eounl1wmnfu" path="res://player/player.tscn" id="2_n5tbv"]
+[ext_resource type="Script" path="res://main/style_handler.gd" id="3_0avur"]
 [ext_resource type="Script" path="res://main/enemy_handler.gd" id="4_ws8n8"]
 [ext_resource type="AudioStream" uid="uid://5sbcje1lyosi" path="res://assets/music/gameplay.ogg" id="5_otw4m"]
 [ext_resource type="Script" path="res://main/ui.gd" id="6_ppvwr"]
@@ -11,10 +12,13 @@
 [ext_resource type="Script" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
 [ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="9_nyh41"]
 [ext_resource type="AudioStream" uid="uid://cehuawtgod525" path="res://assets/music/shop-loop.ogg" id="9_rviqu"]
+[ext_resource type="Resource" uid="uid://c57wnd7jx34ka" path="res://player/upgrades/dual_starter.tres" id="11_60coc"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
 [ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
-[ext_resource type="Resource" uid="uid://blxlelehn0n7j" path="res://player/upgrades/blood_red.tres" id="11_sqpnk"]
+[ext_resource type="Resource" uid="uid://bg61ktybhrdwu" path="res://player/upgrades/seeing_red_I.tres" id="12_55y72"]
 [ext_resource type="Resource" uid="uid://b5t0ng6eojly5" path="res://player/upgrades/starter.tres" id="12_yy211"]
+[ext_resource type="Resource" uid="uid://be5m0py0a2v2y" path="res://player/upgrades/seeing_green_I.tres" id="18_bx4jn"]
+[ext_resource type="Resource" uid="uid://bgrcuiddy1pps" path="res://player/upgrades/seeing_blue_I.tres" id="19_xykrg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
@@ -48,6 +52,20 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.440816, 0.000180009, 0.45793, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ch5j"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.329456, 9.71519e-05, 0.342726, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -98,20 +116,6 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_size = 1
 shadow_offset = Vector2(1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ch5j"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.329456, 9.71519e-05, 0.342726, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-shadow_color = Color(0, 0, 0, 1)
-shadow_size = 1
-shadow_offset = Vector2(1, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muj7f"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
 border_width_top = 2
@@ -147,6 +151,11 @@ position = Vector2(128, 128)
 texture = ExtResource("1_ag615")
 
 [node name="World" type="Node2D" parent="." groups=["world"]]
+
+[node name="StyleHandler" type="Node" parent="World" node_paths=PackedStringArray("player", "world")]
+script = ExtResource("3_0avur")
+player = NodePath("../Player")
+world = NodePath("..")
 
 [node name="Player" parent="World" instance=ExtResource("2_n5tbv")]
 
@@ -215,8 +224,9 @@ autowrap_mode = 0
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
+[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
 offset_right = 40.0
@@ -224,7 +234,7 @@ offset_bottom = 40.0
 pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
-upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_sqpnk")])
+upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("12_55y72"), ExtResource("18_bx4jn"), ExtResource("19_xykrg")])
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")
@@ -233,6 +243,7 @@ tier_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tier")
 points_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Points")
 shop_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer")
 equip_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer/GridContainer")
+confirm_butt = NodePath("MarginContainer/VBoxContainer/Confirm")
 equips_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer/EQUIP")
 info_name = NodePath("InfoPanel/MarginContainer/VBoxContainer/HBoxContainer/Name")
 info_cost = NodePath("InfoPanel/MarginContainer/VBoxContainer/HBoxContainer/Cost")
@@ -390,6 +401,7 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("11_mvvmu")
 theme_override_font_sizes/font_size = 9
 theme_override_styles/focus = SubResource("StyleBoxFlat_14twl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4ch5j")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_53ug8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ty3vl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_n0iuq")

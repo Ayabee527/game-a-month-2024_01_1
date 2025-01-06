@@ -15,15 +15,17 @@ const SHOP_ITEM = preload("res://main/shop/shop_item.tscn")
 @export var points_label: RichTextLabel
 @export var shop_holder: GridContainer
 @export var equip_holder: GridContainer
-
+@export var confirm_butt: Button
 @export var equips_label: RichTextLabel
 @export var info_name: RichTextLabel
 @export var info_cost: RichTextLabel
 @export var info_desc: RichTextLabel
 @export var info_panel: PanelContainer
 
-
+var new_tier_waiting: bool = false
 var tier: int = 1
+var max_equips: int = 3
+var max_sells: int = 3
 var tier_queued: bool = false
 
 func _ready() -> void:
@@ -33,6 +35,9 @@ func _ready() -> void:
 		RogueHandler.points_updated.connect(update_points)
 	if not UpgradeHandler.equips_updated.is_connected(update_equips):
 		UpgradeHandler.equips_updated.connect(update_equips)
+	
+	reload_equips()
+	update_equips(UpgradeHandler.equips)
 
 func restock() -> void:
 	var possible_upgrades: Array[RogueUpgrade]
@@ -44,19 +49,51 @@ func restock() -> void:
 		child.queue_free()
 	
 	possible_upgrades.shuffle()
-	var amount = tier + 2
-	for i: int in amount:
-		var item = SHOP_ITEM.instantiate()
+	for i: int in max_sells:
 		var chosen_upgrade: RogueUpgrade
-		if possible_upgrades.size() > 1:
-			chosen_upgrade = possible_upgrades.pop_back()
-		else:
-			chosen_upgrade = possible_upgrades.back()
+		chosen_upgrade = possible_upgrades.pop_back()
+		if chosen_upgrade in UpgradeHandler.equips:
+			continue
+		
+		if possible_upgrades.is_empty():
+			return
+		
+		var item = SHOP_ITEM.instantiate()
 		item.upgrade = chosen_upgrade
 		shop_holder.add_child(item)
 		item.hovered.connect(explain.bind(chosen_upgrade))
 		item.unhovered.connect(unexplain)
 		item.confirmed.connect(buy.bind(item))
+		await get_tree().create_timer(0.2).timeout
+
+func upgrade_tier() -> void:
+	tier += 1
+	max_equips = (2 * tier) + 1
+	max_sells = tier + 2
+	new_tier_waiting = false
+	
+	tier_label.text = "[wave]TIER " + str(tier)
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(
+		tier_label, "scale", Vector2.ONE, 0.75
+	).from( Vector2(2, 2) )
+	tween.parallel().tween_property(
+		tier_label, "modulate", Color.WHITE, 0.75
+	).from( Color.GOLD )
+	await tween.finished
+	
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	equips_label.text = "[wave]EQUIPPED " + str(UpgradeHandler.equips.size()) + "/" + str(max_equips)
+	tween.tween_property(
+		equips_label, "scale", Vector2.ONE, 0.75
+	).from( Vector2(2, 2) )
+	tween.parallel().tween_property(
+		equips_label, "modulate", Color.WHITE, 0.75
+	).from( Color.GOLD )
+	await tween.finished
+	
+	restock()
+	confirm_butt.disabled = false
 
 func update_points(new_points: int) -> void:
 	points_label.text = "[wave]POINTS: " + str(new_points)
@@ -67,8 +104,7 @@ func update_points(new_points: int) -> void:
 	).from( Vector2(1.5, 0.67) )
 
 func update_equips(new_equips: Array[RogueUpgrade]) -> void:
-	print('buh')
-	equips_label.text = "[wave]EQUIPPED " + str(new_equips) + "/9"
+	equips_label.text = "[wave]EQUIPPED " + str(new_equips.size()) + "/" + str(max_equips)
 	equips_label.pivot_offset = equips_label.size / 2.0
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.set_parallel()
@@ -90,9 +126,28 @@ func update_equips(new_equips: Array[RogueUpgrade]) -> void:
 		#item.unhovered.connect(unexplain)
 		#item.confirmed.connect(sell.bind(item))
 
+func reload_equips() -> void:
+	for child in equip_holder.get_children():
+		child.queue_free()
+	
+	for upgrade: RogueUpgrade in UpgradeHandler.equips:
+		var item = SHOP_ITEM.instantiate()
+		item.upgrade = upgrade
+		equip_holder.add_child(item)
+		item.hovered.connect(explain.bind(upgrade))
+		item.unhovered.connect(unexplain)
+		item.confirmed.connect(sell.bind(item))
+
 func open() -> void:
 	unexplain()
-	restock()
+	
+	if new_tier_waiting:
+		for child in shop_holder.get_children():
+			child.queue_free()
+	else:
+		restock()
+		confirm_butt.disabled = false
+	
 	show()
 	position = Vector2(0, 256)
 	open_jingle_sfx.play()
@@ -111,6 +166,21 @@ func open() -> void:
 	).from( Vector2(0, 256) )
 	await tween.finished
 	get_tree().paused = true
+	if new_tier_waiting:
+		upgrade_tier()
+
+func sell(item: ShopItem) -> void:
+	RogueHandler.points += item.upgrade.base_price / 2
+	UpgradeHandler.equips.erase(item.upgrade)
+	UpgradeHandler.equips = UpgradeHandler.equips
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(
+		points_label, "modulate", Color.WHITE, 1.0
+	).from(Color.GOLD)
+	UpgradeHandler.deactivate_upgrade(item.upgrade.upgrade_id)
+	equip_holder.remove_child(item)
+	item.queue_free()
+	unexplain()
 
 func buy(item: ShopItem) -> void:
 	if UpgradeHandler.equips.size() >= 9:
@@ -128,14 +198,17 @@ func buy(item: ShopItem) -> void:
 	if item.upgrade.base_price <= RogueHandler.points:
 		RogueHandler.points -= item.upgrade.base_price
 		UpgradeHandler.equips.append(item.upgrade)
+		UpgradeHandler.equips = UpgradeHandler.equips
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		tween.tween_property(
 			points_label, "modulate", Color.WHITE, 1.0
 		).from(Color.GOLD)
 		shop_holder.remove_child(item)
 		equip_holder.add_child(item)
+		UpgradeHandler.activate_upgrade(item.upgrade.upgrade_id)
 		item.bounce()
 		item.confirmed.disconnect(buy)
+		item.confirmed.connect(sell.bind(item))
 		unexplain()
 	else:
 		RogueHandler.points = RogueHandler.points
@@ -195,6 +268,7 @@ func unexplain() -> void:
 	)
 
 func _on_confirm_pressed() -> void:
+	confirm_butt.disabled = true
 	get_tree().paused = false
 	normal_music.stream_paused = false
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -204,11 +278,11 @@ func _on_confirm_pressed() -> void:
 	)
 	tween.tween_property(
 		normal_music, "pitch_scale", 1.0, 2.0
-	).from(0.01)
+	)
 	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT)
 	tween.tween_property(
 		self, "position", Vector2(0, -256), 1.0
-	).from( Vector2(0, 0) )
+	)
 	await tween.finished
 	shop_theme.playing = false
 	hide()

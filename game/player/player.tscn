@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=44 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -23,6 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
 [ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
 [ext_resource type="AudioStream" uid="uid://bp0ha5n0uxcc0" path="res://assets/sounds/hurt4.wav" id="22_l1n2k"]
+[ext_resource type="Script" path="res://player/conditionals.gd" id="24_kqj87"]
+[ext_resource type="Resource" uid="uid://brn30bvps0pj4" path="res://player/weapons/seeing_red_I.tres" id="25_bfown"]
+[ext_resource type="Resource" uid="uid://sebp1lbbmdn3" path="res://player/weapons/seeing_green_I.tres" id="26_28yu5"]
+[ext_resource type="Resource" uid="uid://bcig243qxb6hv" path="res://player/weapons/seeing_blue_I.tres" id="27_pw8ag"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vqc0a"]
 bounce = 0.5
@@ -98,6 +102,11 @@ stream_0/stream = ExtResource("22_l1n2k")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sy6g1"]
 radius = 18.0
+
+[sub_resource type="Resource" id="Resource_rx1kb"]
+script = ExtResource("10_cwhxb")
+collision_layer = 16
+collision_mask = 8
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "blood_pointer", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx", "blood_detect_coll") groups=["player"]]
 collision_layer = 6
@@ -216,6 +225,27 @@ collision_mask = 128
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BloodDetect"]
 shape = SubResource("CircleShape2D_sy6g1")
 
+[node name="Conditionals" type="Marker2D" parent="." node_paths=PackedStringArray("seeing_red_I", "seeing_green_I", "seeing_blue_I")]
+script = ExtResource("24_kqj87")
+seeing_red_I = NodePath("SeeingRedI")
+seeing_green_I = NodePath("SeeingGreenI")
+seeing_blue_I = NodePath("SeeingBlueI")
+
+[node name="SeeingRedI" parent="Conditionals" instance=ExtResource("9_4re1e")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_rx1kb")
+weapons = Array[ExtResource("11_nmagf")]([ExtResource("25_bfown")])
+
+[node name="SeeingGreenI" parent="Conditionals" instance=ExtResource("9_4re1e")]
+collision_data = SubResource("Resource_rx1kb")
+weapons = Array[ExtResource("11_nmagf")]([ExtResource("26_28yu5")])
+
+[node name="SeeingBlueI" parent="Conditionals" instance=ExtResource("9_4re1e")]
+collision_data = SubResource("Resource_rx1kb")
+weapons = Array[ExtResource("11_nmagf")]([ExtResource("27_pw8ag")])
+
+[connection signal="point_grabbed" from="." to="Conditionals" method="_on_player_point_grabbed"]
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]

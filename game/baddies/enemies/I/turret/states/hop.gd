@@ -48,6 +48,7 @@ func hop() -> void:
 	enemy.linear_damp = 0.0
 	enemy.linear_velocity = Vector2.ZERO
 	enemy.apply_central_impulse( Vector2.from_angle(enemy.global_rotation) * jump_velocity )
+	enemy.coll_shape.set_deferred("disabled", true)
 
 
 func _on_height_sprite_ground_hit() -> void:
@@ -57,6 +58,7 @@ func _on_height_sprite_ground_hit() -> void:
 		enemy.linear_velocity = Vector2.ZERO
 		hop_timer.start()
 		enemy.linear_damp = 2.5
+		enemy.coll_shape.set_deferred("disabled", false)
 
 
 func _on_hop_cooldown_timeout() -> void:

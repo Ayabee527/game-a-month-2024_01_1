@@ -2,6 +2,7 @@ class_name Player
 extends RigidBody2D
 
 signal died()
+signal point_grabbed(point_color: Color)
 
 @export var default_color: Color = Color.WHITE
 @export var move_speed: float = 600.0
@@ -30,6 +31,8 @@ var dashing: bool = false
 var is_invinc: bool = false
 
 func _ready() -> void:
+	UpgradeHandler.player = self
+	
 	color = default_color
 	sprite.modulate = default_color
 	sprite.hurt_color = Color("e30035")
@@ -65,6 +68,9 @@ func lean_camera() -> void:
 func set_weapons(new_weapons: Array[Weapon]) -> void:
 	weapon_handler.weapons = new_weapons
 
+func get_weapons() -> Array[Weapon]:
+	return weapon_handler.weapons
+
 func get_move_vector() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -78,9 +84,9 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	bleeder.bleed(damage, 2.0, 40)
 	blood_detect_coll.set_deferred("disabled", true)
 	blood_pointer.bleed(
-		RogueHandler.points * 0.05, 200, 300.0, 5.0, 92.0
+		floori(RogueHandler.points / 25.0), 200, 300.0, 1.0, 92.0
 	)
-	RogueHandler.points -= RogueHandler.points * 0.05
+	RogueHandler.points -= floori(RogueHandler.points / 25.0)
 	
 	sprite.squish(
 		1.0, 5.0, true, false
@@ -106,3 +112,4 @@ func _on_blood_detect_body_entered(body: Node2D) -> void:
 		body = body as BloodPoint
 		RogueHandler.last_point_color = body.color
 		RogueHandler.points += 1
+		point_grabbed.emit(body.color)

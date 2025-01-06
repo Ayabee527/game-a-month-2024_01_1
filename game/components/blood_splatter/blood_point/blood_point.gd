@@ -66,7 +66,7 @@ func grab() -> void:
 	MainCam.shake(9.0, 5.0, 5.0)
 	health_indicator.kill()
 	grab_sfx.play()
-	bleeder.bleed(1, 1.0, 20)
+	#bleeder.bleed(1, 1.0, 20)
 	coll_shape.set_deferred("disabled", true)
 	chase_coll_shape.set_deferred("disabled", true)
 	grab_coll_shape.set_deferred("disabled", true)

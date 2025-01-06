@@ -161,6 +161,7 @@ func kill_boss(boss: Node2D) -> void:
 	spawns += 1
 	wave_cleared.emit(1)
 	
+	shop_menu.new_tier_waiting = true
 	shop_menu.open()
 	
 	#music.stream_paused = false

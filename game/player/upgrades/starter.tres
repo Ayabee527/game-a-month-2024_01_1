@@ -6,10 +6,9 @@
 [resource]
 script = ExtResource("1_p1ixq")
 upgrade_name = "STARTER"
-upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - BASIC STARTER WEAPON.
-[color=red]5 bullets per sec[/color]
-[color=red]1 damage per bullet[/color]"
+upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - BASIC STARTER WEAPON. FIRES 5 LOW DAMAGE BULLETS A SECOND."
 upgrade_icon = ExtResource("2_8jcwa")
+upgrade_color = Color(1, 1, 1, 1)
 upgrade_id = 0
 base_price = 30
 upgrade_tier = 1

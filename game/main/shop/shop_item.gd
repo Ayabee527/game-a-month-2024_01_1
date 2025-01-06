@@ -12,6 +12,11 @@ var confirming: bool = false
 func _ready() -> void:
 	if upgrade:
 		icon = upgrade.upgrade_icon
+		add_theme_color_override("icon_normal_color", upgrade.upgrade_color)
+		add_theme_color_override("icon_hover_color", upgrade.upgrade_color)
+		add_theme_color_override("icon_focus_color", upgrade.upgrade_color)
+		add_theme_color_override("icon_pressed_color", upgrade.upgrade_color)
+		add_theme_color_override("icon_hover_pressed_color", upgrade.upgrade_color)
 	bounce()
 
 func bounce() -> void:
