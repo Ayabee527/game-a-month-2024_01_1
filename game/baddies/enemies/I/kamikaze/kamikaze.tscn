@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dxo4frr66t383"]
+[gd_scene load_steps=28 format=3 uid="uid://dxo4frr66t383"]
 
 [ext_resource type="Script" path="res://baddies/enemies/I/kamikaze/kamikaze.gd" id="1_6rbnp"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_f0mjq"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="7_1rioc"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="7_mjlr7"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_mjmku"]
-[ext_resource type="PackedScene" uid="uid://d10bs0byoutqy" path="res://components/blood_splatter/blood_point/blood_pointer.tscn" id="9_clcxg"]
 [ext_resource type="Texture2D" uid="uid://dytixhncb8bmh" path="res://assets/textures/enemies/sacrifice.png" id="9_n5q47"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_s12fi"]
 [ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_4y16b"]
@@ -54,7 +53,7 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("19_2qoyy")
 
-[node name="Kamikaze" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "sprite", "shadow", "health", "health_indicator", "player_tracker", "weapon_handler", "bleeder", "pointer", "hurt_sfx") groups=["enemies", "kamikazes"]]
+[node name="Kamikaze" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "sprite", "shadow", "health", "health_indicator", "player_tracker", "weapon_handler", "bleeder", "hurt_sfx") groups=["enemies", "kamikazes"]]
 collision_layer = 10
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_qnpms")
@@ -71,7 +70,6 @@ health_indicator = NodePath("HealthIndicator")
 player_tracker = NodePath("PlayerTracker")
 weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
-pointer = NodePath("BloodPointer")
 hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
@@ -100,8 +98,6 @@ name_radius = 8.0
 color = Color(1, 0, 0, 0.501961)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_mjmku")]
-
-[node name="BloodPointer" parent="." instance=ExtResource("9_clcxg")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kyhnh")

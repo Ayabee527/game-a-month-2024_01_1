@@ -18,7 +18,7 @@ const STYLE_TIERS = [
 
 var points: int = 0: set = set_points
 var last_point_color: Color = Color.WHITE: set = set_point_color
-var style_tier: int = 1
+var style_tier: int = 6
 var style_points: int = 0
 
 func set_points(new_points: int) -> void:

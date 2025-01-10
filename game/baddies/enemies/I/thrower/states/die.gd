@@ -10,7 +10,6 @@ func enter(_msg:={}) -> void:
 	enemy.set_deferred("freeze", true)
 	
 	enemy.bleeder.bleed(enemy.health.max_health, 2.0, 40)
-	enemy.pointer.bleed(enemy.health.max_health)
 	#die_burst.shoot()
 	enemy.sprite.hide()
 	enemy.shadow.hide()

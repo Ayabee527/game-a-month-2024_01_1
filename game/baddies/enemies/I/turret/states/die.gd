@@ -12,7 +12,6 @@ func enter(_msg:={}) -> void:
 	die_sfx.play()
 	
 	enemy.bleeder.bleed(5, 2.0, 40)
-	enemy.pointer.bleed(5)
 	enemy.sprite.hide()
 	enemy.shadow.hide()
 	await get_tree().create_timer(2.0, false).timeout

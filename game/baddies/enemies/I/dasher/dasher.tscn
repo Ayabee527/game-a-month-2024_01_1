@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://3jvcrr1vfweh"]
+[gd_scene load_steps=34 format=3 uid="uid://3jvcrr1vfweh"]
 
 [ext_resource type="Script" path="res://baddies/enemies/I/dasher/dasher.gd" id="1_kpe0a"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="1_skbmj"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_ln5dx"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="7_rx464"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_fo8ow"]
-[ext_resource type="PackedScene" uid="uid://d10bs0byoutqy" path="res://components/blood_splatter/blood_point/blood_pointer.tscn" id="9_7mg7m"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_7sqt5"]
 [ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_hj880"]
 [ext_resource type="Texture2D" uid="uid://ic7qq70ui46u" path="res://assets/textures/enemies/dasher.png" id="11_dkm4l"]
@@ -91,7 +90,7 @@ damping_min = 250.0
 damping_max = 750.0
 scale_curve = SubResource("CurveTexture_dvt62")
 
-[node name="Dasher" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "trail", "bleeder", "pointer", "hurt_sfx")]
+[node name="Dasher" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "trail", "bleeder", "hurt_sfx")]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_l8ooj")
 gravity_scale = 0.0
@@ -110,7 +109,6 @@ sprite = NodePath("HeightSprite")
 shadow = NodePath("Shadow")
 trail = NodePath("Trail")
 bleeder = NodePath("Bleeder")
-pointer = NodePath("BloodPointer")
 hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
@@ -143,9 +141,6 @@ outline_color = Color(1, 1, 0, 0.2)
 color = Color(1, 1, 0, 0.501961)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_fo8ow")]
-blood_color = Color(1, 1, 0, 1)
-
-[node name="BloodPointer" parent="." instance=ExtResource("9_7mg7m")]
 blood_color = Color(1, 1, 0, 1)
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("9_7sqt5")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ddn02ng0ipkqn"]
+[gd_scene load_steps=29 format=3 uid="uid://ddn02ng0ipkqn"]
 
 [ext_resource type="Script" path="res://baddies/enemies/I/thrower/thrower.gd" id="1_3ai8r"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="1_jf4kt"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="8_26lv7"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_6n556"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="9_jk1an"]
-[ext_resource type="PackedScene" uid="uid://d10bs0byoutqy" path="res://components/blood_splatter/blood_point/blood_pointer.tscn" id="9_qmkw0"]
 [ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_ae8dd"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="10_lxcx4"]
 [ext_resource type="Resource" uid="uid://wvllr6cw8ldw" path="res://baddies/enemies/I/thrower/thrower_weapon.tres" id="11_af5sn"]
@@ -57,7 +56,7 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("20_oloc5")
 
-[node name="Thrower" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "pointer", "hurt_sfx")]
+[node name="Thrower" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx")]
 collision_layer = 10
 collision_mask = 9
 mass = 2.0
@@ -74,7 +73,6 @@ sprite = NodePath("HeightSprite")
 shadow = NodePath("Shadow")
 weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
-pointer = NodePath("BloodPointer")
 hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
@@ -103,9 +101,6 @@ outline_color = Color(0, 1, 0, 0.2)
 color = Color(0, 1, 0, 0.501961)
 
 [node name="Bleeder" parent="." instance=ExtResource("5_jrtah")]
-blood_color = Color(0, 1, 0, 1)
-
-[node name="BloodPointer" parent="." instance=ExtResource("9_qmkw0")]
 blood_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
