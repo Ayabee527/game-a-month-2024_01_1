@@ -58,6 +58,8 @@ world=""
 throwers=""
 bosses=""
 blood_points=""
+hoppers=""
+dashers=""
 
 [input]
 

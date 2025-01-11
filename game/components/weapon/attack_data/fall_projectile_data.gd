@@ -1,8 +1,9 @@
 class_name FallProjectileData
 extends AttackData
 
+const attack = preload("res://components/weapon/attacks/fall_projectile/fall_projectile.tscn")
+
 @export_group("Basics")
-@export var attack: PackedScene
 @export var start_speed: float = 128.0
 @export var end_speed: float = 128.0
 @export var accel_time: float = 0.0

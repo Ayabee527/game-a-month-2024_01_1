@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=10 format=3 uid="uid://blq3p3i3itxx0"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=9 format=3 uid="uid://blq3p3i3itxx0"]
 
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_36hm2"]
 [ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_ciqsf"]
 [ext_resource type="Script" path="res://components/weapon/attack_data/projectile_data.gd" id="1_n3jpl"]
-[ext_resource type="PackedScene" uid="uid://c7aeni8wqem5v" path="res://components/weapon/attacks/projectile/projectile.tscn" id="1_ohmkq"]
 [ext_resource type="AudioStream" uid="uid://c2lmfjic4musx" path="res://assets/sounds/thump1.wav" id="3_g60nx"]
 [ext_resource type="Texture2D" uid="uid://bcwhqdf5cjtys" path="res://assets/textures/light_bullet.png" id="5_xp44m"]
 
@@ -21,7 +20,6 @@ stream_0/stream = ExtResource("3_g60nx")
 
 [sub_resource type="Resource" id="Resource_p1qsf"]
 script = ExtResource("1_n3jpl")
-attack = ExtResource("1_ohmkq")
 life_time = 4.0
 start_speed = 384.0
 end_speed = 384.0
@@ -59,3 +57,4 @@ camera_shake_shake = 7.0
 camera_shake_speed = 15.0
 camera_shake_decay = 15.0
 recoil_strength = 24.0
+stick_to_handler = false

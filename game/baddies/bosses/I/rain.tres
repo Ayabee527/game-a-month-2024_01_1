@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=11 format=3 uid="uid://dh1gi7o6pboh2"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=10 format=3 uid="uid://dh1gi7o6pboh2"]
 
-[ext_resource type="PackedScene" uid="uid://dojg0abx5v5dt" path="res://components/weapon/attacks/fall_projectile/fall_projectile.tscn" id="1_6gxoo"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_028b5"]
 [ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="2_lylfl"]
 [ext_resource type="Script" path="res://components/weapon/attack_data/fall_projectile_data.gd" id="3_83pcx"]
@@ -22,7 +21,6 @@ stream_0/stream = ExtResource("4_43hqm")
 
 [sub_resource type="Resource" id="Resource_srqbc"]
 script = ExtResource("3_83pcx")
-attack = ExtResource("1_6gxoo")
 start_speed = 32.0
 end_speed = 32.0
 accel_time = 0.0
@@ -60,3 +58,4 @@ camera_shake_speed = 15.0
 camera_shake_decay = 15.0
 recoil_strength = 24.0
 payload = ExtResource("6_6qv36")
+stick_to_handler = false

@@ -38,7 +38,7 @@ func _ready() -> void:
 	hitbox.collision_layer = collision_data.collision_layer
 	hitbox.collision_mask = collision_data.collision_mask
 	
-	debri.restart()
+	#debri.restart()
 	expand()
 	sustain_timer.start(attack_data.sustain_time)
 

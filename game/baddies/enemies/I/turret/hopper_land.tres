@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=9 format=3 uid="uid://cf85qtasegg0f"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=8 format=3 uid="uid://cf85qtasegg0f"]
 
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_ky48e"]
-[ext_resource type="PackedScene" uid="uid://tymv7bs6vjd2" path="res://components/weapon/attacks/explosion/explosion.tscn" id="1_pouk8"]
 [ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="2_nir7n"]
 [ext_resource type="Script" path="res://components/weapon/attack_data/explosion_data.gd" id="3_4oljj"]
 [ext_resource type="AudioStream" uid="uid://hexl5isn6gri" path="res://assets/sounds/boom5.wav" id="4_utnc7"]
@@ -20,7 +19,6 @@ stream_0/stream = ExtResource("4_utnc7")
 
 [sub_resource type="Resource" id="Resource_xbdpn"]
 script = ExtResource("3_4oljj")
-attack = ExtResource("1_pouk8")
 radius = 48.0
 sides = 5
 expand_time = 0.25
@@ -45,3 +43,4 @@ camera_shake_shake = 5.0
 camera_shake_speed = 15.0
 camera_shake_decay = 15.0
 recoil_strength = 24.0
+stick_to_handler = false

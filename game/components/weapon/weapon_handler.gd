@@ -83,7 +83,12 @@ func shoot() -> void:
 			attack_data.expired.connect( unleash_payload.bind(attack, weapon.payload) )
 			attack_data.trigger_payload.connect( unleash_payload.bind(attack, weapon.payload) )
 		
-		owner.get_parent().add_child.call_deferred(attack)
+		if weapon.stick_to_handler:
+			attack.position = Vector2.ZERO
+			attack.rotation = 0
+			add_child.call_deferred(attack)
+		else:
+			owner.get_parent().add_child.call_deferred(attack)
 	
 	sound.stream = weapon.attack_data.sound
 	sound.play()

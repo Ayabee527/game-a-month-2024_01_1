@@ -1,8 +1,9 @@
 class_name LightningData
 extends AttackData
 
+const attack = preload("res://components/weapon/attacks/lightning/lightning.tscn")
+
 @export_group("Basics")
-@export var attack: PackedScene
 @export var width: float = 8.0
 @export var bolts: int = 3
 @export var segments: int = 10
