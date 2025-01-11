@@ -75,3 +75,10 @@ func _on_dash_timer_timeout() -> void:
 	if Input.is_action_pressed("left_click"):
 		await get_tree().create_timer(0.1, false).timeout
 		player.weapon_handler.firing = true
+
+
+func _on_dodge_check_hurt(_hitbox: Hitbox, _damage: int, _invinc_time: float) -> void:
+	if not dash_timer.is_stopped():
+		RogueHandler.trigger_style(
+			player.global_position, "DODGED!", 5
+		)

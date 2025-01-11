@@ -46,7 +46,8 @@ func dash() -> void:
 	)
 	enemy.sprite.modulate = enemy.default_color
 	enemy.trail.modulate = enemy.default_color
-	enemy.hit_coll_shape.set_deferred("disabled", false)
+	if is_active:
+		enemy.hit_coll_shape.set_deferred("disabled", false)
 	enemy.apply_central_impulse(
 		Vector2.from_angle(enemy.global_rotation) * dash_speed
 	)

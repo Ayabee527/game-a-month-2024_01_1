@@ -31,6 +31,7 @@ const COSTS = {
 @export var starting_points_per: int = 2
 
 @export var spawn_timer: Timer
+@export var multikill_timer: Timer
 @export var music: AudioStreamPlayer
 @export var world: Node2D
 @export var shop_menu: ShopMenu
@@ -47,6 +48,8 @@ var boss_alive: bool = true
 var wave_size: int = 0
 var wave_kills: int = 0
 var current_wave: Array[Node2D] = []
+
+var multikills: int = 0
 
 func _ready() -> void:
 	if not active:
@@ -112,6 +115,9 @@ func kill_enemy(enemy: Node2D) -> void:
 	spawn_points += 1
 	enemy_kills += 1
 	wave_kills += 1
+	
+	multikills += 1
+	multikill_timer.start()
 	
 	current_wave.erase(enemy)
 	if wave_kills >= wave_size:
@@ -188,3 +194,27 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_shop_menu_confirmed() -> void:
 	spawn_wave()
+
+
+func _on_multi_kill_timer_timeout() -> void:
+	if multikills < 1:
+		return
+	
+	var kill_text: String = ""
+	match multikills:
+		1:
+			kill_text = "[shake]KILL!"
+		2:
+			kill_text = "[shake]DOUBLE KILL!!"
+		3:
+			kill_text = "[shake]TRIPLE KILL!!!"
+		4:
+			kill_text = "[shake]QUADRUPLE KILL!!!!"
+		_:
+			kill_text = "[shake]MULTIKILL [color=red]x" + str(multikills) + "[/color]!!!!!"
+	
+	RogueHandler.trigger_style(
+		player.global_position, kill_text, snappedi( floori( 10 * (bosses_killed + 1) * multikills * pow(1.1, multikills) ), 5 )
+	)
+	
+	multikills = 0

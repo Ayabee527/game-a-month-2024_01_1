@@ -9,8 +9,14 @@ func _ready() -> void:
 	if not RogueHandler.style_triggered.is_connected(display_style):
 		RogueHandler.style_triggered.connect(display_style)
 
-func display_style(style_name: String, _multiplier_inc: float) -> void:
+func display_style(pos: Vector2, style_name: String, points_inc: int) -> void:
 	var style_text = STYLE_TEXT.instantiate()
-	style_text.style_text = style_name
+	style_text.global_position = pos
+	var point_tell: String = ""
+	if points_inc > 0:
+		point_tell = " [color=yellow]+" + str(points_inc) + "[/color]"
+	if points_inc < 0:
+		point_tell = " [color=red]" + str(points_inc) + "[/color]"
+	style_text.style_text = style_name + point_tell
 	world.add_child(style_text)
 	

@@ -96,7 +96,7 @@ func upgrade_tier() -> void:
 	confirm_butt.disabled = false
 
 func update_points(new_points: int) -> void:
-	points_label.text = "[wave]POINTS: " + str(new_points)
+	points_label.text = "[wave]BITS: " + str(new_points)
 	points_label.pivot_offset = points_label.size / 2.0
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(

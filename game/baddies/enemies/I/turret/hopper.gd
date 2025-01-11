@@ -52,6 +52,15 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 		0.5, 5.0, true, false
 	)
 	hurt_sfx.play()
+	RogueHandler.trigger_style(
+		global_position, "", damage
+	)
+	
+	if health.health <= 0:
+		if hitbox.owner is ExplosionAttack:
+			RogueHandler.trigger_style(
+				global_position, "EXPLODED", 10
+			)
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:

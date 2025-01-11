@@ -10,10 +10,6 @@ var WEAPONS = {
 enum UPGRADES {
 	STARTER_WEAPON,
 	DUAL_STARTER,
-	SEEING_RED_I,
-	SEEING_GREEN_I,
-	SEEING_BLUE_I,
-	SEEING_YELLOW_I,
 }
 
 var equips: Array[RogueUpgrade] = [

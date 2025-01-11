@@ -81,6 +81,9 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	health.hurt(damage)
 	health_indicator.update_health(health.health, health.max_health)
 	bleeder.bleed(damage, 2.0, 40)
+	RogueHandler.trigger_style(
+		global_position, "[color=dimgray]OW!?[/color]", -floori(RogueHandler.points / 50) - 1
+	)
 	
 	sprite.squish(
 		1.0, 5.0, true, false

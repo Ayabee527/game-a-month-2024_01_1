@@ -34,11 +34,9 @@ func die() -> void:
 	die_sfx.play()
 	
 	boss.bleeder.bleed(10, 4.0, 100)
-	
-	var colors = [Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW]
-	for i: int in range(150):
-		boss.pointer.blood_color = colors.pick_random()
-		boss.pointer.bleed(1, 200.0, 600.0, 10.0, 256.0)
+	RogueHandler.trigger_style(
+		boss.global_position, "[shake]BOSS ELIMINATED!", 250
+	)
 	
 	boss.sprite.hide()
 	boss.shadow.hide()

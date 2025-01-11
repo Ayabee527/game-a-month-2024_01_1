@@ -1,26 +1,29 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwjul4jopsqpe"]
 
-[ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="1_6f8vl"]
+[ext_resource type="FontFile" uid="uid://cqtksmv1t6g0g" path="res://assets/fonts/m5x7.ttf" id="1_rjwdb"]
 [ext_resource type="Script" path="res://components/style_text/style_text.gd" id="2_p2he5"]
 
-[node name="StyleText" type="Label" node_paths=PackedStringArray("fresh_timer")]
+[node name="StyleText" type="RichTextLabel" node_paths=PackedStringArray("fresh_timer")]
+clip_contents = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -7.0
-offset_top = -4.0
-offset_right = 7.0
-offset_bottom = 4.0
+offset_left = -12.5
+offset_top = -6.5
+offset_right = 12.5
+offset_bottom = 6.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("1_6f8vl")
-theme_override_font_sizes/font_size = 9
-text = "stylish"
-horizontal_alignment = 1
+theme_override_fonts/normal_font = ExtResource("1_rjwdb")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[color=gold]stylish"
+fit_content = true
+autowrap_mode = 0
 script = ExtResource("2_p2he5")
 style_text = "stylish"
 fresh_timer = NodePath("FreshTimer")

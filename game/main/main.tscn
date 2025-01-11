@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=27 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -15,10 +15,7 @@
 [ext_resource type="Resource" uid="uid://c57wnd7jx34ka" path="res://player/upgrades/dual_starter.tres" id="11_60coc"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
 [ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
-[ext_resource type="Resource" uid="uid://bg61ktybhrdwu" path="res://player/upgrades/seeing_red_I.tres" id="12_55y72"]
 [ext_resource type="Resource" uid="uid://b5t0ng6eojly5" path="res://player/upgrades/starter.tres" id="12_yy211"]
-[ext_resource type="Resource" uid="uid://be5m0py0a2v2y" path="res://player/upgrades/seeing_green_I.tres" id="18_bx4jn"]
-[ext_resource type="Resource" uid="uid://bgrcuiddy1pps" path="res://player/upgrades/seeing_blue_I.tres" id="19_xykrg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
@@ -159,17 +156,22 @@ world = NodePath("..")
 
 [node name="Player" parent="World" instance=ExtResource("2_n5tbv")]
 
-[node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer", "music", "world", "shop_menu")]
+[node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer", "multikill_timer", "music", "world", "shop_menu")]
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
+multikill_timer = NodePath("MultiKillTimer")
 music = NodePath("../../Music")
 world = NodePath("..")
 shop_menu = NodePath("../../Menus/ShopMenu")
 
 [node name="SpawnTimer" type="Timer" parent="World/EnemyHandler"]
 wait_time = 2.5
+
+[node name="MultiKillTimer" type="Timer" parent="World/EnemyHandler"]
+wait_time = 0.5
+one_shot = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -203,7 +205,7 @@ theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[wave][shake]POINTS: 0"
+text = "[wave][shake]BITS: 0"
 fit_content = true
 autowrap_mode = 0
 
@@ -217,7 +219,7 @@ theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[wave]WAVE 1"
+text = "[wave]WAVE 1/60"
 fit_content = true
 autowrap_mode = 0
 
@@ -234,7 +236,7 @@ offset_bottom = 40.0
 pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
-upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("12_55y72"), ExtResource("18_bx4jn"), ExtResource("19_xykrg")])
+upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc")])
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")
@@ -311,7 +313,7 @@ theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[wave]POINTS: 0"
+text = "[wave]BITS: 0"
 fit_content = true
 autowrap_mode = 0
 
@@ -471,5 +473,6 @@ fit_content = true
 
 [connection signal="wave_cleared" from="World/EnemyHandler" to="UI" method="_on_enemy_handler_wave_cleared"]
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="World/EnemyHandler/MultiKillTimer" to="World/EnemyHandler" method="_on_multi_kill_timer_timeout"]
 [connection signal="confirmed" from="Menus/ShopMenu" to="World/EnemyHandler" method="_on_shop_menu_confirmed"]
 [connection signal="pressed" from="Menus/ShopMenu/MarginContainer/VBoxContainer/Confirm" to="Menus/ShopMenu" method="_on_confirm_pressed"]

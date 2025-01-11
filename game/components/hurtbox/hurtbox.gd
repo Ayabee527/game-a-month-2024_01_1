@@ -7,6 +7,8 @@ signal knocked_back(knockback: Vector2)
 @export var height: float = 0.0
 @export var height_radius: float = 0.0
 @export var knockback_modifier: float = 3.0
+@export var cool_hitboxes: bool = true
+@export var force_invinc: bool = false
 
 @export_group("Inner Dependencies")
 @export var invinc_timer: Timer
@@ -40,9 +42,9 @@ func take_damage() -> void:
 		chosen_hitbox.hit.emit(self)
 		hurt.emit(chosen_hitbox, chosen_hitbox.damage, chosen_hitbox.damage_cooldown)
 		
-		if chosen_hitbox.trigger_invinc:
+		if chosen_hitbox.trigger_invinc or force_invinc:
 			invinc_timer.start(chosen_hitbox.damage_cooldown)
-		else:
+		elif cool_hitboxes:
 			chosen_hitbox.cooldown()
 
 func is_in_height_range(hitbox: Hitbox) -> bool:

@@ -1,5 +1,5 @@
 class_name StyleText
-extends Label
+extends RichTextLabel
 
 @export var style_text: String
 @export var fresh_time: float = 0.5
@@ -10,7 +10,9 @@ extends Label
 var tween: Tween
 
 func _ready() -> void:
-	text = style_text
+	text = "[center]" + style_text
+	set_anchors_preset(Control.PRESET_CENTER)
+	await get_tree().process_frame
 	pivot_offset = size / 2.0
 	fresh_timer.start(fresh_time)
 	
@@ -24,10 +26,11 @@ func _ready() -> void:
 		self, "global_position",
 		global_position + (Vector2.from_angle(TAU * randf()) * randf_range(0, 24.0)), 0.5
 	)
+	rot_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	rot_tween.tween_property(
 		self, "scale",
 		Vector2.ONE, 0.5
-	).from(Vector2.ONE * 2.0)
+	).from( Vector2(2.0, 2.0) )
 	rot_tween.play()
 
 func _on_fresh_timer_timeout() -> void:
