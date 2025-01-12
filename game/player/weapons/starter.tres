@@ -57,4 +57,4 @@ camera_shake_shake = 7.0
 camera_shake_speed = 15.0
 camera_shake_decay = 15.0
 recoil_strength = 24.0
-stick_to_handler = false
+stick_to_handler = true

@@ -91,7 +91,7 @@ func fire() -> void:
 
 func fade() -> void:
 	hitbox_collision.set_deferred("disabled", true)
-	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	var tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 	#tween.tween_property(
 		#self, "modulate:a", 0.0, attack_data.fade_time
 	#)
@@ -105,7 +105,8 @@ func fade() -> void:
 func home_on_target(delta: float) -> void:
 	var dir_to_target: Vector2 = global_position.direction_to(target.global_position)
 	var angle_to: float = Vector2.from_angle(global_rotation).angle_to(dir_to_target)
-	global_rotation_degrees += cur_track_speed * sign(angle_to) * delta
+	if angle_to <= cur_track_speed:
+		global_rotation_degrees += cur_track_speed * sign(angle_to) * delta
 
 func find_target() -> void:
 	if not is_inside_tree():
