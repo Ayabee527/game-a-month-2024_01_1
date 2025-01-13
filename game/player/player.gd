@@ -1,6 +1,8 @@
 class_name Player
 extends RigidBody2D
 
+const DEFAULT_MAX_HEALTH: int = 15
+
 signal died()
 signal point_grabbed(point_color: Color)
 
@@ -29,6 +31,8 @@ var color: Color = Color.WHITE
 var dashing: bool = false
 var is_invinc: bool = false
 
+var last_ha_milestone: int = 0
+
 func _ready() -> void:
 	UpgradeHandler.player = self
 	
@@ -36,6 +40,9 @@ func _ready() -> void:
 	sprite.modulate = default_color
 	sprite.hurt_color = Color("e30035")
 	grab_camera()
+	
+	if not RogueHandler.points_updated.is_connected(on_points_updated):
+		RogueHandler.points_updated.connect(on_points_updated)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("left_click"):
@@ -69,6 +76,30 @@ func set_weapons(new_weapons: Array[Weapon]) -> void:
 
 func get_weapons() -> Array[Weapon]:
 	return weapon_handler.weapons
+
+func update_health_indicator() -> void:
+	health_indicator.update_health(health.health, health.max_health)
+
+func on_points_updated(new_points: int) -> void:
+	if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.HEALTHY_AESTHETICS):
+		var milestone: int = 100
+		var new_ha_milestone = new_points
+		if (new_ha_milestone - last_ha_milestone) % milestone >= 0:
+			var diff_health = (new_ha_milestone - last_ha_milestone) / milestone
+			last_ha_milestone = snappedi(new_ha_milestone, milestone)
+			
+			health.max_health += diff_health
+			
+			if diff_health > 0:
+				RogueHandler.trigger_style(
+					global_position, "MAX HEALTH UP!", diff_health
+				)
+			elif diff_health < 0:
+				RogueHandler.trigger_style(
+					global_position, "MAX HEALTH DOWN!", diff_health
+				)
+			
+			health_indicator.update_health(health.health, health.max_health)
 
 func get_move_vector() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")

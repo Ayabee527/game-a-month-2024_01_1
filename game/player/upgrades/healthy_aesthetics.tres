@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://bytvaqo7qyi1a"]
+
+[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_17u0w"]
+[ext_resource type="Texture2D" uid="uid://bh5bs678avaht" path="res://assets/textures/upgrades/healthy_aesthetics.png" id="2_dw7sk"]
+
+[resource]
+script = ExtResource("1_17u0w")
+upgrade_name = "HEALTHY AESTHETICS"
+upgrade_desc = "[color=blue]STYLE UPGRADE[/color] - GAIN [color=green]+1 EXTRA MAX HEALTH[/color] FOR EVERY [color=gold]500 BITS[/color] YOU HAVE"
+upgrade_icon = ExtResource("2_dw7sk")
+upgrade_color = Color(1, 1, 1, 1)
+upgrade_id = 3
+base_price = 100
+upgrade_tier = 1

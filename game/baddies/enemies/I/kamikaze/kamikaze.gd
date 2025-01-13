@@ -56,7 +56,11 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	if health.health <= 0:
 		if hitbox.owner is ExplosionAttack:
 			RogueHandler.trigger_style(
-				global_position, "EXPLODED", 10
+				global_position, "EXPLODED!", 10
+			)
+		if hitbox.owner is LaserAttack:
+			RogueHandler.trigger_style(
+				global_position, "BLASTED!", 5
 			)
 
 

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_t35rq")
 upgrade_name = "DUAL STARTER"
-upgrade_desc = "NOT SO BASIC STARTER WEAPON. FIRES 2 LOW DAMAGE BULLETS IN QUICK BURSTS"
+upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - NOT SO BASIC STARTER WEAPON. FIRES 2 LOW DAMAGE BULLETS IN QUICK BURSTS"
 upgrade_icon = ExtResource("2_o15nb")
 upgrade_color = Color(1, 1, 1, 1)
 upgrade_id = 1

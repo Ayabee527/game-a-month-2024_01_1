@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=29 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -16,6 +16,8 @@
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
 [ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
 [ext_resource type="Resource" uid="uid://b5t0ng6eojly5" path="res://player/upgrades/starter.tres" id="12_yy211"]
+[ext_resource type="Resource" uid="uid://xseqlg642i0" path="res://player/upgrades/rapidfire.tres" id="13_xx7xw"]
+[ext_resource type="Resource" uid="uid://bytvaqo7qyi1a" path="res://player/upgrades/healthy_aesthetics.tres" id="14_k1phw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
@@ -236,7 +238,7 @@ offset_bottom = 40.0
 pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
-upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc")])
+upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("13_xx7xw"), ExtResource("14_k1phw")])
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")

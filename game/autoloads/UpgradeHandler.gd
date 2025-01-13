@@ -4,12 +4,15 @@ signal equips_updated(new_equips: Array[RogueUpgrade])
 
 var WEAPONS = {
 	"STARTER": load("res://player/weapons/starter.tres"),
-	"DUAL STARTER": load("res://player/weapons/dual_starter.tres")
+	"DUAL STARTER": load("res://player/weapons/dual_starter.tres"),
+	"RAPID FIRE": load("res://player/weapons/rapidfire.tres")
 }
 
 enum UPGRADES {
 	STARTER_WEAPON,
 	DUAL_STARTER,
+	RAPID_FIRE,
+	HEALTHY_AESTHETICS,
 }
 
 var equips: Array[RogueUpgrade] = [
@@ -49,6 +52,8 @@ func activate_upgrade(id: UPGRADES) -> void:
 			give_player_weapons([WEAPONS["STARTER"]])
 		UPGRADES.DUAL_STARTER:
 			give_player_weapons([WEAPONS["DUAL STARTER"]])
+		UPGRADES.RAPID_FIRE:
+			give_player_weapons([WEAPONS["RAPID FIRE"]])
 		_:
 			pass
 
@@ -58,5 +63,10 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 			remove_player_weapons([WEAPONS["STARTER"]])
 		UPGRADES.DUAL_STARTER:
 			remove_player_weapons([WEAPONS["DUAL STARTER"]])
+		UPGRADES.RAPID_FIRE:
+			remove_player_weapons([WEAPONS["RAPID FIRE"]])
+		UPGRADES.HEALTHY_AESTHETICS:
+			player.health.max_health -= RogueHandler.points / 100
+			player.update_health_indicator()
 		_:
 			pass
