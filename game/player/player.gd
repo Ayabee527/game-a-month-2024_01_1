@@ -43,6 +43,8 @@ func _ready() -> void:
 	
 	if not RogueHandler.points_updated.is_connected(on_points_updated):
 		RogueHandler.points_updated.connect(on_points_updated)
+	if not RogueHandler.style_triggered.is_connected(on_style_triggered):
+		RogueHandler.style_triggered.connect(on_style_triggered)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("left_click"):
@@ -105,6 +107,13 @@ func on_points_updated(new_points: int) -> void:
 			
 			health_indicator.update_health(health.health, health.max_health)
 
+func on_style_triggered(pos: Vector2, style_name: String, points_inc: int) -> void:
+	match style_name:
+		"EXPLODED!":
+			if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.DEMOMANIA):
+				if randf() <= 0.5:
+					health.heal(1)
+
 func get_move_vector() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -113,8 +122,7 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.shake(25.0, 10.0, 5.0)
 	MainCam.hitstop(0.05, 0.75)
 	
-	health.hurt(damage)
-	health_indicator.update_health(health.health, health.max_health)
+	health.hurt( roundi( (damage + RogueHandler.hurt_plus) * (1.0 + RogueHandler.hurt_mult) ) )
 	bleeder.bleed(damage, 2.0, 40)
 	RogueHandler.trigger_style(
 		global_position, "[color=dimgray]OW!?[/color]", -floori(RogueHandler.points / 50) - 1
@@ -133,4 +141,14 @@ func _on_weapon_handler_recoiled(recoil: Vector2) -> void:
 	apply_central_impulse(recoil)
 	sprite.squish(
 		0.5, 2.5, true, false
+	)
+
+
+func _on_health_health_changed(new_health: int) -> void:
+	update_health_indicator()
+
+
+func _on_health_was_healed(new_health: int, amount: int) -> void:
+	RogueHandler.trigger_style(
+		global_position, "[color=green]HEALTH UP![/color]", amount
 	)

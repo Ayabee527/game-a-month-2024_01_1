@@ -62,7 +62,7 @@ func set_color(color: Color) -> void:
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.shake(10.0, 10.0, 5.0)
 	
-	health.hurt(damage)
+	health.hurt( roundi( (damage + RogueHandler.damage_plus) * (1.0 + RogueHandler.damage_mult) ) )
 	health_indicator.update_health(health.health, health.max_health)
 	player_tracker.update_health(health.health, health.max_health)
 	bleeder.bleed(damage, 2.0, 40)

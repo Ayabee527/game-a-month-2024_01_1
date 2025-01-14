@@ -16,15 +16,14 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"1e4cea9a-a8d1-4ce0-b7f1-ac95a95b98a9",
 				"35ab89a1-9b26-468b-9923-5a91d2873ea5",
+				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
+				"79572fcb-433f-4068-a19c-b4c609f51db2",
+				"1b4ffd5e-510c-472f-8ee3-893cc5ce6f38",
 				"ff3ba765-a905-4894-9eb8-6564692d00a7",
 				"46b4c28d-acd3-4e31-b629-78b951d8ffb1",
 				"7b23a51f-3d0b-42fa-acc9-4f48a47ca13e",
-				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
-				"418048a7-712e-4acc-9ee1-f568352fdb92",
-				"79572fcb-433f-4068-a19c-b4c609f51db2",
-				"f4d7eb99-88b0-4106-8536-318dbae40979"
+				"418048a7-712e-4acc-9ee1-f568352fdb92"
 			]
 		},
 		{
@@ -267,13 +266,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "1e4cea9a-a8d1-4ce0-b7f1-ac95a95b98a9",
-			"title": "more attack styles",
-			"description": "",
-			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
-			"steps": []
-		},
-		{
 			"uuid": "6840e7bc-34dc-4f5c-80c5-931ff6b7326d",
 			"title": "make game wave based",
 			"description": "",
@@ -325,6 +317,13 @@
 		{
 			"uuid": "9285cb58-67b0-4945-b2de-0bf80267cff8",
 			"title": "weapons can override what they are children of",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "1b4ffd5e-510c-472f-8ee3-893cc5ce6f38",
+			"title": "player sounds",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

@@ -13,6 +13,7 @@ enum UPGRADES {
 	DUAL_STARTER,
 	RAPID_FIRE,
 	HEALTHY_AESTHETICS,
+	DEMOMANIA,
 }
 
 var equips: Array[RogueUpgrade] = [
@@ -56,9 +57,9 @@ func activate_upgrade(id: UPGRADES) -> void:
 			give_player_weapons([WEAPONS["RAPID FIRE"]])
 		UPGRADES.HEALTHY_AESTHETICS:
 			player.health.max_health += floori( RogueHandler.points / 500.0 )
-			RogueHandler.trigger_style(
-				player.global_position, "MAX HEALTH UP!", floori( RogueHandler.points / 500.0 )
-			)
+			#RogueHandler.trigger_style(
+				#player.global_position, "MAX HEALTH UP!", floori( RogueHandler.points / 500.0 )
+			#)
 			player.update_health_indicator()
 		_:
 			pass
@@ -73,9 +74,9 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 			remove_player_weapons([WEAPONS["RAPID FIRE"]])
 		UPGRADES.HEALTHY_AESTHETICS:
 			player.health.max_health -= floori( RogueHandler.points / 500.0 )
-			RogueHandler.trigger_style(
-				player.global_position, "MAX HEALTH DOWN!", -floori( RogueHandler.points / 500.0 )
-			)
+			#RogueHandler.trigger_style(
+				#player.global_position, "MAX HEALTH DOWN!", -floori( RogueHandler.points / 500.0 )
+			#)
 			player.update_health_indicator()
 		_:
 			pass
