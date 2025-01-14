@@ -183,7 +183,7 @@ func sell(item: ShopItem) -> void:
 	unexplain()
 
 func buy(item: ShopItem) -> void:
-	if UpgradeHandler.equips.size() >= 9:
+	if UpgradeHandler.equips.size() >= max_equips:
 		equips_label.pivot_offset = equips_label.size / 2.0
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		tween.set_parallel()
@@ -197,14 +197,14 @@ func buy(item: ShopItem) -> void:
 	
 	if item.upgrade.base_price <= RogueHandler.points:
 		RogueHandler.points -= item.upgrade.base_price
-		UpgradeHandler.equips.append(item.upgrade)
-		UpgradeHandler.equips = UpgradeHandler.equips
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		tween.tween_property(
 			points_label, "modulate", Color.WHITE, 1.0
 		).from(Color.GOLD)
 		shop_holder.remove_child(item)
 		equip_holder.add_child(item)
+		UpgradeHandler.equips.append(item.upgrade)
+		UpgradeHandler.equips = UpgradeHandler.equips
 		UpgradeHandler.activate_upgrade(item.upgrade.upgrade_id)
 		item.bounce()
 		item.confirmed.disconnect(buy)

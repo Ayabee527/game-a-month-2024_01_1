@@ -82,10 +82,14 @@ func update_health_indicator() -> void:
 
 func on_points_updated(new_points: int) -> void:
 	if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.HEALTHY_AESTHETICS):
-		var milestone: int = 100
+		var milestone: int = 500
 		var new_ha_milestone = new_points
-		if (new_ha_milestone - last_ha_milestone) % milestone >= 0:
-			var diff_health = (new_ha_milestone - last_ha_milestone) / milestone
+		if (
+			(new_ha_milestone - last_ha_milestone) % milestone >= 0
+			and float(new_ha_milestone - last_ha_milestone) / milestone >= 1
+		):
+			var diff_health = floori( float(new_ha_milestone - last_ha_milestone) / milestone )
+			prints(last_ha_milestone, new_ha_milestone, diff_health)
 			last_ha_milestone = snappedi(new_ha_milestone, milestone)
 			
 			health.max_health += diff_health
