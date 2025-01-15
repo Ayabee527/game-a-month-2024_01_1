@@ -26,6 +26,8 @@ func _on_enemy_handler_wave_cleared(size: int) -> void:
 	if waves % 15 == 0:
 		text_color = Color.RED
 		wave_count.text = "[wave][shake]WAVE " + str(waves) + "/60"
+	elif waves % 5 == 0:
+		text_color = Color.GREEN
 	
 	wave_count.pivot_offset = wave_count.size / 2.0
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)

@@ -164,7 +164,6 @@ func kill_boss(boss: Node2D) -> void:
 	boss_alive = false
 	spawns += 1
 	
-	spawns += 1
 	wave_cleared.emit(1)
 	
 	shop_menu.new_tier_waiting = true

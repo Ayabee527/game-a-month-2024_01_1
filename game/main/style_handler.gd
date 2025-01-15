@@ -20,3 +20,5 @@ func display_style(pos: Vector2, style_name: String, points_inc: int) -> void:
 	style_text.style_text = style_name + point_tell
 	world.add_child(style_text)
 	
+
+# TODO: DODGE UPGRADE, EXPLODE PAYLOAD UPGRADE, MAGE WEAPON UPGRADE

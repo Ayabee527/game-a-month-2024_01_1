@@ -5,7 +5,8 @@ signal equips_updated(new_equips: Array[RogueUpgrade])
 var WEAPONS = {
 	"STARTER": load("res://player/weapons/starter.tres"),
 	"DUAL STARTER": load("res://player/weapons/dual_starter.tres"),
-	"RAPID FIRE": load("res://player/weapons/rapidfire.tres")
+	"RAPID FIRE": load("res://player/weapons/rapidfire.tres"),
+	"SNIPER": load("res://player/weapons/sniper.tres"),
 }
 
 enum UPGRADES {
@@ -14,6 +15,7 @@ enum UPGRADES {
 	RAPID_FIRE,
 	HEALTHY_AESTHETICS,
 	DEMOMANIA,
+	SNIPER,
 }
 
 var equips: Array[RogueUpgrade] = [
@@ -61,6 +63,8 @@ func activate_upgrade(id: UPGRADES) -> void:
 				#player.global_position, "MAX HEALTH UP!", floori( RogueHandler.points / 500.0 )
 			#)
 			player.update_health_indicator()
+		UPGRADES.SNIPER:
+			give_player_weapons([WEAPONS["SNIPER"]])
 		_:
 			pass
 
@@ -78,5 +82,7 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 				#player.global_position, "MAX HEALTH DOWN!", -floori( RogueHandler.points / 500.0 )
 			#)
 			player.update_health_indicator()
+		UPGRADES.SNIPER:
+			remove_player_weapons([WEAPONS["SNIPER"]])
 		_:
 			pass
