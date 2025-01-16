@@ -7,6 +7,7 @@ signal was_healed(new_health: int, amount: int)
 signal has_died()
 
 @export var max_health: int = 5
+@export var resurrectable: bool = false
 
 var dead: bool = false
 
@@ -27,7 +28,8 @@ func _change_health(new_health: int) -> void:
 		
 		if health <= 0:
 			has_died.emit()
-			dead = true
+			if not resurrectable:
+				dead = true
 
 func _get_health() -> int:
 	return health

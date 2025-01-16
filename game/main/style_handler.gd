@@ -21,4 +21,4 @@ func display_style(pos: Vector2, style_name: String, points_inc: int) -> void:
 	world.add_child(style_text)
 	
 
-# TODO: DODGE UPGRADE, EXPLODE PAYLOAD UPGRADE, MAGE WEAPON UPGRADE
+# TODO: BETTER SNIPER ICON, DODGE UPGRADE, EXPLODE PAYLOAD UPGRADE, MAGE WEAPON UPGRADE

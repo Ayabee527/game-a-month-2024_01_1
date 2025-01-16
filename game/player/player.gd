@@ -24,7 +24,6 @@ signal point_grabbed(point_color: Color)
 @export var bleeder: EntityBleeder
 @export var draw_control: Marker2D
 @export var hurt_sfx: AudioStreamPlayer2D
-@export var blood_detect_coll: CollisionShape2D
 
 var color: Color = Color.WHITE
 

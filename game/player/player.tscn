@@ -96,6 +96,7 @@ streams_count = 1
 stream_0/stream = ExtResource("22_l1n2k")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mj4e7"]
+radius = 16.0
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx") groups=["player"]]
 collision_layer = 6
@@ -122,6 +123,11 @@ hurt_sfx = NodePath("HurtSFX")
 script = ExtResource("2_jb453")
 max_health = 15
 
+[node name="HeatHealth" type="Node" parent="."]
+script = ExtResource("2_jb453")
+max_health = 100
+resurrectable = true
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_hcc0c")
 initial_state = NodePath("Idle")
@@ -132,21 +138,36 @@ script = ExtResource("3_tnhvb")
 [node name="Move" type="Node" parent="StateMachine"]
 script = ExtResource("4_puc68")
 
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_particles", "dash_timer", "dash_sound")]
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_particles", "dash_timer", "dash_sound", "heat_health", "heat_indicator", "cool_timer")]
 script = ExtResource("6_ku7yt")
 dash_particles = NodePath("../../Dash")
 dash_timer = NodePath("DashTimer")
 dash_sound = NodePath("../../DashSFX")
+heat_health = NodePath("../../HeatHealth")
+heat_indicator = NodePath("../../HeatIndicator")
+cool_timer = NodePath("CoolTimer")
 
 [node name="DashTimer" type="Timer" parent="StateMachine/Dash"]
 wait_time = 0.25
 one_shot = true
+
+[node name="CoolTimer" type="Timer" parent="StateMachine/Dash"]
+wait_time = 0.1
 
 [node name="HealthIndicator" parent="." instance=ExtResource("6_qq22e")]
 entity_name = "YOU"
 radius = 20.0
 name_radius = 10.0
 outline_color = Color(1, 1, 1, 0.2)
+
+[node name="HeatIndicator" parent="." instance=ExtResource("6_qq22e")]
+entity_name = ""
+start_angle = -90.0
+radius = 32.0
+ring_width = 4.0
+hurt_color = Color(0.905521, 0.284276, 7.70092e-07, 0.2)
+ring_color = Color(0.905882, 0.282353, 0, 0.501961)
+outline_color = Color(1, 1, 1, 0)
 
 [node name="Bleeder" parent="." instance=ExtResource("8_das43")]
 blood_color = Color(1, 1, 1, 1)
@@ -214,7 +235,10 @@ shape = SubResource("CircleShape2D_mj4e7")
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="was_healed" from="Health" to="." method="_on_health_was_healed"]
+[connection signal="has_died" from="HeatHealth" to="StateMachine/Dash" method="_on_heat_health_has_died"]
+[connection signal="health_changed" from="HeatHealth" to="StateMachine/Dash" method="_on_heat_health_health_changed"]
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Dash/CoolTimer" to="StateMachine/Dash" method="_on_cool_timer_timeout"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]

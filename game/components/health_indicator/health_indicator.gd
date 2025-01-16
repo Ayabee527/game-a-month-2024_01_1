@@ -5,8 +5,10 @@ extends Node2D
 @export var start_angle: float = 0.0
 @export var radius: float = 12.0
 @export var name_radius: float = 6.0
+@export var ring_width: float = 2.0
 #@export var hurt_color: Color = Color(1, 0, 0, 0.2)
 @export var hurt_color: Color = Color(1, 0, 0, 0.2): set = set_hurt_color
+@export var ring_color: Color = Color(1, 0, 0, 0.5)
 @export var outline_color: Color = Color(1, 0, 0, 0.2): set = set_outline_color
 
 var health_fraction: float
@@ -36,7 +38,7 @@ func _draw() -> void:
 	draw_arc(
 		Vector2.ZERO, radius - 2.0, deg_to_rad(start_angle),
 		deg_to_rad(start_angle) + (health_fraction * TAU), 64,
-		Color(1, 0, 0, 0.5), 2.0
+		ring_color, ring_width
 	)
 	
 	draw_string(
@@ -45,11 +47,11 @@ func _draw() -> void:
 	)
 
 func set_hurt_color(new_color: Color):
-	new_color.a = 0.2
+	#new_color.a = 0.2
 	hurt_color = new_color
 
 func set_outline_color(new_color: Color):
-	new_color.a = 0.2
+	#new_color.a = 0.2
 	outline_color = new_color
 
 func update_health(new_health: int, max_health: int) -> void:
