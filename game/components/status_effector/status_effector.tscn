@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://3nfy8jurm848"]
+
+[ext_resource type="Script" path="res://components/status_effector/status_effector.gd" id="1_ot21n"]
+
+[node name="StatusEffector" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_ot21n")
+
+[node name="TickTocker" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="TickTocker" to="." method="_on_tick_tocker_timeout"]

@@ -16,6 +16,7 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
+				"73952651-94c8-4d86-bf76-17becb0cbe75",
 				"d451fd41-a2ec-4a8f-adef-358738aabe9b",
 				"35ab89a1-9b26-468b-9923-5a91d2873ea5",
 				"79572fcb-433f-4068-a19c-b4c609f51db2",
@@ -332,6 +333,13 @@
 		{
 			"uuid": "e803b0ba-89fe-4e59-afe0-39aef1819901",
 			"title": "perfect dodge",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "73952651-94c8-4d86-bf76-17becb0cbe75",
+			"title": "status effects",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []
