@@ -7,6 +7,7 @@ var WEAPONS = {
 	"DUAL STARTER": load("res://player/weapons/dual_starter.tres"),
 	"RAPID FIRE": load("res://player/weapons/rapidfire.tres"),
 	"SNIPER": load("res://player/weapons/sniper.tres"),
+	"ARCANA": load("res://player/weapons/arcana.tres"),
 }
 
 enum UPGRADES {
@@ -16,6 +17,7 @@ enum UPGRADES {
 	HEALTHY_AESTHETICS,
 	DEMOMANIA,
 	SNIPER,
+	ARCANA,
 }
 
 var equips: Array[RogueUpgrade] = [
@@ -65,6 +67,8 @@ func activate_upgrade(id: UPGRADES) -> void:
 			player.update_health_indicator()
 		UPGRADES.SNIPER:
 			give_player_weapons([WEAPONS["SNIPER"]])
+		UPGRADES.ARCANA:
+			give_player_weapons([WEAPONS["ARCANA"]])
 		_:
 			pass
 
@@ -84,5 +88,7 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 			player.update_health_indicator()
 		UPGRADES.SNIPER:
 			remove_player_weapons([WEAPONS["SNIPER"]])
+		UPGRADES.ARCANA:
+			remove_player_weapons([WEAPONS["ARCANA"]])
 		_:
 			pass

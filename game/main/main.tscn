@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=32 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://bytvaqo7qyi1a" path="res://player/upgrades/healthy_aesthetics.tres" id="14_k1phw"]
 [ext_resource type="Resource" uid="uid://d2g67ojsd33or" path="res://player/upgrades/demomania.tres" id="15_b8x6f"]
 [ext_resource type="Resource" uid="uid://36d0ce8gd2kf" path="res://player/upgrades/sniper.tres" id="16_30mjr"]
+[ext_resource type="Resource" uid="uid://d25ex8tf7mt62" path="res://player/upgrades/arcana.tres" id="17_3xlxj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
@@ -240,7 +241,7 @@ offset_bottom = 40.0
 pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
-upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("13_xx7xw"), ExtResource("14_k1phw"), ExtResource("15_b8x6f"), ExtResource("16_30mjr")])
+upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("13_xx7xw"), ExtResource("14_k1phw"), ExtResource("15_b8x6f"), ExtResource("16_30mjr"), ExtResource("17_3xlxj")])
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")
