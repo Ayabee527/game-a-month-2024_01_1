@@ -104,6 +104,8 @@ func _on_dodge_check_hurt(_hitbox: Hitbox, _damage: int, _invinc_time: float) ->
 
 func _on_cool_timer_timeout() -> void:
 	heat_health.heal(1)
+	if heat_health.health >= 100:
+		player.overheated = false
 
 
 func _on_heat_health_health_changed(new_health: int) -> void:
@@ -111,4 +113,6 @@ func _on_heat_health_health_changed(new_health: int) -> void:
 
 
 func _on_heat_health_has_died() -> void:
+	MainCam.shake(35.0, 5.0, 5.0)
+	player.overheated = true
 	player.health.hurt(3)

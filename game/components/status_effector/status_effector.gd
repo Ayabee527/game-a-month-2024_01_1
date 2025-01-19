@@ -10,22 +10,34 @@ signal effect_expired(effect: EFFECTS)
 enum EFFECTS {
 	BURN, # Damage over time
 	POISON, # Damage over time that scales with ticks
-	STUN, # Pauses enemy till expiration
-	SHOCK, # Low ticks, damages on activation, releases lightning on expiration
 	BLEED, # Take damage proportional to health lost
-	VOLATILE, # Enemies explode on die while this is active
+	VOLATILE, # High tick count, enemies explode on expiration
 }
 
-var cur_effects: Array[int] = [0, 0, 0, 0, 0, 0]
+@export_group("Outer Dependencies")
+@export var health: Health
+@export_group("Inner Dependencies")
+@export var volatility: WeaponHandler
+
+var cur_effects: Array[int] = [0, 0, 0, 0]
 
 func tick_effects() -> void:
-	for effect: int in cur_effects:
+	for i: int in cur_effects.size():
+		var effect: int = cur_effects[i]
 		if effect > 0:
 			effect -= 1
 			effect = clampi(effect, 0, MAX_TICKS)
+			if effect == 0:
+				effect_expired.emit(i)
+				
+				match i:
+					EFFECTS.VOLATILE:
+						volatility.shoot()
 
 func activate_effect(effect: EFFECTS, ticks: int) -> void:
-	pass
+	if ticks > 0:
+		cur_effects[effect] = clampi(ticks, 0, MAX_TICKS)
+		effect_activated.emit(effect, cur_effects[effect])
 
 
 func _on_tick_tocker_timeout() -> void:

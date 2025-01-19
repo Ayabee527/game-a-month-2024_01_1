@@ -164,7 +164,6 @@ outline_color = Color(1, 1, 1, 0.2)
 entity_name = ""
 start_angle = -90.0
 radius = 32.0
-ring_width = 4.0
 hurt_color = Color(0.905521, 0.284276, 7.70092e-07, 0.2)
 ring_color = Color(0.905882, 0.282353, 0, 0.501961)
 outline_color = Color(1, 1, 1, 0)

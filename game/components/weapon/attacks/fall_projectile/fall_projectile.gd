@@ -45,6 +45,8 @@ func _ready() -> void:
 	hitbox.trigger_invinc = attack_data.hitbox_data.trigger_invinc
 	hitbox.damage_cooldown = attack_data.hitbox_data.damage_cooldown
 	hitbox.height_radius = attack_data.radius
+	hitbox.status_effect = attack_data.hitbox_data.status_effect
+	hitbox.status_effect_ticks = attack_data.hitbox_data.status_effect_ticks
 	
 	collision_layer = collision_data.collision_layer
 	collision_mask = collision_data.collision_mask

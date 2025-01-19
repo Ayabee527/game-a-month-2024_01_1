@@ -11,7 +11,7 @@ func physics_update(delta: float) -> void:
 		move_dir * player.move_speed
 	)
 	
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and not player.overheated:
 		state_machine.transition_to("Dash")
 	
 	if not move_dir:

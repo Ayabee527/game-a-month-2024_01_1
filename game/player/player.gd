@@ -27,6 +27,7 @@ signal point_grabbed(point_color: Color)
 
 var color: Color = Color.WHITE
 
+var overheated: bool = false
 var dashing: bool = false
 var is_invinc: bool = false
 
@@ -87,7 +88,7 @@ func on_points_updated(new_points: int) -> void:
 		var new_ha_milestone = new_points
 		if (
 			(new_ha_milestone - last_ha_milestone) % milestone >= 0
-			and float(new_ha_milestone - last_ha_milestone) / milestone >= 1
+			and float(new_ha_milestone - last_ha_milestone) / milestone != 0
 		):
 			var diff_health = floori( float(new_ha_milestone - last_ha_milestone) / milestone )
 			prints(last_ha_milestone, new_ha_milestone, diff_health)

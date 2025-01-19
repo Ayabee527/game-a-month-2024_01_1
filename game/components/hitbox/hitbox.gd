@@ -13,6 +13,9 @@ signal hit(hurtbox: Hurtbox)
 @export var height: float = 0.0
 @export var height_radius: float = 0.0
 
+@export var status_effect: StatusEffector.EFFECTS
+@export var status_effect_ticks: int = 0
+
 var cool: bool = false
 
 func can_damage() -> bool:
