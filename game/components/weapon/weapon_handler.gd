@@ -10,6 +10,7 @@ signal recoiled(recoil: Vector2)
 
 @export var weapons: Array[Weapon]:
 	set = set_weapons
+@export var payload_override: Weapon
 
 @export_group("Inner Dependencies")
 @export var flash: GPUParticles2D
@@ -65,7 +66,10 @@ func shoot() -> void:
 		
 		var shoot_angle: float = weapon.rotation_offset + (weapon.angle_per_shot * i)
 		
-		attack.collision_data = collision_data
+		if weapon.collision_override != null:
+			attack.collision_data = weapon.collision_override
+		else:
+			attack.collision_data = collision_data
 		if muzzle_is_origin:
 			attack.global_position = muzzle.global_position
 		else:
@@ -78,6 +82,9 @@ func shoot() -> void:
 		attack.global_rotation += deg_to_rad(
 			randf_range(-weapon.spread, weapon.spread)
 		)
+		
+		if payload_override != null:
+			weapon.payload = payload_override
 		
 		if weapon.payload:
 			attack_data.expired.connect( unleash_payload.bind(attack, weapon.payload) )
@@ -124,7 +131,10 @@ func unleash_payload(carrier: Node2D, payload: Weapon) -> void:
 		
 		var shoot_angle: float = payload.rotation_offset + (payload.angle_per_shot * i)
 		
-		attack.collision_data = collision_data
+		if payload.collision_override != null:
+			attack.collision_data = payload.collision_override
+		else:
+			attack.collision_data = collision_data
 		attack.global_position = carrier.global_position
 		attack.global_rotation = carrier.global_rotation + payload.angle_offset
 		attack.global_rotation += deg_to_rad(shoot_angle)

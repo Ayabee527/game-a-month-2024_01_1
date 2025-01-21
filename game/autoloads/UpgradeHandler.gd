@@ -8,6 +8,7 @@ var WEAPONS = {
 	"RAPID FIRE": load("res://player/weapons/rapidfire.tres"),
 	"SNIPER": load("res://player/weapons/sniper.tres"),
 	"ARCANA": load("res://player/weapons/arcana.tres"),
+	"EXPLOSIVE PAYLOAD": load("res://player/weapons/explosive_payload.tres"),
 }
 
 enum UPGRADES {
@@ -18,11 +19,14 @@ enum UPGRADES {
 	DEMOMANIA,
 	SNIPER,
 	ARCANA,
+	EXPLOSIVE_PAYLOAD,
 }
 
 var equips: Array[RogueUpgrade] = [
 	load("res://player/upgrades/starter.tres")
 ]: set = set_equips
+
+var payload_queue: Array[Weapon] = []
 
 var player: Player
 
@@ -51,6 +55,10 @@ func upgrade_is_equipped(id: UPGRADES) -> bool:
 	
 	return false
 
+func reassign_payload_upgrades() -> void:
+	if payload_queue.size() > 0:
+		player.weapon_handler.payload_override = payload_queue.back()
+
 func activate_upgrade(id: UPGRADES) -> void:
 	match id:
 		UPGRADES.STARTER_WEAPON:
@@ -69,6 +77,9 @@ func activate_upgrade(id: UPGRADES) -> void:
 			give_player_weapons([WEAPONS["SNIPER"]])
 		UPGRADES.ARCANA:
 			give_player_weapons([WEAPONS["ARCANA"]])
+		UPGRADES.EXPLOSIVE_PAYLOAD:
+			payload_queue.append(WEAPONS["EXPLOSIVE PAYLOAD"])
+			reassign_payload_upgrades()
 		_:
 			pass
 
@@ -90,5 +101,8 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 			remove_player_weapons([WEAPONS["SNIPER"]])
 		UPGRADES.ARCANA:
 			remove_player_weapons([WEAPONS["ARCANA"]])
+		UPGRADES.EXPLOSIVE_PAYLOAD:
+			payload_queue.erase(WEAPONS["EXPLOSIVE PAYLOAD"])
+			reassign_payload_upgrades()
 		_:
 			pass
