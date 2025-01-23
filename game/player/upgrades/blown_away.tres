@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://cwyyvg3uc4sj4"]
+
+[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_2x6gr"]
+[ext_resource type="Texture2D" uid="uid://cqvhrnsml61kj" path="res://assets/textures/upgrades/blown_away.png" id="2_osclv"]
+
+[resource]
+script = ExtResource("1_2x6gr")
+upgrade_name = "BLOWN AWAY"
+upgrade_desc = "[color=cyan]STYLE UPGRADE[/color] - PERFECT DODGES SPAWN LARGE HIGH KNOCKBACK EXPLOSIONS THAT DEAL NO DAMAGE"
+upgrade_icon = ExtResource("2_osclv")
+upgrade_color = Color(1, 1, 1, 1)
+upgrade_id = 8
+base_price = 120
+upgrade_tier = 1

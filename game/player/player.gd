@@ -25,6 +25,9 @@ signal point_grabbed(point_color: Color)
 @export var draw_control: Marker2D
 @export var hurt_sfx: AudioStreamPlayer2D
 
+@export_subgroup("Conditionals")
+@export var blown_away: WeaponHandler
+
 var color: Color = Color.WHITE
 
 var overheated: bool = false
@@ -113,6 +116,9 @@ func on_style_triggered(pos: Vector2, style_name: String, points_inc: int) -> vo
 			if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.DEMOMANIA):
 				if randf() <= 0.5:
 					health.heal(1)
+		"PERFECT DODGE!":
+			if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.BLOWN_AWAY):
+				blown_away.shoot()
 
 func get_move_vector() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")

@@ -10,5 +10,5 @@ upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - ALL YOUR ATTACKS [color=r
 upgrade_icon = ExtResource("2_n0o2n")
 upgrade_color = Color(1, 1, 1, 1)
 upgrade_id = 7
-base_price = 80
+base_price = 120
 upgrade_tier = 1

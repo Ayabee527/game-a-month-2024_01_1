@@ -20,6 +20,7 @@ enum UPGRADES {
 	SNIPER,
 	ARCANA,
 	EXPLOSIVE_PAYLOAD,
+	BLOWN_AWAY,
 }
 
 var equips: Array[RogueUpgrade] = [
