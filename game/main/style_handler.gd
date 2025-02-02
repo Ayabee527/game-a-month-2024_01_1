@@ -19,6 +19,3 @@ func display_style(pos: Vector2, style_name: String, points_inc: int) -> void:
 		point_tell = " [color=red]" + str(points_inc) + "[/color]"
 	style_text.style_text = style_name + point_tell
 	world.add_child(style_text)
-	
-
-# TODO: BETTER SNIPER ICON, PERFECT DODGE UPGRADE, OVERHEAT UPGRADE

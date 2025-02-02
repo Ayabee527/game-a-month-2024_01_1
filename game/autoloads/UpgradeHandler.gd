@@ -20,7 +20,8 @@ enum UPGRADES {
 	SNIPER,
 	ARCANA,
 	EXPLOSIVE_PAYLOAD,
-	BLOWN_AWAY,
+	UNTOUCHABLE,
+	HOT_TEMPER,
 }
 
 var equips: Array[RogueUpgrade] = [
@@ -105,5 +106,8 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 		UPGRADES.EXPLOSIVE_PAYLOAD:
 			payload_queue.erase(WEAPONS["EXPLOSIVE PAYLOAD"])
 			reassign_payload_upgrades()
+		UPGRADES.HOT_TEMPER:
+			if player.overheated:
+				RogueHandler.damage_plus -= 1
 		_:
 			pass

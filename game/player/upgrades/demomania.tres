@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_ln2aw")
 upgrade_name = "DEMOMANIA"
-upgrade_desc = "[color=cyan]STYLE UPGRADE[/color] - 50% CHANCE TO GAIN [color=green]+1 HEALTH[/color] EVERY TIME AN ENEMY IS EXPLODED"
+upgrade_desc = "[color=cyan]STYLE UPGRADE[/color] - 20% CHANCE TO GAIN [color=green]+1 HEALTH[/color] EVERY TIME AN ENEMY IS EXPLODED"
 upgrade_icon = ExtResource("2_iex1q")
 upgrade_color = Color(1, 1, 1, 1)
 upgrade_id = 4

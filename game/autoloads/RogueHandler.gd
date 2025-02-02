@@ -7,9 +7,7 @@ signal style_triggered(pos: Vector2, style_name: String, points_inc: int)
 var points: int = 0: set = set_points
 
 var damage_plus: int = 0
-var damage_mult: float = 0.0
 var hurt_plus: int = 0
-var hurt_mult: float = 0.0
 
 func set_points(new_points: int) -> void:
 	points = max(0, new_points)

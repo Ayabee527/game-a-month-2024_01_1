@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c6eounl1wmnfu"]
+[gd_scene load_steps=38 format=3 uid="uid://c6eounl1wmnfu"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
@@ -22,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
 [ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
 [ext_resource type="AudioStream" uid="uid://bp0ha5n0uxcc0" path="res://assets/sounds/hurt4.wav" id="22_l1n2k"]
-[ext_resource type="Resource" uid="uid://cycvibk71cfn7" path="res://player/weapons/blown_away.tres" id="23_yfvq2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vqc0a"]
 bounce = 0.5
@@ -99,7 +98,7 @@ stream_0/stream = ExtResource("22_l1n2k")
 [sub_resource type="CircleShape2D" id="CircleShape2D_mj4e7"]
 radius = 16.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx", "blown_away") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx") groups=["player"]]
 collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
@@ -119,7 +118,6 @@ weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
 draw_control = NodePath("DrawControl")
 hurt_sfx = NodePath("HurtSFX")
-blown_away = NodePath("BlownAway")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_jb453")
@@ -166,9 +164,10 @@ outline_color = Color(1, 1, 1, 0.2)
 entity_name = ""
 start_angle = -90.0
 radius = 32.0
-hurt_color = Color(0.905521, 0.284276, 7.70092e-07, 0.2)
-ring_color = Color(0.905882, 0.282353, 0, 0.501961)
-outline_color = Color(1, 1, 1, 0)
+hurt_color = Color(0.932761, 0.291795, 1.34766e-05, 1)
+ring_color = Color(0.933333, 0.290196, 0, 1)
+outline_color = Color(1, 1, 1, 1)
+outline_opacity = 0.0
 
 [node name="Bleeder" parent="." instance=ExtResource("8_das43")]
 blood_color = Color(1, 1, 1, 1)
@@ -233,12 +232,6 @@ force_invinc = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DodgeCheck"]
 shape = SubResource("CircleShape2D_mj4e7")
-
-[node name="BlownAway" parent="." instance=ExtResource("9_4re1e")]
-muzzle_distance = 0.0
-muzzle_is_origin = false
-collision_data = SubResource("Resource_aamsx")
-weapons = Array[ExtResource("11_nmagf")]([ExtResource("23_yfvq2")])
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="was_healed" from="Health" to="." method="_on_health_was_healed"]

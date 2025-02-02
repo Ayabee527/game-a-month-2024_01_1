@@ -97,6 +97,7 @@ width = 6.0
 [node name="HealthIndicator" parent="." instance=ExtResource("8_g1hca")]
 entity_name = ""
 outline_color = Color(1, 1, 1, 0.501961)
+outline_opacity = 0.5
 
 [node name="OffscreenWarning" parent="." instance=ExtResource("9_w1h8x")]
 

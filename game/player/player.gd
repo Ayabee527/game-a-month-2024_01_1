@@ -30,11 +30,14 @@ signal point_grabbed(point_color: Color)
 
 var color: Color = Color.WHITE
 
-var overheated: bool = false
+var overheated: bool = false:
+	set = set_overheated
 var dashing: bool = false
 var is_invinc: bool = false
 
 var last_ha_milestone: int = 0
+
+var perfect_dodges: int = 0
 
 func _ready() -> void:
 	UpgradeHandler.player = self
@@ -114,22 +117,38 @@ func on_style_triggered(pos: Vector2, style_name: String, points_inc: int) -> vo
 	match style_name:
 		"EXPLODED!":
 			if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.DEMOMANIA):
-				if randf() <= 0.5:
+				if randf() <= 0.2:
 					health.heal(1)
 		"PERFECT DODGE!":
-			if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.BLOWN_AWAY):
-				blown_away.shoot()
+			perfect_dodges += 1
+			if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.UNTOUCHABLE):
+				if perfect_dodges > 1:
+					await get_tree().create_timer(0.2, false).timeout
+					RogueHandler.trigger_style(
+						global_position, "UNTOUCHABLE! x" + str(perfect_dodges - 1),
+						100 * (perfect_dodges - 1)
+					)
+		"DODGE!":
+			perfect_dodges = 0
 
 func get_move_vector() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
+func set_overheated(new_overheated: bool) -> void:
+	overheated = new_overheated
+	if UpgradeHandler.upgrade_is_equipped(UpgradeHandler.UPGRADES.HOT_TEMPER):
+		if overheated:
+			RogueHandler.damage_plus += 1
+		else:
+			RogueHandler.damage_plus -= 1
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.shake(25.0, 10.0, 5.0)
 	MainCam.hitstop(0.05, 0.75)
 	
-	health.hurt( roundi( (damage + RogueHandler.hurt_plus) * (1.0 + RogueHandler.hurt_mult) ) )
-	bleeder.bleed(damage, 2.0, 40)
+	var hurt_amount := roundi( (damage + RogueHandler.hurt_plus) )
+	health.hurt(hurt_amount)
+	bleeder.bleed(hurt_amount, 2.0, 40)
 	RogueHandler.trigger_style(
 		global_position, "[color=dimgray]OW!?[/color]", -floori(RogueHandler.points / 50) - 1
 	)

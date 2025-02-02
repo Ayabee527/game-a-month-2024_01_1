@@ -23,7 +23,7 @@ stream_0/stream = ExtResource("4_y6ytr")
 [sub_resource type="Resource" id="Resource_fyt0k"]
 script = ExtResource("1_2k0gt")
 life_time = 5.0
-start_speed = 64.0
+start_speed = 128.0
 end_speed = 384.0
 accel_time = 4.0
 turn_speed = 0.0
