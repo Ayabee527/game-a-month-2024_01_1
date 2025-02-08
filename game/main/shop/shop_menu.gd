@@ -276,6 +276,8 @@ func unexplain() -> void:
 func _on_confirm_pressed() -> void:
 	confirm_butt.disabled = true
 	get_tree().paused = false
+	if not enemy_handler.music.playing and not enemy_handler.music.stream_paused:
+		enemy_handler.music.play()
 	enemy_handler.music.stream_paused = false
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel()
