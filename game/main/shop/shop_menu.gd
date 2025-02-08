@@ -25,8 +25,11 @@ const SHOP_ITEM = preload("res://main/shop/shop_item.tscn")
 var new_tier_waiting: bool = false
 var tier: int = 1
 var max_equips: int = 3
-var max_sells: int = 3
+var max_sells: int = 4
 var tier_queued: bool = false
+
+var reroll_price: int = 100
+var rerolls: int = 0
 
 func _ready() -> void:
 	position = Vector2(0, 256)
@@ -64,12 +67,12 @@ func restock() -> void:
 		item.hovered.connect(explain.bind(chosen_upgrade))
 		item.unhovered.connect(unexplain)
 		item.confirmed.connect(buy.bind(item))
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.1).timeout
 
 func upgrade_tier() -> void:
 	tier += 1
 	max_equips = (2 * tier) + 1
-	max_sells = tier + 2
+	max_sells = tier + 3
 	new_tier_waiting = false
 	
 	tier_label.text = "[wave]TIER " + str(tier)
@@ -286,4 +289,24 @@ func _on_confirm_pressed() -> void:
 	await tween.finished
 	shop_theme.playing = false
 	hide()
+	rerolls = 0
+	reroll_price = tier * 100
 	confirmed.emit()
+
+
+func _on_reroll_pressed() -> void:
+	rerolls += 1
+	reroll_price = (tier * 100) * rerolls
+	if reroll_price <= RogueHandler.points:
+		RogueHandler.points -= reroll_price
+		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(
+			points_label, "modulate", Color.WHITE, 1.0
+		).from(Color.GOLD)
+		restock()
+	else:
+		RogueHandler.points = RogueHandler.points
+		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(
+			points_label, "modulate", Color.WHITE, 1.0
+		).from(Color.RED)

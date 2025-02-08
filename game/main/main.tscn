@@ -70,7 +70,8 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.329456, 9.71519e-05, 0.342726, 1)
+bg_color = Color(0.390476, 0.000138713, 0.405852, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -236,7 +237,6 @@ layer = 2
 
 [node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
-visible = false
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
 offset_right = 40.0
@@ -314,7 +314,7 @@ autowrap_mode = 0
 [node name="Points" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer"]
 clip_contents = false
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 10
 size_flags_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
@@ -361,9 +361,25 @@ autowrap_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 11
+theme_override_constants/h_separation = 9
 theme_override_constants/v_separation = 8
 columns = 3
+
+[node name="Reroll" type="Button" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("11_mvvmu")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxFlat_14twl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4ch5j")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_53ug8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ty3vl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_n0iuq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ch5j")
+text = "REROLL!"
 
 [node name="Equipped" type="PanelContainer" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 64)
@@ -419,6 +435,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4ch5j")
 text = "CONFIRM!"
 
 [node name="InfoPanel" type="PanelContainer" parent="Menus/ShopMenu"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_muj7f")
@@ -483,4 +500,5 @@ fit_content = true
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="World/EnemyHandler/MultiKillTimer" to="World/EnemyHandler" method="_on_multi_kill_timer_timeout"]
 [connection signal="confirmed" from="Menus/ShopMenu" to="World/EnemyHandler" method="_on_shop_menu_confirmed"]
+[connection signal="pressed" from="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/Reroll" to="Menus/ShopMenu" method="_on_reroll_pressed"]
 [connection signal="pressed" from="Menus/ShopMenu/MarginContainer/VBoxContainer/Confirm" to="Menus/ShopMenu" method="_on_confirm_pressed"]

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_4eupa")
 upgrade_name = "RAPID FIRE"
-upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - FIRES 10 LOW DAMAGE BULLETS A SECOND"
+upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - FIRES 8 LOW DAMAGE BULLETS A SECOND"
 upgrade_icon = ExtResource("2_a8sv3")
 upgrade_color = Color(1, 1, 1, 1)
 upgrade_id = 2
