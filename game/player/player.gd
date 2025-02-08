@@ -143,20 +143,8 @@ func set_overheated(new_overheated: bool) -> void:
 			RogueHandler.damage_plus -= 1
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
-	MainCam.shake(25.0, 10.0, 5.0)
-	MainCam.hitstop(0.05, 0.75)
-	
 	var hurt_amount := roundi( (damage + RogueHandler.hurt_plus) )
 	health.hurt(hurt_amount)
-	bleeder.bleed(hurt_amount, 2.0, 40)
-	RogueHandler.trigger_style(
-		global_position, "[color=dimgray]OW!?[/color]", -floori(RogueHandler.points / 50) - 1
-	)
-	
-	sprite.squish(
-		1.0, 5.0, true, false
-	)
-	hurt_sfx.play()
 
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
@@ -177,3 +165,19 @@ func _on_health_was_healed(new_health: int, amount: int) -> void:
 	RogueHandler.trigger_style(
 		global_position, "[color=green]HEALTH UP![/color]", amount
 	)
+
+
+func _on_health_was_hurt(new_health: int, amount: int) -> void:
+	MainCam.shake(25.0, 10.0, 5.0)
+	MainCam.hitstop(0.05, 0.75)
+	MainCam.flash(Color(1, 0, 0, 0.4), 0.5)
+	
+	bleeder.bleed(amount, 2.0, 40)
+	RogueHandler.trigger_style(
+		global_position, "[color=dimgray]OW!?[/color]", -floori(RogueHandler.points / 50) - 1
+	)
+	
+	sprite.squish(
+		1.0, 5.0, true, false
+	)
+	hurt_sfx.play()

@@ -143,6 +143,7 @@ max_distance = 512.0
 bus = &"sfx"
 
 [connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
+[connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
 [connection signal="timeout" from="StateMachine/Hop/HopCooldown" to="StateMachine/Hop" method="_on_hop_cooldown_timeout"]
 [connection signal="ground_hit" from="HeightSprite" to="StateMachine/Hop" method="_on_height_sprite_ground_hit"]
 [connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]

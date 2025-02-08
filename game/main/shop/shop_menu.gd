@@ -12,6 +12,7 @@ const SHOP_ITEM = preload("res://main/shop/shop_item.tscn")
 @export var normal_music: AudioStreamPlayer
 @export var checker_board: Parallax2D
 @export var tier_label: RichTextLabel
+@export var roll_label: RichTextLabel
 @export var points_label: RichTextLabel
 @export var shop_holder: GridContainer
 @export var equip_holder: GridContainer
@@ -291,12 +292,14 @@ func _on_confirm_pressed() -> void:
 	hide()
 	rerolls = 0
 	reroll_price = tier * 100
+	roll_label.text = "[wave]REROLL: " + str(reroll_price)
 	confirmed.emit()
 
 
 func _on_reroll_pressed() -> void:
 	rerolls += 1
 	reroll_price = (tier * 100) * rerolls
+	roll_label.text = "[wave]REROLL: " + str(reroll_price)
 	if reroll_price <= RogueHandler.points:
 		RogueHandler.points -= reroll_price
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)

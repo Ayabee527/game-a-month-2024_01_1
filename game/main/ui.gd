@@ -19,8 +19,8 @@ func update_points(new_points: int) -> void:
 	).from( Vector2(1.5, 0.67) )
 
 
-func _on_enemy_handler_wave_cleared(size: int) -> void:
-	waves += 1
+func _on_enemy_handler_wave_cleared(wave: int, size: int) -> void:
+	waves = wave + 1
 	var text_color: Color = Color.WHITE
 	wave_count.text = "[wave]WAVE " + str(waves) + "/60"
 	if waves % 15 == 0:

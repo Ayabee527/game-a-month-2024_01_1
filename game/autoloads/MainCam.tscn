@@ -2,9 +2,20 @@
 
 [ext_resource type="Script" path="res://autoloads/MainCam.gd" id="1_ubem2"]
 
-[node name="MainCam" type="Camera2D"]
+[node name="MainCam" type="Camera2D" node_paths=PackedStringArray("flash_rect")]
 ignore_rotation = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 rotation_smoothing_enabled = true
 script = ExtResource("1_ubem2")
+flash_rect = NodePath("CanvasLayer/Flash")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 90
+
+[node name="Flash" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(256, 256)
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(1, 1, 1, 0)

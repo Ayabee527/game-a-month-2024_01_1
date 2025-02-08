@@ -1,6 +1,6 @@
 extends Node2D
 
-signal wave_cleared(size: int)
+signal wave_cleared(wave: int, size: int)
 signal enemy_killed(enemy: Node2D)
 signal boss_killed(boss: Node2D)
 
@@ -24,6 +24,7 @@ const COSTS = {
 
 @export var player: Player
 
+@export var starting_wave: int = 0
 @export var active: bool = true
 @export var time_before_start: float = 3.0
 @export var time_between_waves: float = 1.0
@@ -54,6 +55,8 @@ var multikills: int = 0
 func _ready() -> void:
 	if not active:
 		return
+	
+	spawns = starting_wave - 1
 	
 	spawn_points = starting_spawn_points
 	
@@ -122,7 +125,7 @@ func kill_enemy(enemy: Node2D) -> void:
 	current_wave.erase(enemy)
 	if wave_kills >= wave_size:
 		spawns += 1
-		wave_cleared.emit(wave_size)
+		wave_cleared.emit(spawns, wave_size)
 		
 		points_per = 2 * ( roundi(
 			(2 * log(spawns)) + ( (0.05 * spawns) * sin(spawns) )
@@ -164,7 +167,7 @@ func kill_boss(boss: Node2D) -> void:
 	boss_alive = false
 	spawns += 1
 	
-	wave_cleared.emit(1)
+	wave_cleared.emit(spawns, 1)
 	
 	shop_menu.new_tier_waiting = true
 	shop_menu.open()

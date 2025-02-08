@@ -17,10 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="11_abeu7"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="11_nmagf"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="12_fpi6m"]
-[ext_resource type="Resource" uid="uid://blq3p3i3itxx0" path="res://player/weapons/starter.tres" id="12_rlha0"]
 [ext_resource type="Texture2D" uid="uid://dyxea0hxqw4w" path="res://assets/textures/player.png" id="13_865qx"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
 [ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
+[ext_resource type="Resource" uid="uid://jodd3oe4f604" path="res://player/weapons/rapidfire.tres" id="19_4ps0v"]
 [ext_resource type="AudioStream" uid="uid://bp0ha5n0uxcc0" path="res://assets/sounds/hurt4.wav" id="22_l1n2k"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vqc0a"]
@@ -201,7 +201,7 @@ shape = SubResource("CircleShape2D_5mix8")
 
 [node name="WeaponHandler" parent="." instance=ExtResource("9_4re1e")]
 collision_data = SubResource("Resource_aamsx")
-weapons = Array[ExtResource("11_nmagf")]([ExtResource("12_rlha0")])
+weapons = Array[ExtResource("11_nmagf")]([ExtResource("19_4ps0v")])
 
 [node name="Dash" type="GPUParticles2D" parent="."]
 emitting = false
@@ -235,6 +235,7 @@ shape = SubResource("CircleShape2D_mj4e7")
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="was_healed" from="Health" to="." method="_on_health_was_healed"]
+[connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
 [connection signal="has_died" from="HeatHealth" to="StateMachine/Dash" method="_on_heat_health_has_died"]
 [connection signal="health_changed" from="HeatHealth" to="StateMachine/Dash" method="_on_heat_health_health_changed"]
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]

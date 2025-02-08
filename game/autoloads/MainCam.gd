@@ -10,6 +10,8 @@ signal hitstop_done()
 @export var default_decay_rate: float = 5.0
 @export var min_shake_stength: float = 0.0
 
+@export var flash_rect: ColorRect
+
 var noise_i: float = 0.0
 var shake_strength: float = 1.0
 var shake_speed: float = 15.0
@@ -62,3 +64,10 @@ func hitstop(time_scale: float, duration : float) -> void:
 func set_zoom_factor(new_zoom_factor: float) -> void:
 	zoom_factor = new_zoom_factor
 	zoom = Vector2.ONE * zoom_factor
+
+func flash(color: Color, fade_time: float) -> void:
+	flash_rect.color = color
+	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		flash_rect, "modulate:a", 0.0, fade_time
+	).from(1.0)

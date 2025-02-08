@@ -96,3 +96,8 @@ func _on_bullet_hell_fired() -> void:
 	sprite.squish(
 		0.5, 1.5, true, true
 	)
+
+
+func _on_health_was_hurt(new_health: int, amount: int) -> void:
+	if health.get_health_percent() <= 25.0:
+		boss_music.pitch_scale = 0.1 + ( 0.8 * (health.get_health_percent() / 25.0) )

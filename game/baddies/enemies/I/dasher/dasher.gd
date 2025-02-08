@@ -42,23 +42,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	#state.linear_velocity = state.linear_velocity.limit_length(max_speed)
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
-	MainCam.shake(10.0, 10.0, 5.0)
-	
 	var hurt_amount := roundi( (damage + RogueHandler.damage_plus) )
 	health.hurt(hurt_amount)
-	health_indicator.update_health(health.health, health.max_health)
-	player_tracker.update_health(health.health, health.max_health)
-	bleeder.bleed(hurt_amount, 1.0, 20)
-	
-	sprite.play_hurt()
-	
-	sprite.squish(
-		0.5, 5.0, true, false
-	)
-	hurt_sfx.play()
-	RogueHandler.trigger_style(
-		global_position, "", hurt_amount
-	)
 	
 	if health.health <= 0:
 		if hitbox.owner is ExplosionAttack:
@@ -73,3 +58,21 @@ func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 
 func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
 	apply_central_impulse(knockback)
+
+
+func _on_health_was_hurt(new_health: int, amount: int) -> void:
+	MainCam.shake(10.0, 10.0, 5.0)
+	
+	health_indicator.update_health(health.health, health.max_health)
+	player_tracker.update_health(health.health, health.max_health)
+	bleeder.bleed(amount, 1.0, 20)
+	
+	sprite.play_hurt()
+	
+	sprite.squish(
+		0.5, 5.0, true, false
+	)
+	hurt_sfx.play()
+	RogueHandler.trigger_style(
+		global_position, "", amount
+	)

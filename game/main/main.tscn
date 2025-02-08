@@ -168,6 +168,7 @@ world = NodePath("..")
 [node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer", "multikill_timer", "music", "world", "shop_menu")]
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
+starting_wave = 14
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")
@@ -235,7 +236,7 @@ autowrap_mode = 0
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
+[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "roll_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
@@ -250,6 +251,7 @@ shop_theme = NodePath("ShopTheme")
 normal_music = NodePath("../../Music")
 checker_board = NodePath("Checkerboard")
 tier_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tier")
+roll_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/RollCost")
 points_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Points")
 shop_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Sells/MarginContainer/VBoxContainer/GridContainer")
 equip_holder = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Equipped/MarginContainer/VBoxContainer/GridContainer")
@@ -308,6 +310,20 @@ theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 text = "[wave]TIER 1"
+fit_content = true
+autowrap_mode = 0
+
+[node name="RollCost" type="RichTextLabel" parent="Menus/ShopMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave]REROLL: 100"
 fit_content = true
 autowrap_mode = 0
 
