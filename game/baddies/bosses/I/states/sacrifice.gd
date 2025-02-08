@@ -6,10 +6,12 @@ extends BossIState
 
 @export var sacri_target: Marker2D
 @export var rain: WeaponHandler
+@export var sacri_sfx: AudioStreamPlayer2D
 
 var shots: int = 0
 
 func enter(_msg:={}) -> void:
+	sacri_sfx.play()
 	shots = 0
 	boss.set_color(Color.RED)
 	sacri_target.global_position = boss.player.global_position
@@ -33,6 +35,7 @@ func physics_update(delta: float) -> void:
 
 func exit() -> void:
 	rain.firing = false
+	MainCam.min_shake_stength = 0.0
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(
 		sacri_target, "modulate:a", 0.0, 1.0
@@ -41,6 +44,7 @@ func exit() -> void:
 func _on_boss_i_color_set(new_color: Color) -> void:
 	if is_active:
 		rain.firing = true
+		MainCam.min_shake_stength = 7.5
 
 
 func _on_rain_fired() -> void:

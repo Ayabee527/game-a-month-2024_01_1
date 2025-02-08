@@ -7,9 +7,11 @@ const SHOP_ITEM = preload("res://main/shop/shop_item.tscn")
 
 @export var upgrades: Array[RogueUpgrade]
 
+@export var enemy_handler: EnemyHandler
+
 @export var open_jingle_sfx: AudioStreamPlayer
 @export var shop_theme: AudioStreamPlayer
-@export var normal_music: AudioStreamPlayer
+#@export var normal_music: AudioStreamPlayer
 @export var checker_board: Parallax2D
 @export var tier_label: RichTextLabel
 @export var roll_label: RichTextLabel
@@ -157,10 +159,10 @@ func open() -> void:
 	open_jingle_sfx.play()
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(
-		normal_music, "pitch_scale", 0.01, 2.0
+		enemy_handler.music, "pitch_scale", 0.01, 2.0
 	).from(1.0)
 	await tween.finished
-	normal_music.stream_paused = true
+	enemy_handler.music.stream_paused = true
 	
 	shop_theme.volume_db = -15
 	shop_theme.playing = true
@@ -274,14 +276,14 @@ func unexplain() -> void:
 func _on_confirm_pressed() -> void:
 	confirm_butt.disabled = true
 	get_tree().paused = false
-	normal_music.stream_paused = false
+	enemy_handler.music.stream_paused = false
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel()
 	tween.tween_property(
 		shop_theme, "volume_db", linear_to_db(0), 2.0
 	)
 	tween.tween_property(
-		normal_music, "pitch_scale", 1.0, 2.0
+		enemy_handler.music, "pitch_scale", 1.0, 2.0
 	)
 	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT)
 	tween.tween_property(
@@ -291,15 +293,12 @@ func _on_confirm_pressed() -> void:
 	shop_theme.playing = false
 	hide()
 	rerolls = 0
-	reroll_price = tier * 100
+	reroll_price = (tier * 100) * (rerolls + 1)
 	roll_label.text = "[wave]REROLL: " + str(reroll_price)
 	confirmed.emit()
 
 
 func _on_reroll_pressed() -> void:
-	rerolls += 1
-	reroll_price = (tier * 100) * rerolls
-	roll_label.text = "[wave]REROLL: " + str(reroll_price)
 	if reroll_price <= RogueHandler.points:
 		RogueHandler.points -= reroll_price
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
@@ -307,6 +306,10 @@ func _on_reroll_pressed() -> void:
 			points_label, "modulate", Color.WHITE, 1.0
 		).from(Color.GOLD)
 		restock()
+		
+		rerolls += 1
+		reroll_price = (tier * 100) * (rerolls + 1)
+		roll_label.text = "[wave]REROLL: " + str(reroll_price)
 	else:
 		RogueHandler.points = RogueHandler.points
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)

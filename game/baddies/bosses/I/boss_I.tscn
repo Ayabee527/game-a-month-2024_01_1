@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://clifi5r4t5suu"]
+[gd_scene load_steps=55 format=3 uid="uid://clifi5r4t5suu"]
 
 [ext_resource type="Script" path="res://baddies/bosses/I/boss_i.gd" id="1_7jahb"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_yi5bl"]
@@ -33,6 +33,10 @@
 [ext_resource type="AudioStream" uid="uid://blyeqlcw2sxum" path="res://assets/music/boss_1.ogg" id="32_5ruho"]
 [ext_resource type="Resource" uid="uid://dh1gi7o6pboh2" path="res://baddies/bosses/I/rain.tres" id="32_j3w1t"]
 [ext_resource type="AudioStream" uid="uid://bnu613rc4uag2" path="res://assets/music/bossdeath.ogg" id="33_3xbjx"]
+[ext_resource type="AudioStream" uid="uid://fiaxs3kl5cv0" path="res://assets/sounds/summon2.wav" id="33_y2dky"]
+[ext_resource type="AudioStream" uid="uid://bemri8op4hejq" path="res://assets/sounds/woagh.wav" id="34_5qgid"]
+[ext_resource type="AudioStream" uid="uid://cue4niexqpmpm" path="res://assets/sounds/bigjump.wav" id="34_u0134"]
+[ext_resource type="AudioStream" uid="uid://da6qcfi2q4pwh" path="res://assets/sounds/meow.wav" id="34_x5ps7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ln4yk"]
 bounce = 1.0
@@ -77,6 +81,26 @@ collision_mask = 4
 script = ExtResource("26_kkevj")
 collision_layer = 64
 collision_mask = 12
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_atsmg"]
+random_pitch = 1.7
+streams_count = 1
+stream_0/stream = ExtResource("33_y2dky")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lhb6e"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("34_5qgid")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ditel"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("34_u0134")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wrvmj"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("34_x5ps7")
 
 [sub_resource type="Animation" id="Animation_23g10"]
 resource_name = "die"
@@ -180,29 +204,33 @@ script = ExtResource("4_e2lqs")
 [node name="PhaseSwitch" type="Node" parent="StateMachine"]
 script = ExtResource("5_f7x6o")
 
-[node name="Melee" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer")]
+[node name="Melee" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer", "dash_sfx")]
 script = ExtResource("5_ld364")
 dash_timer = NodePath("DashTimer")
+dash_sfx = NodePath("../../Dash")
 
 [node name="DashTimer" type="Timer" parent="StateMachine/Melee"]
 
-[node name="Hop" type="Node" parent="StateMachine" node_paths=PackedStringArray("hop_boom")]
+[node name="Hop" type="Node" parent="StateMachine" node_paths=PackedStringArray("hop_boom", "jump_sfx")]
 script = ExtResource("6_uytia")
 hop_boom = NodePath("../../HopBoom")
+jump_sfx = NodePath("../../Jump")
 
-[node name="Sacrifice" type="Node" parent="StateMachine" node_paths=PackedStringArray("sacri_target", "rain")]
+[node name="Sacrifice" type="Node" parent="StateMachine" node_paths=PackedStringArray("sacri_target", "rain", "sacri_sfx")]
 script = ExtResource("7_3ia1e")
 chase_speed = 400.0
 turn_speed = 5.0
 sacri_target = NodePath("../../SacriTarget")
 rain = NodePath("../../SacriTarget/Rain")
+sacri_sfx = NodePath("../../Sacrifice")
 
 [node name="Mage" type="Node" parent="StateMachine" node_paths=PackedStringArray("mage_shot")]
 script = ExtResource("8_dkxt2")
 mage_shot = NodePath("../../MageShot")
 
-[node name="Summon" type="Node" parent="StateMachine"]
+[node name="Summon" type="Node" parent="StateMachine" node_paths=PackedStringArray("summon_sfx")]
 script = ExtResource("4_tns2k")
+summon_sfx = NodePath("../../Summon")
 
 [node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_sfx", "anim_player")]
 script = ExtResource("9_8ubgp")
@@ -289,6 +317,32 @@ stream = ExtResource("32_5ruho")
 volume_db = -10.0
 pitch_scale = 0.01
 bus = &"music"
+
+[node name="Summon" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_atsmg")
+pitch_scale = 0.65
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="Sacrifice" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_lhb6e")
+volume_db = 10.0
+pitch_scale = 0.24
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ditel")
+volume_db = 10.0
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_wrvmj")
+volume_db = -5.0
+pitch_scale = 0.6
+max_distance = 512.0
+bus = &"sfx"
 
 [node name="BossDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("33_3xbjx")

@@ -10,6 +10,8 @@ const MINIONS = [
 @export var min_summons: int = 2
 @export var max_summons: int = 4
 
+@export var summon_sfx: AudioStreamPlayer2D
+
 func enter(_msg:={}) -> void:
 	boss.set_color(Color.PURPLE)
 
@@ -17,6 +19,7 @@ func exit() -> void:
 	MainCam.min_shake_stength = 0.0
 
 func summon_minions() -> void:
+	summon_sfx.play()
 	var summon_count: int = randi_range(min_summons, max_summons)
 	for i: int in summon_count:
 		var enemy: Node2D = MINIONS.pick_random().instantiate()

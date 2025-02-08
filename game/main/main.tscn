@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=36 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://5sbcje1lyosi" path="res://assets/music/gameplay.ogg" id="5_otw4m"]
 [ext_resource type="Script" path="res://main/ui.gd" id="6_ppvwr"]
 [ext_resource type="FontFile" uid="uid://dujxw7jilwnxa" path="res://assets/fonts/NotJamScrawl12.ttf" id="6_x562i"]
+[ext_resource type="AudioStream" uid="uid://ctuen8oy0dvm3" path="res://assets/music/tier2.ogg" id="7_qa8xp"]
 [ext_resource type="AudioStream" uid="uid://c0u34jg5lkm7i" path="res://assets/music/shop-intro.ogg" id="8_ekgub"]
 [ext_resource type="Script" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
 [ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="9_nyh41"]
@@ -165,14 +166,13 @@ world = NodePath("..")
 
 [node name="Player" parent="World" instance=ExtResource("2_n5tbv")]
 
-[node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "spawn_timer", "multikill_timer", "music", "world", "shop_menu")]
+[node name="EnemyHandler" type="Node2D" parent="World" node_paths=PackedStringArray("player", "tier_themes", "spawn_timer", "multikill_timer", "world", "shop_menu")]
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
-starting_wave = 14
+tier_themes = [NodePath("../../Tier1"), NodePath("../../Tier2")]
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")
-music = NodePath("../../Music")
 world = NodePath("..")
 shop_menu = NodePath("../../Menus/ShopMenu")
 
@@ -183,12 +183,17 @@ wait_time = 2.5
 wait_time = 0.5
 one_shot = true
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Tier1" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("5_otw4m")
 volume_db = -15.0
 pitch_scale = 0.01
-autoplay = true
+bus = &"music"
+
+[node name="Tier2" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("7_qa8xp")
+volume_db = -15.0
 bus = &"music"
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("point_count", "wave_count")]
@@ -236,7 +241,7 @@ autowrap_mode = 0
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("open_jingle_sfx", "shop_theme", "normal_music", "checker_board", "tier_label", "roll_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
+[node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("enemy_handler", "open_jingle_sfx", "shop_theme", "checker_board", "tier_label", "roll_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
@@ -246,9 +251,9 @@ pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
 upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("13_xx7xw"), ExtResource("14_k1phw"), ExtResource("15_b8x6f"), ExtResource("16_30mjr"), ExtResource("17_3xlxj"), ExtResource("18_nvu3b"), ExtResource("19_pd8id"), ExtResource("20_nltpr")])
+enemy_handler = NodePath("../../World/EnemyHandler")
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")
-normal_music = NodePath("../../Music")
 checker_board = NodePath("Checkerboard")
 tier_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tier")
 roll_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/RollCost")
@@ -451,7 +456,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4ch5j")
 text = "CONFIRM!"
 
 [node name="InfoPanel" type="PanelContainer" parent="Menus/ShopMenu"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_muj7f")

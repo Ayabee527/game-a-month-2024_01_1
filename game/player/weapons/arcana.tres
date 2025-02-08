@@ -25,7 +25,7 @@ stream_0/stream = SubResource("AudioStreamWAV_5vnga")
 
 [sub_resource type="Resource" id="Resource_inrc8"]
 script = ExtResource("2_vjlku")
-life_time = 1.0
+life_time = 1.5
 start_speed = 256.0
 end_speed = 64.0
 accel_time = 1.0
@@ -50,7 +50,7 @@ color = Color(0.796078, 1, 0.776077, 1)
 [resource]
 script = ExtResource("5_bomxn")
 attack_data = SubResource("Resource_inrc8")
-spread = 90.0
+spread = 60.0
 rotation_offset = 0.0
 shots_per_shot = 3
 shots_per_burst = 1

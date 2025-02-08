@@ -10,5 +10,5 @@ upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - FIRES A BURST OF SHORT RA
 upgrade_icon = ExtResource("2_druyo")
 upgrade_color = Color(0.560712, 1, 0.52922, 1)
 upgrade_id = 6
-base_price = 100
+base_price = 75
 upgrade_tier = 1

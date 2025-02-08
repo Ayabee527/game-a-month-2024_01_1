@@ -7,6 +7,7 @@ extends BossIState
 @export var turn_speed: float = 20.0
 
 @export var dash_timer: Timer
+@export var dash_sfx: AudioStreamPlayer2D
 
 var color: Color
 var dashes: int = 0
@@ -37,6 +38,7 @@ func dash() -> void:
 	await get_tree().create_timer(warn_time, false).timeout
 	
 	#dash_boom.shoot()
+	dash_sfx.play()
 	boss.linear_velocity = Vector2.ZERO
 	boss.sprite.squish(
 		warn_time, 1.5, true, false
@@ -47,7 +49,6 @@ func dash() -> void:
 		Vector2.from_angle(boss.global_rotation) * dash_speed
 	)
 	dashes += 1
-	
 
 
 func _on_dash_timer_timeout() -> void:

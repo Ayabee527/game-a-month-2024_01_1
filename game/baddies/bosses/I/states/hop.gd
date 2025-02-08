@@ -8,6 +8,7 @@ extends BossIState
 @export var turn_speed: float = 10.0
 
 @export var hop_boom: WeaponHandler
+@export var jump_sfx: AudioStreamPlayer2D
 
 var hops: int = 0
 
@@ -27,6 +28,7 @@ func exit() -> void:
 	hop_boom.firing = false
 
 func hop() -> void:
+	jump_sfx.play()
 	boss.sprite.squish(
 		0.5, 4.0, true, true
 	)

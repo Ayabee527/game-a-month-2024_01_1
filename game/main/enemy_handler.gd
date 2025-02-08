@@ -1,3 +1,4 @@
+class_name EnemyHandler
 extends Node2D
 
 signal wave_cleared(wave: int, size: int)
@@ -24,7 +25,9 @@ const COSTS = {
 
 @export var player: Player
 
-@export var starting_wave: int = 0
+@export var tier_themes: Array[AudioStreamPlayer]
+
+@export var starting_wave: int = 1
 @export var active: bool = true
 @export var time_before_start: float = 3.0
 @export var time_between_waves: float = 1.0
@@ -33,7 +36,6 @@ const COSTS = {
 
 @export var spawn_timer: Timer
 @export var multikill_timer: Timer
-@export var music: AudioStreamPlayer
 @export var world: Node2D
 @export var shop_menu: ShopMenu
 
@@ -52,7 +54,12 @@ var current_wave: Array[Node2D] = []
 
 var multikills: int = 0
 
+var music: AudioStreamPlayer
+
 func _ready() -> void:
+	music = tier_themes[bosses_killed]
+	music.play()
+	
 	if not active:
 		return
 	
@@ -112,6 +119,7 @@ func spawn_wave() -> void:
 			enemy.tree_exiting.connect(kill_enemy.bind(enemy))
 		add_child(enemy)
 		current_wave.append(enemy)
+		await get_tree().create_timer(0.1, false).timeout
 
 func kill_enemy(enemy: Node2D) -> void:
 	enemy_killed.emit(enemy)
@@ -171,6 +179,8 @@ func kill_boss(boss: Node2D) -> void:
 	
 	shop_menu.new_tier_waiting = true
 	shop_menu.open()
+	
+	music = tier_themes[bosses_killed]
 	
 	#music.stream_paused = false
 	#var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)

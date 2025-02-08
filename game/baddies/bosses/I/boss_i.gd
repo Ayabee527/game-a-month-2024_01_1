@@ -99,5 +99,10 @@ func _on_bullet_hell_fired() -> void:
 
 
 func _on_health_was_hurt(new_health: int, amount: int) -> void:
-	if health.get_health_percent() <= 25.0:
-		boss_music.pitch_scale = 0.1 + ( 0.8 * (health.get_health_percent() / 25.0) )
+	var health_check := 25.0
+	if health.get_health_percent() <= health_check:
+		var health_left := health.get_health_percent() / health_check
+		boss_music.pitch_scale = lerp(1.0, 1.25, 1.0 - health_left)
+		boss_music.volume_db = linear_to_db(
+			lerp( db_to_linear(-10.0), 0.0, 1.0 - health_left )
+		)

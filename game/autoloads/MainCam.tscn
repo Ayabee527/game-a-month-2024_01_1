@@ -18,4 +18,5 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(256, 256)
 offset_right = 256.0
 offset_bottom = 256.0
+mouse_filter = 2
 color = Color(1, 1, 1, 0)

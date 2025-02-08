@@ -4,6 +4,7 @@ extends BossIState
 @export var anim_player: AnimationPlayer
 
 func enter(_msg:={}) -> void:
+	MainCam.hitstop(0.05, 0.5)
 	MainCam.target = boss
 	MainCam.min_shake_stength = 5.0
 	boss.player.toggle_invinc(true)
@@ -45,7 +46,7 @@ func defeat() -> void:
 
 func drama() -> void:
 	var rotate = randf_range(-45, 45)
-	while abs(MainCam.rotation_degrees - rotate) < 15:
+	while abs(MainCam.rotation_degrees - rotate) < 10:
 		rotate = randf_range(-45, 45)
 	
 	MainCam.rotation_degrees = rotate
@@ -58,7 +59,7 @@ func boom() -> void:
 	
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if "health" in enemy:
-			enemy.health.hurt(10000)
+			enemy.health.hurt(enemy.health.health)
 		else:
 			enemy.queue_free()
 	
@@ -69,6 +70,7 @@ func boom() -> void:
 		MainCam, "zoom_factor", 1.0, 3.5
 	).from(0.75)
 	await tween.finished
+	
 	boss.player.grab_camera()
 	boss.player.toggle_invinc(false)
 	await get_tree().create_timer(1.0, false).timeout
