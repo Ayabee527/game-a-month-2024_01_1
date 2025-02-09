@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @export var point_count: RichTextLabel
 @export var wave_count: RichTextLabel
+@export var dead_menu: PanelContainer
 
 var waves: int = 1
 
@@ -38,3 +39,7 @@ func _on_enemy_handler_wave_cleared(wave: int, size: int) -> void:
 	tween.tween_property(
 		wave_count, "modulate", text_color, 4.0
 	).from( Color.YELLOW )
+
+
+func _on_player_died() -> void:
+	dead_menu.show()

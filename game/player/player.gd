@@ -34,6 +34,7 @@ var overheated: bool = false:
 	set = set_overheated
 var dashing: bool = false
 var is_invinc: bool = false
+var dead: bool = false
 
 var last_ha_milestone: int = 0
 
@@ -53,6 +54,9 @@ func _ready() -> void:
 		RogueHandler.style_triggered.connect(on_style_triggered)
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
+	
 	if Input.is_action_just_pressed("left_click"):
 		weapon_handler.firing = true
 	if Input.is_action_just_released("left_click"):
@@ -184,4 +188,5 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 
 
 func _on_health_has_died() -> void:
-	died.emit()
+	dead = true
+	weapon_handler.firing = false

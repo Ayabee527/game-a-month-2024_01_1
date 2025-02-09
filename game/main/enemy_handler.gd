@@ -122,6 +122,9 @@ func spawn_wave() -> void:
 		await get_tree().create_timer(0.1, false).timeout
 
 func kill_enemy(enemy: Node2D) -> void:
+	if player.dead:
+		return
+	
 	enemy_killed.emit(enemy)
 	spawn_points += 1
 	enemy_kills += 1
@@ -145,6 +148,7 @@ func kill_enemy(enemy: Node2D) -> void:
 			spawn_boss()
 		else:
 			if (spawns + 1) % 5 == 0:
+				player.toggle_invinc(true)
 				shop_menu.open()
 			else:
 				spawn_wave()
@@ -170,6 +174,9 @@ func spawn_boss() -> void:
 	music.stream_paused = true
 
 func kill_boss(boss: Node2D) -> void:
+	if player.dead:
+		return
+	
 	boss_killed.emit(boss)
 	bosses_killed += 1
 	boss_alive = false
@@ -178,6 +185,7 @@ func kill_boss(boss: Node2D) -> void:
 	wave_cleared.emit(spawns, 1)
 	
 	shop_menu.new_tier_waiting = true
+	player.toggle_invinc(true)
 	shop_menu.open()
 	
 	music = tier_themes[bosses_killed]
@@ -205,6 +213,10 @@ func _on_spawn_timer_timeout() -> void:
 
 
 func _on_shop_menu_confirmed() -> void:
+	if player.dead:
+		return
+	
+	player.toggle_invinc(false)
 	spawn_wave()
 
 
@@ -230,3 +242,10 @@ func _on_multi_kill_timer_timeout() -> void:
 	)
 	
 	multikills = 0
+
+
+func _on_player_died() -> void:
+	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		music, "pitch_scale", 0.7, 2.0
+	)

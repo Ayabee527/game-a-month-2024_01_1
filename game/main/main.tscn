@@ -28,7 +28,7 @@
 [ext_resource type="Resource" uid="uid://c2mgkd8bugsd" path="res://player/upgrades/hot_temper.tres" id="20_nltpr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5ojk"]
-bg_color = Color(0, 0, 0, 0.501961)
+bg_color = Color(0, 0, 0, 0.25098)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkjge"]
 bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
@@ -201,10 +201,11 @@ volume_db = -15.0
 pitch_scale = 0.01
 bus = &"music"
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("point_count", "wave_count")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("point_count", "wave_count", "dead_menu")]
 script = ExtResource("6_ppvwr")
 point_count = NodePath("MarginContainer/PointCount")
 wave_count = NodePath("MarginContainer/WaveCount")
+dead_menu = NodePath("DeadMenu")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 custom_minimum_size = Vector2(256, 256)
@@ -258,7 +259,7 @@ enemy_handler = NodePath("../../World/EnemyHandler")
 [node name="CenterContainer" type="CenterContainer" parent="UI/PauseMenu"]
 layout_mode = 2
 
-[node name="PointCount" type="RichTextLabel" parent="UI/PauseMenu/CenterContainer"]
+[node name="Paused" type="RichTextLabel" parent="UI/PauseMenu/CenterContainer"]
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 0
@@ -271,6 +272,50 @@ bbcode_enabled = true
 text = "[wave][shake][rainbow]PAUSED"
 fit_content = true
 autowrap_mode = 0
+
+[node name="DeadMenu" type="PanelContainer" parent="UI"]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o5ojk")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/DeadMenu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DeadMenu/CenterContainer"]
+layout_mode = 2
+
+[node name="Dead" type="RichTextLabel" parent="UI/DeadMenu/CenterContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center][wave][shake][color=red]YOU DIED!"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Restart" type="RichTextLabel" parent="UI/DeadMenu/CenterContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("6_x562i")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center][wave][SPACE] to restart!"
+fit_content = true
 
 [node name="Menus" type="CanvasLayer" parent="."]
 layer = 2
@@ -551,6 +596,10 @@ bbcode_enabled = true
 text = "[wave]UPGRADE DESCRIPTION"
 fit_content = true
 
+[connection signal="died" from="World/Player" to="." method="_on_player_died"]
+[connection signal="died" from="World/Player" to="World/EnemyHandler" method="_on_player_died"]
+[connection signal="died" from="World/Player" to="UI" method="_on_player_died"]
+[connection signal="died" from="World/Player" to="UI/PauseMenu" method="_on_player_died"]
 [connection signal="wave_cleared" from="World/EnemyHandler" to="UI" method="_on_enemy_handler_wave_cleared"]
 [connection signal="timeout" from="World/EnemyHandler/SpawnTimer" to="World/EnemyHandler" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="World/EnemyHandler/MultiKillTimer" to="World/EnemyHandler" method="_on_multi_kill_timer_timeout"]
