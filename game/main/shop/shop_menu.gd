@@ -2,6 +2,7 @@ class_name ShopMenu
 extends PanelContainer
 
 signal confirmed()
+signal shop_opened()
 
 const SHOP_ITEM = preload("res://main/shop/shop_item.tscn")
 
@@ -145,6 +146,7 @@ func reload_equips() -> void:
 		item.confirmed.connect(sell.bind(item))
 
 func open() -> void:
+	shop_opened.emit()
 	unexplain()
 	
 	if new_tier_waiting:

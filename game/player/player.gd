@@ -181,3 +181,7 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 		1.0, 5.0, true, false
 	)
 	hurt_sfx.play()
+
+
+func _on_health_has_died() -> void:
+	died.emit()

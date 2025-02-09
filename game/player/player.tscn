@@ -233,6 +233,7 @@ force_invinc = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DodgeCheck"]
 shape = SubResource("CircleShape2D_mj4e7")
 
+[connection signal="has_died" from="Health" to="." method="_on_health_has_died"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="was_healed" from="Health" to="." method="_on_health_was_healed"]
 [connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]

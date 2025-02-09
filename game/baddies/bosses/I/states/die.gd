@@ -51,7 +51,7 @@ func drama() -> void:
 	
 	MainCam.rotation_degrees = rotate
 	MainCam.flash(Color(1, 1, 1, 0.5), 0.5)
-	MainCam.zoom_factor -= (1 - 0.75) / 4.0
+	MainCam.zoom_factor += (1 - 0.75) / 4.0
 	MainCam.shake(40.0, 5.0, 2.0)
 
 func boom() -> void:
