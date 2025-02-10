@@ -239,8 +239,9 @@ anim_player = NodePath("../../AnimationPlayer")
 
 [node name="HealthIndicator" parent="." instance=ExtResource("4_amltf")]
 entity_name = "BOSS I"
-radius = 96.0
-name_radius = 64.0
+radius = 72.0
+name_radius = 56.0
+ring_width = 4.0
 hurt_color = Color(1, 1, 1, 0.2)
 outline_color = Color(1, 1, 1, 0.2)
 

@@ -1,0 +1,126 @@
+[gd_scene load_steps=27 format=3 uid="uid://cwl6rxyoqtfho"]
+
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="1_c1yqi"]
+[ext_resource type="Script" path="res://baddies/enemies/II/beyblade/beyblade.gd" id="1_gm05s"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="2_jauks"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="3_hta3h"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_lk8gh"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="4_lb3os"]
+[ext_resource type="Script" path="res://baddies/enemies/II/beyblade/states/ambush.gd" id="4_mq2y5"]
+[ext_resource type="Script" path="res://baddies/enemies/II/beyblade/states/hunt.gd" id="5_b352k"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="5_opgvx"]
+[ext_resource type="Script" path="res://baddies/enemies/II/beyblade/states/die.gd" id="6_5atnn"]
+[ext_resource type="Texture2D" uid="uid://cbrkl2xbeftis" path="res://assets/textures/sawblade-big.png" id="6_osgla"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="7_ouf4q"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="8_2khap"]
+[ext_resource type="Texture2D" uid="uid://8jc7c47l6pc7" path="res://assets/textures/small-circle.png" id="9_q2ley"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="10_868pe"]
+[ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="11_efs7f"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="13_7ru65"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n2k5l"]
+bounce = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7f6pq"]
+resource_local_to_scene = true
+shader = ExtResource("5_opgvx")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6i1s0"]
+resource_local_to_scene = true
+shader = ExtResource("8_2khap")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_wa868"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f4fjb"]
+curve = SubResource("Curve_wa868")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a4pcf"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-10, 0, 0)
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -10.0
+tangential_accel_max = 10.0
+scale_min = 0.5
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_f4fjb")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pgcp6"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abj72"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jg7ue"]
+radius = 18.0
+
+[node name="Beyblade" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_n2k5l")
+linear_damp = 2.5
+angular_damp = 2.5
+script = ExtResource("1_gm05s")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("13_7ru65")
+max_health = 15
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_lk8gh")
+initial_state = NodePath("Ambush")
+
+[node name="Ambush" type="Node" parent="StateMachine"]
+script = ExtResource("4_mq2y5")
+
+[node name="Hunt" type="Node" parent="StateMachine"]
+script = ExtResource("5_b352k")
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource("6_5atnn")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("1_c1yqi")]
+entity_name = "MELEE II"
+radius = 20.0
+name_radius = 16.0
+hurt_color = Color(1, 1, 0, 0.2)
+outline_color = Color(1, 1, 0, 0.2)
+
+[node name="PlayerTracker" parent="." instance=ExtResource("2_jauks")]
+color = Color(1, 1, 0, 0.501961)
+
+[node name="Bleeder" parent="." instance=ExtResource("3_hta3h")]
+blood_color = Color(1, 1, 0, 1)
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("4_lb3os")]
+material = SubResource("ShaderMaterial_7f6pq")
+texture = ExtResource("6_osgla")
+caster = NodePath("../HeightSprite")
+
+[node name="HeightSprite" parent="." instance=ExtResource("7_ouf4q")]
+material = SubResource("ShaderMaterial_6i1s0")
+texture = ExtResource("6_osgla")
+hurt_color = Color(0, 0, 1, 1)
+
+[node name="Trail" type="GPUParticles2D" parent="."]
+z_index = -1
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_a4pcf")
+texture = ExtResource("9_q2ley")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pgcp6")
+
+[node name="Hurtbox" parent="." instance=ExtResource("10_868pe")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_abj72")
+
+[node name="Hitbox" parent="." instance=ExtResource("11_efs7f")]
+damage_cooldown = 0.25
+knockback_strength = 256.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_jg7ue")
