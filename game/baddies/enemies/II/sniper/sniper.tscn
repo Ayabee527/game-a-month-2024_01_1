@@ -1,0 +1,116 @@
+[gd_scene load_steps=25 format=3 uid="uid://bg0ascfg2ttsp"]
+
+[ext_resource type="Script" path="res://baddies/enemies/II/sniper/sniper.gd" id="1_ebv3g"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="2_vin8d"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_pmvfn"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="4_5xsrv"]
+[ext_resource type="Script" path="res://baddies/enemies/II/sniper/states/prep.gd" id="4_vrrbu"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="5_0bav5"]
+[ext_resource type="Script" path="res://baddies/enemies/II/sniper/states/fire.gd" id="5_w8bqm"]
+[ext_resource type="Script" path="res://baddies/enemies/II/sniper/states/flee.gd" id="6_637nr"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="6_s1o0y"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="7_85glc"]
+[ext_resource type="Script" path="res://baddies/enemies/II/sniper/states/die.gd" id="7_wg2xw"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="8_b8erl"]
+[ext_resource type="Texture2D" uid="uid://vripikrvurjk" path="res://assets/textures/enemies/sniper.png" id="9_di80l"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="10_bf2g6"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="11_j50lh"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="12_iy5wh"]
+[ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="13_8hxqb"]
+[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="14_kk6xo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2dg38"]
+bounce = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8bgaq"]
+resource_local_to_scene = true
+shader = ExtResource("8_b8erl")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2ypn"]
+resource_local_to_scene = true
+shader = ExtResource("11_j50lh")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2csd0"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mif6u"]
+radius = 16.0
+
+[sub_resource type="Resource" id="Resource_ttmcg"]
+script = ExtResource("14_kk6xo")
+collision_layer = 64
+collision_mask = 12
+
+[node name="Sniper" type="RigidBody2D"]
+collision_layer = 10
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_2dg38")
+gravity_scale = 0.0
+script = ExtResource("1_ebv3g")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_vin8d")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_pmvfn")
+initial_state = NodePath("Prep")
+
+[node name="Prep" type="Node" parent="StateMachine"]
+script = ExtResource("4_vrrbu")
+
+[node name="Fire" type="Node" parent="StateMachine"]
+script = ExtResource("5_w8bqm")
+
+[node name="Flee" type="Node" parent="StateMachine"]
+script = ExtResource("6_637nr")
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource("7_wg2xw")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("4_5xsrv")]
+entity_name = "HOPPER II"
+radius = 16.0
+name_radius = 8.0
+hurt_color = Color(0, 1, 0, 0.2)
+outline_color = Color(0, 1, 0, 0.2)
+
+[node name="PlayerTracker" parent="." instance=ExtResource("5_0bav5")]
+color = Color(0, 1, 0, 0.501961)
+
+[node name="Bleeder" parent="." instance=ExtResource("6_s1o0y")]
+blood_color = Color(0, 1, 0, 1)
+
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("7_85glc")]
+material = SubResource("ShaderMaterial_8bgaq")
+texture = ExtResource("9_di80l")
+caster = NodePath("")
+
+[node name="HeightSprite" parent="." instance=ExtResource("10_bf2g6")]
+material = SubResource("ShaderMaterial_n2ypn")
+texture = ExtResource("9_di80l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2csd0")
+
+[node name="Hurtbox" parent="." instance=ExtResource("12_iy5wh")]
+height_radius = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_mif6u")
+
+[node name="WeaponHandler" parent="." instance=ExtResource("13_8hxqb")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_ttmcg")
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
+max_distance = 512.0
+bus = &"sfx"

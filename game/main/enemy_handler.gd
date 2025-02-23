@@ -15,7 +15,7 @@ const BOSSES = [
 const ENEMIES = {
 	"SACRIFICE I": preload("res://baddies/enemies/I/kamikaze/kamikaze.tscn"),
 	"MAGE I": preload("res://baddies/enemies/I/thrower/thrower.tscn"),
-	"HOPPER I": preload("res://baddies/enemies/I/turret/hopper.tscn"),
+	"HOPPER I": preload("res://baddies/enemies/I/hopper/hopper.tscn"),
 	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn"),
 	
 	"MELEE II": preload("res://baddies/enemies/II/beyblade/beyblade.tscn")
