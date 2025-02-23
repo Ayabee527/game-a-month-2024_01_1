@@ -20,6 +20,7 @@ signal died()
 @export var trail: GPUParticles2D
 @export var bleeder: EntityBleeder
 @export var hurt_sfx: AudioStreamPlayer2D
+@export var die_sfx: AudioStreamPlayer2D
 
 var player: Player
 
@@ -33,6 +34,9 @@ func _ready() -> void:
 	
 	player = get_tree().get_first_node_in_group("player")
 	look_at(player.global_position)
+
+func _process(delta: float) -> void:
+	sprite.global_rotation_degrees += 540.0 * delta
 
 func _physics_process(delta: float) -> void:
 	pass
@@ -69,11 +73,11 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 	
 	health_indicator.update_health(health.health, health.max_health)
 	player_tracker.update_health(health.health, health.max_health)
-	bleeder.bleed(amount, 1.0, 20)
+	bleeder.bleed(amount, 1.7, 30)
 	
 	sprite.play_hurt()
 	
 	sprite.squish(
-		0.5, 5.0, true, false
+		0.5, 2.0, true, false
 	)
 	hurt_sfx.play()

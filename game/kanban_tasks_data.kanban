@@ -17,6 +17,7 @@
 			"title": "Doing",
 			"tasks": [
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
+				"917f6532-acb8-4f92-aee6-af3ccfd88a71",
 				"cf22e19e-b169-4969-90e6-0463a6418b27",
 				"0fe2e988-e5e4-416d-afd8-557b1b230588"
 			]
@@ -354,6 +355,13 @@
 		{
 			"uuid": "0fe2e988-e5e4-416d-afd8-557b1b230588",
 			"title": "more immersive death scene",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "917f6532-acb8-4f92-aee6-af3ccfd88a71",
+			"title": "make boss 1 more readable",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

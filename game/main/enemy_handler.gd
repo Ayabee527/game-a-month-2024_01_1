@@ -5,6 +5,9 @@ signal wave_cleared(wave: int, size: int)
 signal enemy_killed(enemy: Node2D)
 signal boss_killed(boss: Node2D)
 
+# PRE BOSS: MIN IS 3, MAX IS 21
+# AFTER BOSS 1: MIN IS 39, MAX IS 45
+
 const BOSSES = [
 	preload("res://baddies/bosses/I/boss_I.tscn")
 ]
@@ -13,14 +16,29 @@ const ENEMIES = {
 	"SACRIFICE I": preload("res://baddies/enemies/I/kamikaze/kamikaze.tscn"),
 	"MAGE I": preload("res://baddies/enemies/I/thrower/thrower.tscn"),
 	"HOPPER I": preload("res://baddies/enemies/I/turret/hopper.tscn"),
-	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn")
+	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn"),
+	
+	"MELEE II": preload("res://baddies/enemies/II/beyblade/beyblade.tscn")
 }
 
 const COSTS = {
 	"SACRIFICE I": 3,
 	"MAGE I": 4,
 	"HOPPER I": 4,
-	"MELEE I": 4
+	"MELEE I": 4,
+	
+	"MELEE II": 39
+}
+
+const TIER_I_COSTS = {
+	"SACRIFICE I": 3,
+	"MAGE I": 4,
+	"HOPPER I": 4,
+	"MELEE I": 4,
+}
+
+const TIER_II_COSTS = {
+	"MELEE II": 20
 }
 
 @export var player: Player
@@ -78,13 +96,22 @@ func _ready() -> void:
 
 func spawn_wave() -> void:
 	var chosens: Array = []
-	var enemies: Array = COSTS.keys().duplicate()
+	#var enemies: Array = COSTS.keys().duplicate()
+	var enemies: Array = []
 	
 	var points_out: bool = false
 	while spawn_points > 0:
-		enemies = COSTS.keys().duplicate()
+		enemies.clear()
+		var tier_i := TIER_I_COSTS.keys().duplicate()
+		tier_i.shuffle()
+		enemies.append_array(tier_i)
+		if bosses_killed > 0:
+			var tier_ii := TIER_II_COSTS.keys().duplicate()
+			tier_ii.shuffle()
+			enemies.append_array(tier_ii)
 		
-		enemies.shuffle()
+		print(enemies)
+		
 		var chosen_enemy = enemies.pop_back()
 		
 		while (COSTS[chosen_enemy] > spawn_points):
@@ -138,9 +165,9 @@ func kill_enemy(enemy: Node2D) -> void:
 		spawns += 1
 		wave_cleared.emit(spawns, wave_size)
 		
-		points_per = 2 * ( roundi(
-			(2 * log(spawns)) + ( (0.05 * spawns) * sin(spawns) )
-		) + starting_points_per ) * (bosses_killed + 1)
+		points_per = ( roundi(
+			(2 * log(spawns)) + ( (0.01 * spawns) * sin(spawns) )
+		) * (bosses_killed + 1) * 3 ) + starting_points_per
 		spawn_points += points_per
 		
 		await get_tree().create_timer(time_between_waves, false).timeout
