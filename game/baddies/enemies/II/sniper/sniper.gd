@@ -9,6 +9,7 @@ signal died()
 @export_group("Inner Dependencies")
 @export var coll_shape: CollisionShape2D
 @export var hurt_coll_shape: CollisionShape2D
+@export var hurtbox: Hurtbox
 @export var health: Health
 @export var health_indicator: HealthIndicator
 @export var player_tracker: PlayerTracker
@@ -21,6 +22,7 @@ signal died()
 var player: Player
 
 var color: Color
+var warn_size: float = 4.0
 
 func _ready() -> void:
 	color = default_color
@@ -29,8 +31,16 @@ func _ready() -> void:
 	
 	player = get_tree().get_first_node_in_group("player")
 
+func _process(delta: float) -> void:
+	queue_redraw()
+
 func _physics_process(delta: float) -> void:
 	pass
+
+func _draw() -> void:
+	draw_line(
+		Vector2.ZERO, Vector2.RIGHT * 1024.0, Color(0.2, 1, 0.2, 0.3), warn_size
+	)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.linear_velocity = state.linear_velocity.limit_length(max_speed)
@@ -78,3 +88,9 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 		0.5, 5.0, true, false
 	)
 	hurt_sfx.play()
+
+func _on_height_sprite_height_changed(new_height: float) -> void:
+	hurtbox.height = new_height
+	hurt_coll_shape.position = sprite.offset
+	health_indicator.position = sprite.offset
+	player_tracker.position = sprite.offset

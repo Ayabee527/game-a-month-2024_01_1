@@ -75,7 +75,7 @@ func boom() -> void:
 	boss.player.toggle_invinc(false)
 	await get_tree().create_timer(1.0, false).timeout
 	RogueHandler.trigger_style(
-		boss.player.global_position, "[shake]BOSS ELIMINATED!", 250
+		boss.player.global_position, "[shake]BOSS I ELIMINATED!", 250
 	)
 
 func _on_health_has_died() -> void:

@@ -18,8 +18,11 @@
 			"tasks": [
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
 				"917f6532-acb8-4f92-aee6-af3ccfd88a71",
+				"ade422b7-f163-4dd5-a9be-508a68f213d4",
+				"4a88f325-eb26-4c3c-87aa-4a2311d172b0",
 				"cf22e19e-b169-4969-90e6-0463a6418b27",
-				"0fe2e988-e5e4-416d-afd8-557b1b230588"
+				"0fe2e988-e5e4-416d-afd8-557b1b230588",
+				"5527878d-acad-46c7-a348-d8c3b49222b2"
 			]
 		},
 		{
@@ -362,6 +365,27 @@
 		{
 			"uuid": "917f6532-acb8-4f92-aee6-af3ccfd88a71",
 			"title": "make boss 1 more readable",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "4a88f325-eb26-4c3c-87aa-4a2311d172b0",
+			"title": "boss 2",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "ade422b7-f163-4dd5-a9be-508a68f213d4",
+			"title": "status effects",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "5527878d-acad-46c7-a348-d8c3b49222b2",
+			"title": "more immersive shop",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

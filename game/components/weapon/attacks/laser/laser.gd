@@ -1,7 +1,7 @@
 class_name LaserAttack
 extends Node2D
 
-@export var length: float = 512
+@export var length: float = 1024
 
 @export_group("Data")
 @export var collision_data: CollisionData
@@ -39,6 +39,7 @@ func _ready() -> void:
 	hitbox.collision_mask = collision_data.collision_mask
 	
 	cur_track_speed = attack_data.start_track_speed
+	length = attack_data.length
 	
 	fire()
 	await get_tree().process_frame

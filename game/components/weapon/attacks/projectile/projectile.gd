@@ -43,7 +43,10 @@ func _ready() -> void:
 	
 	var shape := CircleShape2D.new()
 	shape.radius = attack_data.radius
-	collision.shape = shape
+	var coll_shape := CircleShape2D.new()
+	coll_shape.radius = attack_data.radius * 0.5
+	
+	collision.shape = coll_shape
 	hitbox_collision.shape = shape
 	trail.width = (attack_data.radius - 1.0) * 2.0
 	

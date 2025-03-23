@@ -107,7 +107,7 @@ die_sfx = NodePath("DieSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("13_7ru65")
-max_health = 20
+max_health = 15
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_lk8gh")

@@ -24,7 +24,7 @@ func reset_globals() -> void:
 	UpgradeHandler.equips.clear()
 	UpgradeHandler.equips.append( load("res://player/upgrades/starter.tres") )
 	UpgradeHandler.activate_upgrade(UpgradeHandler.UPGRADES.STARTER_WEAPON)
-	UpgradeHandler.equips =UpgradeHandler.equips
+	UpgradeHandler.equips = UpgradeHandler.equips
 	
 	UpgradeHandler.payload_queue = []
 	

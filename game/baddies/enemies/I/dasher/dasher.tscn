@@ -74,7 +74,7 @@ stream_0/stream = ExtResource("17_8qfu3")
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_dvt62"]
+[sub_resource type="CurveTexture" id="CurveTexture_tplwx"]
 curve = SubResource("Curve_8elq0")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dogjb"]
@@ -88,7 +88,7 @@ initial_velocity_max = 350.0
 gravity = Vector3(0, 0, 0)
 damping_min = 250.0
 damping_max = 750.0
-scale_curve = SubResource("CurveTexture_dvt62")
+scale_curve = SubResource("CurveTexture_tplwx")
 
 [node name="Dasher" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "trail", "bleeder", "hurt_sfx") groups=["dashers", "enemies"]]
 collision_layer = 10

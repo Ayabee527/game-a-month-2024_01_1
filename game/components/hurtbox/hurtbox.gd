@@ -10,6 +10,7 @@ signal effect_procced(effect: StatusEffector.EFFECTS, ticks: int)
 @export var knockback_modifier: float = 3.0
 @export var cool_hitboxes: bool = true
 @export var force_invinc: bool = false
+@export var hittable: bool = true
 
 @export_group("Inner Dependencies")
 @export var invinc_timer: Timer
@@ -40,7 +41,8 @@ func take_damage() -> void:
 		)
 		knocked_back.emit(knockback)
 		
-		chosen_hitbox.hit.emit(self)
+		if hittable:
+			chosen_hitbox.hit.emit(self)
 		hurt.emit(chosen_hitbox, chosen_hitbox.damage, chosen_hitbox.damage_cooldown)
 		
 		if chosen_hitbox.trigger_invinc or force_invinc:

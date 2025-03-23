@@ -1,5 +1,7 @@
 extends EnemySniperState
 
+@export var max_hop_distance: float = 256.0
+
 @export var time_to_peak: float = 0.5
 @export var time_to_fall: float = 0.4
 
@@ -26,9 +28,7 @@ func enter(_msg:={}) -> void:
 
 func physics_update(delta: float) -> void:
 	if turning:
-		var new_transform = enemy.global_transform.looking_at(
-			enemy.player.global_position + enemy.global_position.direction_to(enemy.player.global_position)
-		)
+		var new_transform = enemy.global_transform.looking_at(enemy.player.global_position)
 		enemy.global_transform = enemy.global_transform.interpolate_with(
 			new_transform, turn_speed * delta
 		)
@@ -50,7 +50,13 @@ func hop() -> void:
 	flee_sfx.play()
 	var total_time: float = time_to_peak + time_to_fall
 	#var jump_distance: float = randf_range(min_leap_distance, max_leap_distance)
-	var jump_distance: float = randf_range(128.0, 256.0)
+	var jump_distance: float = enemy.global_position.distance_to(
+		enemy.player.global_position + Vector2(
+			randf_range(-32.0, 32.0),
+			randf_range(-32.0, 32.0),
+		)
+	) / 2.0
+	jump_distance = min(jump_distance, max_hop_distance)
 	
 	var jump_velocity: float = jump_distance / ( 0.5 * total_time )
 	

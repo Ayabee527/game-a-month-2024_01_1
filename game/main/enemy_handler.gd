@@ -18,7 +18,8 @@ const ENEMIES = {
 	"HOPPER I": preload("res://baddies/enemies/I/hopper/hopper.tscn"),
 	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn"),
 	
-	"MELEE II": preload("res://baddies/enemies/II/beyblade/beyblade.tscn")
+	"MELEE II": preload("res://baddies/enemies/II/beyblade/beyblade.tscn"),
+	"MAGE II": preload("res://baddies/enemies/II/sniper/sniper.tscn"),
 }
 
 const COSTS = {
@@ -27,7 +28,8 @@ const COSTS = {
 	"HOPPER I": 4,
 	"MELEE I": 4,
 	
-	"MELEE II": 39
+	"MELEE II": 20,
+	"MAGE II": 20
 }
 
 const TIER_I_COSTS = {
@@ -38,7 +40,8 @@ const TIER_I_COSTS = {
 }
 
 const TIER_II_COSTS = {
-	"MELEE II": 20
+	"MELEE II": 20,
+	"MAGE II": 20
 }
 
 @export var player: Player
@@ -169,6 +172,8 @@ func kill_enemy(enemy: Node2D) -> void:
 			(2 * log(spawns)) + ( (0.01 * spawns) * sin(spawns) )
 		) * (bosses_killed + 1) * 3 ) + starting_points_per
 		spawn_points += points_per
+		
+		prints(spawns, spawn_points)
 		
 		await get_tree().create_timer(time_between_waves, false).timeout
 		if (spawns + 1) % 15 == 0:

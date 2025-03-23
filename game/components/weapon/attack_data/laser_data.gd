@@ -5,6 +5,7 @@ const attack = preload("res://components/weapon/attacks/laser/laser.tscn")
 
 @export_group("Basics")
 @export var width: float = 3.0
+@export var length: float = 1024.0
 @export var sustain_time: float = 0.25
 @export var fade_time: float = 0.25
 @export var turn_speed: float = 0.0

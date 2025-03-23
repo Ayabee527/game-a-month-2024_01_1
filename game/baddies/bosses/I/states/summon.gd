@@ -4,7 +4,7 @@ const MINIONS = [
 	preload("res://baddies/enemies/I/dasher/dasher.tscn"),
 	preload("res://baddies/enemies/I/kamikaze/kamikaze.tscn"),
 	preload("res://baddies/enemies/I/thrower/thrower.tscn"),
-	preload("res://baddies/enemies/I/turret/hopper.tscn")
+	preload("res://baddies/enemies/I/hopper/hopper.tscn")
 ]
 
 @export var min_summons: int = 2
