@@ -4,7 +4,7 @@ extends RigidBody2D
 signal died()
 
 @export var default_color: Color = Color.BLUE
-@export var max_speed: float = 700.0
+@export var max_speed: float = 400.0
 @export var spin_speed: float = -360.0
 
 @export_group("Inner Dependencies")
@@ -78,3 +78,12 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 		0.5, 2.0, true, false
 	)
 	hurt_sfx.play()
+
+
+func _on_height_sprite_height_changed(new_height: float) -> void:
+	hurtbox.height = new_height
+	hitbox.height = new_height
+	hurt_coll_shape.position = sprite.offset
+	hit_coll_shape.position = sprite.offset
+	health_indicator.position = sprite.offset
+	player_tracker.position = sprite.offset

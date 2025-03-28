@@ -45,6 +45,10 @@ func set_firing(new_firing: bool) -> void:
 	if firing and fire_timer.is_stopped() and burst_timer.is_stopped():
 		shoot()
 
+func shoot_all() -> void:
+	for i: int in range(weapons.size()):
+		shoot()
+
 func shoot() -> void:
 	if weapons.size() <= 0:
 		return

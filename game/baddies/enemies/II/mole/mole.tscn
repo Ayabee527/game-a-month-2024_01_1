@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://csgewmarc7lm0"]
+[gd_scene load_steps=42 format=3 uid="uid://csgewmarc7lm0"]
 
 [ext_resource type="Script" path="res://baddies/enemies/II/mole/mole.gd" id="1_ruwci"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_mg6wu"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="6_6vtuh"]
 [ext_resource type="Script" path="res://baddies/enemies/II/mole/states/leap.gd" id="6_oq0iu"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="7_lkwsm"]
+[ext_resource type="Script" path="res://baddies/enemies/II/mole/states/die.gd" id="7_p88ij"]
 [ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="8_hag3n"]
 [ext_resource type="Texture2D" uid="uid://b5facmwca1nhx" path="res://assets/textures/enemies/mole.png" id="9_72wt0"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="10_dyn1h"]
@@ -18,6 +19,13 @@
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="13_i5y3y"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="13_mur30"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="18_jakvj"]
+[ext_resource type="AudioStream" uid="uid://bmq1bvbyt52fp" path="res://assets/sounds/crash2.wav" id="19_3d5ke"]
+[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="19_t6n5u"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="20_37acn"]
+[ext_resource type="AudioStream" uid="uid://bunki35bdkfs6" path="res://assets/sounds/jump3.wav" id="20_te8hg"]
+[ext_resource type="AudioStream" uid="uid://cmbh01j8qje16" path="res://assets/sounds/peek.wav" id="22_miyby"]
+[ext_resource type="Resource" uid="uid://cf85qtasegg0f" path="res://baddies/enemies/II/mole/crash_wave.tres" id="22_ofush"]
+[ext_resource type="AudioStream" uid="uid://bf4o7ofy8l2f4" path="res://assets/sounds/boom13.wav" id="23_vpm4v"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_apmgr"]
 
@@ -40,6 +48,11 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1lfhw"]
 radius = 8.0
 
+[sub_resource type="Resource" id="Resource_xa2ej"]
+script = ExtResource("19_t6n5u")
+collision_layer = 32
+collision_mask = 4
+
 [sub_resource type="Curve" id="Curve_ipnh5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -60,9 +73,37 @@ damping_max = 500.0
 scale_max = 2.0
 scale_curve = SubResource("CurveTexture_8pu4o")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_etdt4"]
+random_pitch = 1.74
+streams_count = 1
+stream_0/stream = ExtResource("19_3d5ke")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bra0s"]
+random_pitch = 1.62
+streams_count = 1
+stream_0/stream = ExtResource("20_te8hg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gaucm"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("22_miyby")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u1xuv"]
+random_pitch = 1.74
+streams_count = 1
+stream_0/stream = ExtResource("23_vpm4v")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vi2q8"]
+radius = 24.0
+
 [node name="Mole" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx")]
+collision_layer = 10
+collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_apmgr")
 gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 2.0
+angular_damp = 2.5
 script = ExtResource("1_ruwci")
 spin_speed = -540.0
 coll_shape = NodePath("CollisionShape2D")
@@ -86,20 +127,34 @@ max_health = 12
 script = ExtResource("3_1oknh")
 initial_state = NodePath("Dig")
 
-[node name="Dig" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "bleed_timer")]
+[node name="Dig" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "crash_wpn", "bleed_timer")]
 script = ExtResource("4_i683b")
 crash_vfx = NodePath("../../CrashVFX")
 crash_sfx = NodePath("../../CrashSFX")
+crash_wpn = NodePath("../../Crash")
 bleed_timer = NodePath("BleedTimer")
 
 [node name="BleedTimer" type="Timer" parent="StateMachine/Dig"]
+wait_time = 0.1
+
+[node name="Peek" type="Node" parent="StateMachine" node_paths=PackedStringArray("peek_timer", "peek_sfx")]
+script = ExtResource("5_2togi")
+peek_timer = NodePath("PeekTimer")
+peek_sfx = NodePath("../../PeekSFX")
+
+[node name="PeekTimer" type="Timer" parent="StateMachine/Peek"]
 wait_time = 0.2
 
-[node name="Peek" type="Node" parent="StateMachine"]
-script = ExtResource("5_2togi")
-
-[node name="Leap" type="Node" parent="StateMachine"]
+[node name="Leap" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "crash_wpn", "leap_sfx")]
 script = ExtResource("6_oq0iu")
+crash_vfx = NodePath("../../CrashVFX")
+crash_sfx = NodePath("../../CrashSFX")
+crash_wpn = NodePath("../../Crash")
+leap_sfx = NodePath("../../LeapSFX")
+
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_sfx")]
+script = ExtResource("7_p88ij")
+die_sfx = NodePath("../../DieSFX")
 
 [node name="HealthIndicator" parent="." instance=ExtResource("4_mlyin")]
 entity_name = "HOPPER II"
@@ -140,6 +195,10 @@ shape = SubResource("CircleShape2D_cjrni")
 shape = SubResource("CircleShape2D_1lfhw")
 
 [node name="Crash" parent="." instance=ExtResource("13_i5y3y")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_xa2ej")
+weapons = Array[ExtResource("20_37acn")]([ExtResource("22_ofush")])
 
 [node name="CrashVFX" type="GPUParticles2D" parent="."]
 modulate = Color(0, 0, 1, 1)
@@ -151,10 +210,17 @@ one_shot = true
 explosiveness = 1.0
 
 [node name="CrashSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_etdt4")
 max_distance = 512.0
 bus = &"sfx"
 
 [node name="LeapSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_bra0s")
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="PeekSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_gaucm")
 max_distance = 512.0
 bus = &"sfx"
 
@@ -163,9 +229,23 @@ max_distance = 512.0
 bus = &"sfx"
 
 [node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_u1xuv")
 max_distance = 512.0
 bus = &"sfx"
 
 [node name="PeekRange" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PeekRange"]
+shape = SubResource("CircleShape2D_vi2q8")
+
+[connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
+[connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
 [connection signal="timeout" from="StateMachine/Dig/BleedTimer" to="StateMachine/Dig" method="_on_bleed_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Peek/PeekTimer" to="StateMachine/Peek" method="_on_peek_timer_timeout"]
+[connection signal="ground_hit" from="HeightSprite" to="StateMachine/Leap" method="_on_height_sprite_ground_hit"]
+[connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
+[connection signal="body_entered" from="PeekRange" to="StateMachine/Dig" method="_on_peek_range_body_entered"]

@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="15_qmck2"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="16_fku15"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="17_12c6c"]
-[ext_resource type="Resource" uid="uid://cf85qtasegg0f" path="res://baddies/enemies/I/hopper/hopper_land.tres" id="18_jugbn"]
+[ext_resource type="Resource" uid="uid://cf85qtasegg0f" path="res://baddies/enemies/II/mole/crash_wave.tres" id="18_jugbn"]
 [ext_resource type="AudioStream" uid="uid://bdl4ex6cex7k2" path="res://assets/sounds/boom9.wav" id="20_16ow2"]
 [ext_resource type="AudioStream" uid="uid://p6baf6x2iilo" path="res://assets/sounds/hurt5.wav" id="25_vsyqp"]
 
