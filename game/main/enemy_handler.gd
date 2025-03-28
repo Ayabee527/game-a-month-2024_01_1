@@ -78,15 +78,24 @@ var multikills: int = 0
 var music: AudioStreamPlayer
 
 func _ready() -> void:
-	music = tier_themes[bosses_killed]
-	music.play()
-	
 	if not active:
 		return
 	
 	spawns = starting_wave - 1
 	
 	spawn_points = starting_spawn_points
+	if starting_wave != 1:
+		points_per = ( roundi(
+			(2 * log(spawns)) + ( (0.01 * spawns) * sin(spawns) )
+		) * (bosses_killed + 1) * 3 ) + starting_points_per
+		spawn_points += points_per
+	
+	bosses_killed = floor(spawns / 15.0)
+	for i: int in bosses_killed:
+		shop_menu.upgrade_tier_silent()
+	
+	music = tier_themes[bosses_killed]
+	music.play()
 	
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(
@@ -94,7 +103,11 @@ func _ready() -> void:
 	).from(0.01)
 	
 	await get_tree().create_timer(time_before_start, false).timeout
-	spawn_wave()
+	wave_cleared.emit(spawns, 0)
+	if (spawns + 1) % 15 == 0:
+		spawn_boss()
+	else:
+		spawn_wave()
 	#spawn_timer.start()
 
 func spawn_wave() -> void:

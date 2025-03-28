@@ -107,15 +107,21 @@ die_sfx = NodePath("DieSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("13_7ru65")
-max_health = 15
+max_health = 9
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_lk8gh")
 initial_state = NodePath("Ambush")
 
-[node name="Ambush" type="Node" parent="StateMachine" node_paths=PackedStringArray("ambush_sfx")]
+[node name="Ambush" type="Node" parent="StateMachine" node_paths=PackedStringArray("ambush_sfx", "ambush_timer")]
 script = ExtResource("4_mq2y5")
+ambush_speed = 3000.0
 ambush_sfx = NodePath("../../AmbushSFX")
+ambush_timer = NodePath("AmbushTimer")
+
+[node name="AmbushTimer" type="Timer" parent="StateMachine/Ambush"]
+wait_time = 3.0
+one_shot = true
 
 [node name="Hunt" type="Node" parent="StateMachine" node_paths=PackedStringArray("steering", "hunt_timer", "hunt_sfx")]
 script = ExtResource("5_b352k")
@@ -215,6 +221,7 @@ rect = Rect2(-24, -24, 48, 48)
 [connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
 [connection signal="was_hurt" from="Health" to="StateMachine/Ambush" method="_on_health_was_hurt"]
 [connection signal="was_hurt" from="Health" to="StateMachine/Hunt" method="_on_health_was_hurt"]
+[connection signal="timeout" from="StateMachine/Ambush/AmbushTimer" to="StateMachine/Ambush" method="_on_ambush_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Hunt/HuntTimer" to="StateMachine/Hunt" method="_on_hunt_timer_timeout"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]

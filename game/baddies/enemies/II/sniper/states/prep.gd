@@ -1,6 +1,6 @@
 extends EnemySniperState
 
-@export var turn_speed: float = 4.0
+@export var turn_speed: float = 2.0
 
 @export var prep_timer: Timer
 
@@ -28,6 +28,7 @@ func physics_update(delta: float) -> void:
 
 func exit() -> void:
 	tween.stop()
+	prep_timer.stop()
 
 func _on_health_was_hurt(new_health: int, amount: int) -> void:
 	if is_active and enemy.player.global_position.distance_to(

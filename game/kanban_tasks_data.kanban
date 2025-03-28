@@ -16,6 +16,7 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
+				"33020979-d602-4a70-86f8-6afb854e6a70",
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
 				"917f6532-acb8-4f92-aee6-af3ccfd88a71",
 				"ade422b7-f163-4dd5-a9be-508a68f213d4",
@@ -386,6 +387,13 @@
 		{
 			"uuid": "5527878d-acad-46c7-a348-d8c3b49222b2",
 			"title": "more immersive shop",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "33020979-d602-4a70-86f8-6afb854e6a70",
+			"title": "rework fall projectiles",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

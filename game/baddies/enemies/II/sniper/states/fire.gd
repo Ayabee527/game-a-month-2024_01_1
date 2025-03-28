@@ -1,6 +1,6 @@
 extends EnemySniperState
 
-@export var turn_speed: float = 4.0
+@export var turn_speed: float = 2.0
 
 var tween: Tween
 
@@ -34,5 +34,5 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 func _on_weapon_handler_fired() -> void:
 	tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(
-		enemy, "warn_size", 4.0, 1.0
+		enemy, "warn_size", 4.0, 2.0
 	).from(0.0)

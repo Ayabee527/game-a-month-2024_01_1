@@ -73,6 +73,15 @@ func restock() -> void:
 		item.confirmed.connect(buy.bind(item))
 		await get_tree().create_timer(0.1).timeout
 
+func upgrade_tier_silent() -> void:
+	tier += 1
+	max_equips = (2 * tier) + 1
+	max_sells = tier + 3
+	new_tier_waiting = false
+	
+	tier_label.text = "[wave]TIER " + str(tier)
+	equips_label.text = "[wave]EQUIPPED " + str(UpgradeHandler.equips.size()) + "/" + str(max_equips)
+
 func upgrade_tier() -> void:
 	tier += 1
 	max_equips = (2 * tier) + 1

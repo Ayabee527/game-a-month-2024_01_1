@@ -108,7 +108,7 @@ hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_vin8d")
-max_health = 15
+max_health = 7
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_pmvfn")
@@ -151,9 +151,10 @@ color = Color(0, 1, 0, 0.501961)
 [node name="Bleeder" parent="." instance=ExtResource("6_s1o0y")]
 blood_color = Color(0, 1, 0, 1)
 
-[node name="Shadow" parent="." instance=ExtResource("7_85glc")]
+[node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("7_85glc")]
 material = SubResource("ShaderMaterial_8bgaq")
 texture = ExtResource("9_di80l")
+caster = NodePath("../HeightSprite")
 
 [node name="HeightSprite" parent="." instance=ExtResource("10_bf2g6")]
 material = SubResource("ShaderMaterial_n2ypn")

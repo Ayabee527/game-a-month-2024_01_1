@@ -6,9 +6,12 @@ extends EnemyBeybladeState
 @export var ambush_speed: float = 2000
 
 @export var ambush_sfx: AudioStreamPlayer2D
+@export var ambush_timer: Timer
 
 func enter(_msg:={}) -> void:
 	ambush_sfx.play()
+	
+	ambush_timer.start()
 
 func physics_update(delta: float) -> void:
 	var dist_from_player := enemy.global_position.distance_to(enemy.player.global_position)
@@ -38,7 +41,14 @@ func physics_update(delta: float) -> void:
 			dir_from_player * ambush_speed
 		)
 
+func exit() -> void:
+	ambush_timer.stop()
 
 func _on_health_was_hurt(new_health: int, amount: int) -> void:
 	if randf() < 0.3:
+		state_machine.transition_to("Hunt")
+
+
+func _on_ambush_timer_timeout() -> void:
+	if is_active:
 		state_machine.transition_to("Hunt")
