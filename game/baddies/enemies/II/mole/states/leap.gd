@@ -13,6 +13,8 @@ extends EnemyMoleState
 var chase_speed: float = 100.0
 var turn_speed: float = 20.0
 
+var tween: Tween
+
 func enter(_msg:={}) -> void:
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
 	turn_speed = randf_range(min_turn_speed, max_turn_speed)
@@ -31,10 +33,20 @@ func enter(_msg:={}) -> void:
 	enemy.hurt_coll_shape.set_deferred("disabled", true)
 	enemy.hit_coll_shape.set_deferred("disabled", true)
 	
+	enemy.sprite.squish(
+		0.5, 4.0, true, true
+	)
 	enemy.sprite.jump(48.0, 0.6, 0.4)
-	enemy.spin_speed = 0
-	enemy.global_rotation = 0
 	enemy.look_at(enemy.player.global_position)
+	
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.set_parallel()
+	#tween.tween_property(
+		#enemy, "warn_radius", 24, 0.5
+	#)
+	#tween.tween_property(
+		#enemy, "warn_alpha", 0.0, 0.5
+	#)
 
 func physics_update(delta: float) -> void:
 	var new_transform = enemy.global_transform.looking_at(enemy.player.global_position)
@@ -47,7 +59,7 @@ func physics_update(delta: float) -> void:
 	)
 
 func exit() -> void:
-	enemy.spin_speed = -540
+	tween.stop()
 
 func _on_height_sprite_ground_hit() -> void:
 	if is_active:

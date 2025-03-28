@@ -5,7 +5,6 @@ signal died()
 
 @export var default_color: Color = Color.BLUE
 @export var max_speed: float = 400.0
-@export var spin_speed: float = -360.0
 
 @export_group("Inner Dependencies")
 @export var coll_shape: CollisionShape2D
@@ -25,6 +24,9 @@ var player: Player
 
 var color: Color
 
+var warn_radius: float = 8.0
+var warn_alpha: float = 0.1
+
 func _ready() -> void:
 	color = default_color
 	sprite.modulate = color
@@ -34,7 +36,12 @@ func _ready() -> void:
 	look_at(player.global_position)
 
 func _process(delta: float) -> void:
-	sprite.global_rotation_degrees += spin_speed * delta
+	queue_redraw()
+
+func _draw() -> void:
+	draw_circle(
+		Vector2.ZERO, warn_radius, Color(0.3, 0.3, 1, warn_alpha), true
+	)
 
 func _physics_process(delta: float) -> void:
 	pass

@@ -13,6 +13,8 @@ var turn_speed: float = 20.0
 
 var peeks: int = 0
 
+var tween: Tween
+
 func enter(_msg:={}) -> void:
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
 	turn_speed = randf_range(min_turn_speed, max_turn_speed)
@@ -27,6 +29,11 @@ func enter(_msg:={}) -> void:
 	peek_timer.start()
 	
 	peeks = 0
+	
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(
+		enemy, "warn_radius", 64, 0.5
+	)
 
 func physics_update(delta: float) -> void:
 	var new_transform = enemy.global_transform.looking_at(enemy.player.global_position)
@@ -40,12 +47,16 @@ func physics_update(delta: float) -> void:
 
 func exit() -> void:
 	peek_timer.stop()
+	tween.stop()
 
 func _on_peek_timer_timeout() -> void:
 	enemy.sprite.visible = not enemy.sprite.visible
 	enemy.shadow.visible = enemy.sprite.visible
 	
 	if enemy.sprite.visible:
+		enemy.sprite.squish(
+			peek_timer.wait_time, 3.0, false, false
+		)
 		peeks += 1
 		peek_sfx.play()
 	

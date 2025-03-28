@@ -10,12 +10,12 @@
 [ext_resource type="Script" path="res://baddies/enemies/II/beyblade/states/hunt.gd" id="5_b352k"]
 [ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="5_opgvx"]
 [ext_resource type="Script" path="res://baddies/enemies/II/beyblade/states/die.gd" id="6_5atnn"]
-[ext_resource type="Texture2D" uid="uid://cbrkl2xbeftis" path="res://assets/textures/sawblade-big.png" id="6_osgla"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="7_ouf4q"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="8_2khap"]
 [ext_resource type="Texture2D" uid="uid://8jc7c47l6pc7" path="res://assets/textures/small-circle.png" id="9_q2ley"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="10_868pe"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="11_efs7f"]
+[ext_resource type="Texture2D" uid="uid://b7kp0xdmkix2k" path="res://assets/textures/enemies/beyblade.png" id="12_djpj2"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="13_7ru65"]
 [ext_resource type="AudioStream" uid="uid://cq25lvfh03rxg" path="res://assets/sounds/hurt8.wav" id="18_b7no2"]
 [ext_resource type="AudioStream" uid="uid://yoydlogd73vv" path="res://assets/sounds/boom10.wav" id="19_6jkn3"]
@@ -152,12 +152,12 @@ blood_color = Color(1, 1, 0, 1)
 
 [node name="Shadow" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("4_lb3os")]
 material = SubResource("ShaderMaterial_7f6pq")
-texture = ExtResource("6_osgla")
+texture = ExtResource("12_djpj2")
 caster = NodePath("../HeightSprite")
 
 [node name="HeightSprite" parent="." instance=ExtResource("7_ouf4q")]
 material = SubResource("ShaderMaterial_6i1s0")
-texture = ExtResource("6_osgla")
+texture = ExtResource("12_djpj2")
 hurt_color = Color(0, 0, 1, 1)
 
 [node name="Trail" type="GPUParticles2D" parent="."]

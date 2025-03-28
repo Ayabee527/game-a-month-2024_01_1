@@ -105,7 +105,6 @@ lock_rotation = true
 linear_damp = 2.0
 angular_damp = 2.5
 script = ExtResource("1_ruwci")
-spin_speed = -540.0
 coll_shape = NodePath("CollisionShape2D")
 hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
 hit_coll_shape = NodePath("Hitbox/CollisionShape2D")
@@ -121,24 +120,30 @@ hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_mg6wu")
-max_health = 12
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_1oknh")
 initial_state = NodePath("Dig")
 
-[node name="Dig" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "crash_wpn", "bleed_timer")]
+[node name="Dig" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "crash_wpn", "bleed_timer", "patience_timer")]
 script = ExtResource("4_i683b")
 crash_vfx = NodePath("../../CrashVFX")
 crash_sfx = NodePath("../../CrashSFX")
 crash_wpn = NodePath("../../Crash")
 bleed_timer = NodePath("BleedTimer")
+patience_timer = NodePath("PatienceTimer")
 
 [node name="BleedTimer" type="Timer" parent="StateMachine/Dig"]
-wait_time = 0.1
+wait_time = 0.2
+
+[node name="PatienceTimer" type="Timer" parent="StateMachine/Dig"]
+wait_time = 3.0
+one_shot = true
 
 [node name="Peek" type="Node" parent="StateMachine" node_paths=PackedStringArray("peek_timer", "peek_sfx")]
 script = ExtResource("5_2togi")
+max_chase_speed = 0.0
+min_chase_speed = 0.0
 peek_timer = NodePath("PeekTimer")
 peek_sfx = NodePath("../../PeekSFX")
 
@@ -147,6 +152,10 @@ wait_time = 0.2
 
 [node name="Leap" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "crash_wpn", "leap_sfx")]
 script = ExtResource("6_oq0iu")
+max_chase_speed = 1000.0
+min_chase_speed = 800.0
+max_turn_speed = 20.0
+min_turn_speed = 0.0
 crash_vfx = NodePath("../../CrashVFX")
 crash_sfx = NodePath("../../CrashSFX")
 crash_wpn = NodePath("../../Crash")
@@ -179,7 +188,7 @@ shadow_offset = Vector2(-1, 2)
 [node name="HeightSprite" parent="." instance=ExtResource("10_dyn1h")]
 material = SubResource("ShaderMaterial_gdykb")
 texture = ExtResource("9_72wt0")
-offset = Vector2(1.5, 0)
+hurt_color = Color(1, 1, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rcfhc")
@@ -243,6 +252,7 @@ shape = SubResource("CircleShape2D_vi2q8")
 [connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
 [connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
 [connection signal="timeout" from="StateMachine/Dig/BleedTimer" to="StateMachine/Dig" method="_on_bleed_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Dig/PatienceTimer" to="StateMachine/Dig" method="_on_patience_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Peek/PeekTimer" to="StateMachine/Peek" method="_on_peek_timer_timeout"]
 [connection signal="ground_hit" from="HeightSprite" to="StateMachine/Leap" method="_on_height_sprite_ground_hit"]
 [connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
