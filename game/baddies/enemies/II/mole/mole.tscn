@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://csgewmarc7lm0"]
+[gd_scene load_steps=43 format=3 uid="uid://csgewmarc7lm0"]
 
 [ext_resource type="Script" path="res://baddies/enemies/II/mole/mole.gd" id="1_ruwci"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_mg6wu"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://bunki35bdkfs6" path="res://assets/sounds/jump3.wav" id="20_te8hg"]
 [ext_resource type="AudioStream" uid="uid://cmbh01j8qje16" path="res://assets/sounds/peek.wav" id="22_miyby"]
 [ext_resource type="Resource" uid="uid://cf85qtasegg0f" path="res://baddies/enemies/II/mole/crash_wave.tres" id="22_ofush"]
+[ext_resource type="Texture2D" uid="uid://cqgaoh3so0ind" path="res://assets/textures/fat_bullet_in.png" id="23_b33qt"]
 [ext_resource type="AudioStream" uid="uid://bf4o7ofy8l2f4" path="res://assets/sounds/boom13.wav" id="23_vpm4v"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_apmgr"]
@@ -65,11 +66,11 @@ lifetime_randomness = 1.0
 particle_flag_align_y = true
 particle_flag_disable_z = true
 spread = 180.0
-initial_velocity_min = 200.0
-initial_velocity_max = 300.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
 gravity = Vector3(0, 0, 0)
-damping_min = 400.0
-damping_max = 500.0
+damping_min = 500.0
+damping_max = 700.0
 scale_max = 2.0
 scale_curve = SubResource("CurveTexture_8pu4o")
 
@@ -125,9 +126,10 @@ script = ExtResource("2_mg6wu")
 script = ExtResource("3_1oknh")
 initial_state = NodePath("Dig")
 
-[node name="Dig" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "crash_sfx", "crash_wpn", "bleed_timer", "patience_timer")]
+[node name="Dig" type="Node" parent="StateMachine" node_paths=PackedStringArray("crash_vfx", "dig_vfx", "crash_sfx", "crash_wpn", "bleed_timer", "patience_timer")]
 script = ExtResource("4_i683b")
 crash_vfx = NodePath("../../CrashVFX")
+dig_vfx = NodePath("../../DigVFX")
 crash_sfx = NodePath("../../CrashSFX")
 crash_wpn = NodePath("../../Crash")
 bleed_timer = NodePath("BleedTimer")
@@ -210,13 +212,20 @@ collision_data = SubResource("Resource_xa2ej")
 weapons = Array[ExtResource("20_37acn")]([ExtResource("22_ofush")])
 
 [node name="CrashVFX" type="GPUParticles2D" parent="."]
-modulate = Color(0, 0, 1, 1)
+modulate = Color(0, 0, 0.501961, 1)
 emitting = false
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_3kpdq")
 texture = ExtResource("18_jakvj")
 one_shot = true
 explosiveness = 1.0
+
+[node name="DigVFX" type="GPUParticles2D" parent="." groups=["enemies", "throwers"]]
+modulate = Color(0, 0, 0.501961, 1)
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_3kpdq")
+texture = ExtResource("23_b33qt")
 
 [node name="CrashSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_etdt4")

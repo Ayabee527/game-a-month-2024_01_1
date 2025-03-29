@@ -1,7 +1,6 @@
 [gd_scene load_steps=38 format=3 uid="uid://bg0ascfg2ttsp"]
 
 [ext_resource type="Script" path="res://baddies/enemies/II/sniper/sniper.gd" id="1_ebv3g"]
-[ext_resource type="Script" path="res://components/health/health.gd" id="2_vin8d"]
 [ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_pmvfn"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="4_5xsrv"]
 [ext_resource type="Script" path="res://baddies/enemies/II/sniper/states/prep.gd" id="4_vrrbu"]
@@ -28,6 +27,61 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2dg38"]
 bounce = 1.0
+
+[sub_resource type="GDScript" id="GDScript_jeqvk"]
+script/source = "class_name Health
+extends Node
+
+signal health_changed(new_health: int)
+signal was_hurt(new_health: int, amount: int)
+signal was_healed(new_health: int, amount: int)
+signal has_died()
+
+@export var max_health: int = 5
+@export var resurrectable: bool = false
+
+var dead: bool = false
+
+var health: int:
+	set = _change_health,
+	get = _get_health
+
+func _ready() -> void:
+	reset_health()
+
+func reset_health() -> void:
+	self.health = max_health
+
+func _change_health(new_health: int) -> void:
+	if not dead:
+		health = clampi(new_health, 0, max_health)
+		health_changed.emit(health)
+		
+		if health <= 0:
+			has_died.emit()
+			if not resurrectable:
+				dead = true
+
+func _get_health() -> int:
+	return health
+
+func get_health_percent() -> float:
+	return (float(health) / max_health) * 100.0
+
+func hurt(amount: int) -> void:
+	if dead:
+		return
+	
+	self.health -= amount
+	was_hurt.emit(self.health, amount)
+
+func heal(amount: int) -> void:
+	if dead:
+		return
+	
+	self.health += amount
+	was_healed.emit(self.health, amount)
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8bgaq"]
 resource_local_to_scene = true
@@ -107,7 +161,7 @@ bleeder = NodePath("Bleeder")
 hurt_sfx = NodePath("HurtSFX")
 
 [node name="Health" type="Node" parent="."]
-script = ExtResource("2_vin8d")
+script = SubResource("GDScript_jeqvk")
 max_health = 7
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -142,8 +196,8 @@ flee_sfx = NodePath("../../FleeSFX")
 script = ExtResource("7_wg2xw")
 die_sfx = NodePath("../../DieSFX")
 
-[node name="HealthIndicator" parent="." instance=ExtResource("4_5xsrv")]
-entity_name = "HOPPER II"
+[node name="HealthIndicator" parent="." groups=["enemies", "throwers"] instance=ExtResource("4_5xsrv")]
+entity_name = "MAGE II"
 radius = 16.0
 name_radius = 8.0
 hurt_color = Color(0, 1, 0, 0.2)

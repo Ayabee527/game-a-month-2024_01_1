@@ -18,7 +18,6 @@ const ENEMIES = {
 	"HOPPER I": preload("res://baddies/enemies/I/hopper/hopper.tscn"),
 	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn"),
 	
-	"MELEE II": preload("res://baddies/enemies/II/beyblade/beyblade.tscn"),
 	"MAGE II": preload("res://baddies/enemies/II/sniper/sniper.tscn"),
 	"HOPPER II": preload("res://baddies/enemies/II/mole/mole.tscn")
 }
@@ -29,7 +28,6 @@ const COSTS = {
 	"HOPPER I": 4,
 	"MELEE I": 4,
 	
-	"MELEE II": 10,
 	"MAGE II": 9,
 	"HOPPER II": 10
 }
@@ -42,7 +40,6 @@ const TIER_I_COSTS = {
 }
 
 const TIER_II_COSTS = {
-	"MELEE II": 10,
 	"MAGE II": 9,
 	"HOPPER II": 10
 }

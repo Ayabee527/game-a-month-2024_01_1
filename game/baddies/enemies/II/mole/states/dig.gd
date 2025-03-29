@@ -6,6 +6,7 @@ extends EnemyMoleState
 @export var min_turn_speed: float = 50.0
 
 @export var crash_vfx: GPUParticles2D
+@export var dig_vfx: GPUParticles2D
 @export var crash_sfx: AudioStreamPlayer2D
 @export var crash_wpn: WeaponHandler
 @export var bleed_timer: Timer
@@ -29,11 +30,12 @@ func enter(_msg:={}) -> void:
 	
 	enemy.bleeder.bleed(2, 2.0, 40)
 	crash_vfx.restart()
+	dig_vfx.emitting = true
 	crash_sfx.play()
 	
 	crash_wpn.shoot_all()
 	
-	bleed_timer.start()
+	#bleed_timer.start()
 	patience_timer.start()
 	
 	enemy.coll_shape.set_deferred("disabled", true)
@@ -69,6 +71,7 @@ func exit() -> void:
 	patience_timer.stop()
 	tween.stop()
 	tween2.stop()
+	dig_vfx.emitting = false
 
 
 func _on_bleed_timer_timeout() -> void:

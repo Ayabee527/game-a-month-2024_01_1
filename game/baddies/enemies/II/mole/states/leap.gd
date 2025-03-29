@@ -24,6 +24,7 @@ func enter(_msg:={}) -> void:
 	enemy.shadow.show()
 	
 	crash_vfx.restart()
+	
 	crash_sfx.play()
 	enemy.bleeder.bleed(2, 2.0, 40)
 	

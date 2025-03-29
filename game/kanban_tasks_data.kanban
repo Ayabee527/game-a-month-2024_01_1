@@ -17,6 +17,7 @@
 			"title": "Doing",
 			"tasks": [
 				"33020979-d602-4a70-86f8-6afb854e6a70",
+				"f03db775-795e-4d1d-bba7-f7287689587d",
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
 				"917f6532-acb8-4f92-aee6-af3ccfd88a71",
 				"ade422b7-f163-4dd5-a9be-508a68f213d4",
@@ -394,6 +395,13 @@
 		{
 			"uuid": "33020979-d602-4a70-86f8-6afb854e6a70",
 			"title": "rework fall projectiles",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "f03db775-795e-4d1d-bba7-f7287689587d",
+			"title": "rework beyblade",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []
