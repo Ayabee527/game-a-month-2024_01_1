@@ -53,13 +53,13 @@ folder_colors={
 
 player=""
 enemies=""
-kamikazes=""
 world=""
-throwers=""
 bosses=""
 blood_points=""
 hoppers=""
-dashers=""
+melee=""
+mages=""
+sacrifices=""
 
 [input]
 

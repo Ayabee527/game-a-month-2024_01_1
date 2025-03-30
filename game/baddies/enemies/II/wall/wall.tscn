@@ -1,0 +1,130 @@
+[gd_scene load_steps=23 format=3 uid="uid://bu72jidmufbxl"]
+
+[ext_resource type="Script" path="res://baddies/enemies/II/wall/wall.gd" id="1_bhqxx"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="1_poi00"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="2_cbyla"]
+[ext_resource type="Texture2D" uid="uid://cq4frri4ya2mm" path="res://assets/textures/enemies/wall.png" id="3_kqvy8"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_wn3qs"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="4_3djrm"]
+[ext_resource type="Script" path="res://baddies/enemies/II/wall/states/wall.gd" id="4_esh4t"]
+[ext_resource type="Script" path="res://baddies/enemies/II/wall/states/die.gd" id="5_1jint"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="5_dhblh"]
+[ext_resource type="Script" path="res://baddies/enemies/II/wall/states/adjust.gd" id="5_swlt2"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="7_ir6dw"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="8_3whwu"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="8_gus1x"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="9_bkclp"]
+[ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="9_p4txi"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="10_1xlen"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sd3ol"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqcu5"]
+resource_local_to_scene = true
+shader = ExtResource("2_cbyla")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nwqex"]
+resource_local_to_scene = true
+shader = ExtResource("5_dhblh")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlh7u"]
+size = Vector2(8, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyt4g"]
+size = Vector2(16, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j47yk"]
+size = Vector2(8, 64)
+
+[node name="Wall" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx") groups=["enemies", "melee"]]
+collision_layer = 10
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_sd3ol")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_bhqxx")
+coll_shape = NodePath("CollisionShape2D")
+hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
+hit_coll_shape = NodePath("Hitbox/CollisionShape2D")
+hurtbox = NodePath("Hurtbox")
+hitbox = NodePath("Hitbox")
+health = NodePath("Health")
+health_indicator = NodePath("HealthIndicator")
+player_tracker = NodePath("PlayerTracker")
+sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
+bleeder = NodePath("Bleeder")
+hurt_sfx = NodePath("HurtSFX")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("7_ir6dw")
+max_health = 20
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_wn3qs")
+initial_state = NodePath("Adjust")
+
+[node name="Adjust" type="Node" parent="StateMachine" node_paths=PackedStringArray("steering")]
+script = ExtResource("5_swlt2")
+steering = NodePath("../../Steering")
+
+[node name="Wall" type="Node" parent="StateMachine"]
+script = ExtResource("4_esh4t")
+
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_sfx")]
+script = ExtResource("5_1jint")
+die_sfx = NodePath("../../DieSFX")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("8_3whwu")]
+entity_name = "MELEE II"
+radius = 16.0
+name_radius = 8.0
+hurt_color = Color(1, 1, 0, 1)
+outline_color = Color(1, 1, 0, 1)
+
+[node name="PlayerTracker" parent="." instance=ExtResource("9_bkclp")]
+color = Color(1, 1, 0, 0.501961)
+
+[node name="Bleeder" parent="." instance=ExtResource("10_1xlen")]
+blood_color = Color(1, 1, 0, 1)
+
+[node name="Shadow" parent="." instance=ExtResource("1_poi00")]
+material = SubResource("ShaderMaterial_eqcu5")
+texture = ExtResource("3_kqvy8")
+
+[node name="HeightSprite" parent="." instance=ExtResource("4_3djrm")]
+material = SubResource("ShaderMaterial_nwqex")
+texture = ExtResource("3_kqvy8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xlh7u")
+
+[node name="Hurtbox" parent="." instance=ExtResource("8_gus1x")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_dyt4g")
+
+[node name="Hitbox" parent="." instance=ExtResource("9_p4txi")]
+knockback_strength = 128.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_j47yk")
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="Steering" type="Marker2D" parent="."]
+
+[connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
+[connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]

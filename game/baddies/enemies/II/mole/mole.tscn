@@ -220,7 +220,7 @@ texture = ExtResource("18_jakvj")
 one_shot = true
 explosiveness = 1.0
 
-[node name="DigVFX" type="GPUParticles2D" parent="." groups=["enemies", "throwers"]]
+[node name="DigVFX" type="GPUParticles2D" parent="." groups=["enemies", "mages"]]
 modulate = Color(0, 0, 0.501961, 1)
 emitting = false
 amount = 40
