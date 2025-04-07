@@ -1,9 +1,8 @@
-extends EnemyWallState
+extends EnemyDarterState
 
 @export var die_sfx: AudioStreamPlayer2D
 
 func enter(_msg:={}) -> void:
-	enemy.trail.emitting = false
 	enemy.health_indicator.kill()
 	enemy.player_tracker.kill()
 	enemy.died.emit()
@@ -14,6 +13,7 @@ func enter(_msg:={}) -> void:
 	die_sfx.play()
 	
 	enemy.bleeder.bleed(5, 2.0, 40)
+	#enemy.trail.hide()
 	enemy.sprite.hide()
 	enemy.shadow.hide()
 	await get_tree().create_timer(2.0, false).timeout

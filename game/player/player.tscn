@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dyxea0hxqw4w" path="res://assets/textures/player.png" id="13_865qx"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
 [ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
-[ext_resource type="Resource" uid="uid://jodd3oe4f604" path="res://player/weapons/rapidfire.tres" id="20_1tjhq"]
+[ext_resource type="Resource" uid="uid://blq3p3i3itxx0" path="res://player/weapons/starter.tres" id="20_338pe"]
 [ext_resource type="AudioStream" uid="uid://bp0ha5n0uxcc0" path="res://assets/sounds/hurt4.wav" id="22_l1n2k"]
 [ext_resource type="AudioStream" uid="uid://cb5qb5emx8023" path="res://assets/sounds/playerboom.wav" id="23_4dbr8"]
 
@@ -207,7 +207,7 @@ shape = SubResource("CircleShape2D_5mix8")
 
 [node name="WeaponHandler" parent="." instance=ExtResource("9_4re1e")]
 collision_data = SubResource("Resource_aamsx")
-weapons = Array[ExtResource("11_nmagf")]([ExtResource("20_1tjhq")])
+weapons = Array[ExtResource("11_nmagf")]([ExtResource("20_338pe")])
 
 [node name="Dash" type="GPUParticles2D" parent="."]
 emitting = false

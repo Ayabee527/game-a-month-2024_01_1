@@ -1,0 +1,150 @@
+[gd_scene load_steps=29 format=3 uid="uid://1qwllm1mbcj5"]
+
+[ext_resource type="Script" path="res://baddies/enemies/II/tether/tether.gd" id="1_ih26b"]
+[ext_resource type="Script" path="res://components/health/health.gd" id="1_rqab8"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_0gnu0"]
+[ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="3_hyxnl"]
+[ext_resource type="Script" path="res://baddies/enemies/II/tether/states/pull.gd" id="4_x6esh"]
+[ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="4_ysx7h"]
+[ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="5_dunla"]
+[ext_resource type="Script" path="res://baddies/enemies/II/tether/states/die.gd" id="5_gmk5s"]
+[ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="6_165ea"]
+[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="7_1iax6"]
+[ext_resource type="Texture2D" uid="uid://ba74t80agr0xw" path="res://assets/textures/enemies/tether.png" id="8_bvq7r"]
+[ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="9_3l7ym"]
+[ext_resource type="Shader" path="res://components/flash.gdshader" id="10_dgkeo"]
+[ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="11_i0p2u"]
+[ext_resource type="AudioStream" uid="uid://catx7oguu4ig7" path="res://assets/sounds/hurt10.wav" id="15_etxed"]
+[ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="15_guw02"]
+[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="16_4x8ps"]
+[ext_resource type="AudioStream" uid="uid://dhoo28spgvy8t" path="res://assets/sounds/boom15.wav" id="16_le28p"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="17_2qs50"]
+[ext_resource type="Resource" uid="uid://qelrr1s5ubw3" path="res://baddies/enemies/II/tether/tether_aura.tres" id="18_vucs7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vo0uo"]
+bounce = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u6w3e"]
+resource_local_to_scene = true
+shader = ExtResource("7_1iax6")
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbgfe"]
+resource_local_to_scene = true
+shader = ExtResource("10_dgkeo")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8i2dp"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7835k"]
+radius = 14.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mu06u"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("15_etxed")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e7h0t"]
+random_pitch = 1.62
+streams_count = 1
+stream_0/stream = ExtResource("16_le28p")
+
+[sub_resource type="Resource" id="Resource_je6j6"]
+script = ExtResource("16_4x8ps")
+collision_layer = 32
+collision_mask = 4
+
+[node name="Tether" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "pointer", "weapon_handler")]
+rotation = 0.000695779
+collision_layer = 10
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_vo0uo")
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 2.5
+angular_damp = 2.5
+script = ExtResource("1_ih26b")
+coll_shape = NodePath("CollisionShape2D")
+hurt_coll_shape = NodePath("Hurtbox/CollisionShape2D")
+hurtbox = NodePath("Hurtbox")
+health = NodePath("Health")
+health_indicator = NodePath("HealthIndicator")
+player_tracker = NodePath("PlayerTracker")
+sprite = NodePath("HeightSprite")
+shadow = NodePath("Shadow")
+bleeder = NodePath("Bleeder")
+hurt_sfx = NodePath("HurtSFX")
+pointer = NodePath("Pointer")
+weapon_handler = NodePath("WeaponHandler")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("1_rqab8")
+max_health = 7
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_0gnu0")
+initial_state = NodePath("Pull")
+
+[node name="Pull" type="Node" parent="StateMachine"]
+script = ExtResource("4_x6esh")
+
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("die_sfx")]
+script = ExtResource("5_gmk5s")
+die_sfx = NodePath("../../DieSFX")
+
+[node name="HealthIndicator" parent="." instance=ExtResource("3_hyxnl")]
+entity_name = "SACRIFICE II"
+radius = 16.0
+name_radius = 8.0
+
+[node name="PlayerTracker" parent="." instance=ExtResource("4_ysx7h")]
+color = Color(1, 0, 0, 0.501961)
+
+[node name="Bleeder" parent="." instance=ExtResource("5_dunla")]
+
+[node name="Shadow" parent="." instance=ExtResource("6_165ea")]
+material = SubResource("ShaderMaterial_u6w3e")
+texture = ExtResource("8_bvq7r")
+
+[node name="HeightSprite" parent="." instance=ExtResource("9_3l7ym")]
+material = SubResource("ShaderMaterial_lbgfe")
+texture = ExtResource("8_bvq7r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8i2dp")
+
+[node name="Hurtbox" parent="." instance=ExtResource("11_i0p2u")]
+knockback_modifier = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_7835k")
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_mu06u")
+volume_db = -10.0
+pitch_scale = 2.0
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="DieSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_e7h0t")
+max_distance = 512.0
+bus = &"sfx"
+
+[node name="Pointer" type="Marker2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Pointer"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(19.9944, -8.01391, 36, -0.025048, 20.0056, 7.98608, 24, -0.0166987)
+
+[node name="WeaponHandler" parent="." instance=ExtResource("15_guw02")]
+collision_data = SubResource("Resource_je6j6")
+weapons = Array[ExtResource("17_2qs50")]([ExtResource("18_vucs7")])
+
+[connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
+[connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
+[connection signal="was_hurt" from="Health" to="StateMachine/Pull" method="_on_health_was_hurt"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]

@@ -170,6 +170,7 @@ shape = SubResource("CircleShape2D_2csd0")
 
 [node name="Hurtbox" parent="." instance=ExtResource("12_iy5wh")]
 height_radius = 6.0
+knockback_modifier = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_mif6u")

@@ -19,7 +19,9 @@ const ENEMIES = {
 	"MELEE I": preload("res://baddies/enemies/I/dasher/dasher.tscn"),
 	
 	"MAGE II": preload("res://baddies/enemies/II/sniper/sniper.tscn"),
-	"HOPPER II": preload("res://baddies/enemies/II/mole/mole.tscn")
+	"HOPPER II": preload("res://baddies/enemies/II/mole/mole.tscn"),
+	"MELEE II": preload("res://baddies/enemies/II/darter/darter.tscn"),
+	"SACRIFICE II": preload("res://baddies/enemies/II/tether/tether.tscn")
 }
 
 const COSTS = {
@@ -28,8 +30,10 @@ const COSTS = {
 	"HOPPER I": 4,
 	"MELEE I": 4,
 	
-	"MAGE II": 9,
-	"HOPPER II": 10
+	"MAGE II": 11,
+	"HOPPER II": 12,
+	"MELEE II": 8,
+	"SACRIFICE II": 8,
 }
 
 const TIER_I_COSTS = {
@@ -40,8 +44,10 @@ const TIER_I_COSTS = {
 }
 
 const TIER_II_COSTS = {
-	"MAGE II": 9,
-	"HOPPER II": 10
+	"MAGE II": 11,
+	"HOPPER II": 12,
+	"MELEE II": 8,
+	"SACRIFICE II": 8,
 }
 
 @export var player: Player

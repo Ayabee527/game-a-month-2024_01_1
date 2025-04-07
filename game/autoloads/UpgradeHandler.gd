@@ -60,6 +60,8 @@ func upgrade_is_equipped(id: UPGRADES) -> bool:
 func reassign_payload_upgrades() -> void:
 	if payload_queue.size() > 0:
 		player.weapon_handler.payload_override = payload_queue.back()
+	else:
+		player.weapon_handler.payload_override = null
 
 func activate_upgrade(id: UPGRADES) -> void:
 	match id:

@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var player: Player
+
 var player_dead: bool = false
 
 func _ready() -> void:

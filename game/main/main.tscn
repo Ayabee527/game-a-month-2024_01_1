@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=38 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://main/style_handler.gd" id="3_0avur"]
 [ext_resource type="Script" path="res://main/enemy_handler.gd" id="4_ws8n8"]
 [ext_resource type="AudioStream" uid="uid://5sbcje1lyosi" path="res://assets/music/gameplay.ogg" id="5_otw4m"]
-[ext_resource type="PackedScene" uid="uid://bu72jidmufbxl" path="res://baddies/enemies/II/wall/wall.tscn" id="6_ag77f"]
 [ext_resource type="Script" path="res://main/ui.gd" id="6_ppvwr"]
 [ext_resource type="FontFile" uid="uid://dujxw7jilwnxa" path="res://assets/fonts/NotJamScrawl12.ttf" id="6_x562i"]
 [ext_resource type="AudioStream" uid="uid://ctuen8oy0dvm3" path="res://assets/music/tier2.ogg" id="7_qa8xp"]
@@ -175,8 +174,6 @@ world = NodePath("..")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 tier_themes = [NodePath("../../Tier1"), NodePath("../../Tier2")]
-starting_wave = 16
-active = false
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")
@@ -189,9 +186,6 @@ wait_time = 2.5
 [node name="MultiKillTimer" type="Timer" parent="World/EnemyHandler"]
 wait_time = 0.5
 one_shot = true
-
-[node name="Wall" parent="World/EnemyHandler" instance=ExtResource("6_ag77f")]
-position = Vector2(240, 0)
 
 [node name="Tier1" type="AudioStreamPlayer" parent="."]
 process_mode = 3
