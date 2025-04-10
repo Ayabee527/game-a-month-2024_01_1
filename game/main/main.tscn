@@ -132,8 +132,9 @@ bg_color = Color(0.118984, 0.00344362, 0.17043, 1)
 border_width_top = 2
 border_color = Color(0.329456, 9.71519e-05, 0.342726, 1)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_wpomo")
+player = NodePath("World/Player")
 
 [node name="Back" type="CanvasLayer" parent="."]
 layer = -10
@@ -174,6 +175,8 @@ world = NodePath("..")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 tier_themes = [NodePath("../../Tier1"), NodePath("../../Tier2")]
+starting_wave = 30
+starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("13_xx7xw"), ExtResource("15_b8x6f"), ExtResource("18_nvu3b")])
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")
@@ -314,7 +317,7 @@ theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("6_x562i")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[center][wave][SPACE] to restart!"
+text = "[center][wave]Press [R] to restart!"
 fit_content = true
 
 [node name="Menus" type="CanvasLayer" parent="."]

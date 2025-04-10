@@ -20,6 +20,8 @@ var target: Node2D
 var color: Color = Color.RED
 var draw_width: float = 0.0
 
+var warning: bool = false
+
 func _ready() -> void:
 	color = attack_data.color
 	
@@ -41,7 +43,10 @@ func _ready() -> void:
 	cur_track_speed = attack_data.start_track_speed
 	length = attack_data.length
 	
-	fire()
+	if attack_data.warn_time > 0.0:
+		warn()
+	else:
+		fire()
 	await get_tree().process_frame
 	find_target()
 
@@ -49,24 +54,36 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(
-		Vector2.ZERO,
-		draw_width + 4.0,
-		color, false, 1.0
-	)
-	draw_line(
-		Vector2.ZERO, Vector2.RIGHT * length, color, draw_width + 2.0
-	)
-	
-	draw_circle(
-		Vector2.ZERO,
-		draw_width + 0.0,
-		Color.WHITE, true, 
-	)
-	draw_line(
-		Vector2.ZERO, Vector2.RIGHT * length, Color.WHITE,
-		draw_width
-	)
+	if warning:
+		var warn_color: Color = color
+		warn_color.a = 0.25
+		draw_circle(
+			Vector2.ZERO,
+			draw_width + 4.0,
+			color, true
+		)
+		draw_line(
+			Vector2.ZERO, Vector2.RIGHT * length, color, draw_width + 2.0
+		)
+	else:
+		draw_circle(
+			Vector2.ZERO,
+			draw_width + 4.0,
+			color, false, 1.0
+		)
+		draw_line(
+			Vector2.ZERO, Vector2.RIGHT * length, color, draw_width + 2.0
+		)
+		
+		draw_circle(
+			Vector2.ZERO,
+			draw_width + 0.0,
+			Color.WHITE, true, 
+		)
+		draw_line(
+			Vector2.ZERO, Vector2.RIGHT * length, Color.WHITE,
+			draw_width
+		)
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(target) and attack_data.homes:
@@ -82,6 +99,16 @@ func _physics_process(delta: float) -> void:
 	if cur_track_accel_time < attack_data.track_accel_time:
 		cur_track_accel_time += delta
 		cur_track_accel_time = min(cur_track_accel_time, abs(attack_data.track_accel_time))
+
+func warn() -> void:
+	warning = true
+	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		self, "draw_width", attack_data.width, attack_data.warn_time
+	).from(0.0)
+	await tween.finished
+	warning = false
+	fire()
 
 func fire() -> void:
 	hitbox_collision.set_deferred("disabled", false)

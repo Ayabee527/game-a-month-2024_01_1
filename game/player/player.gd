@@ -147,6 +147,7 @@ func set_overheated(new_overheated: bool) -> void:
 			RogueHandler.damage_plus -= 1
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
+	MainCam.hitstop(0.05, invinc_time)
 	var hurt_amount := roundi( (damage + RogueHandler.hurt_plus) )
 	health.hurt(hurt_amount)
 
@@ -173,7 +174,6 @@ func _on_health_was_healed(new_health: int, amount: int) -> void:
 
 func _on_health_was_hurt(new_health: int, amount: int) -> void:
 	MainCam.shake(25.0, 10.0, 5.0)
-	MainCam.hitstop(0.05, 0.75)
 	MainCam.flash(Color(1, 0, 0, 0.4), 0.5)
 	
 	bleeder.bleed(amount, 2.0, 40)

@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=8 format=3 uid="uid://qncr7sq32wdw"]
+
+[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_v1lmu"]
+[ext_resource type="Script" path="res://components/weapon/attack_data/lightning_data.gd" id="2_cta5g"]
+[ext_resource type="AudioStream" uid="uid://bmqr5hje4ugna" path="res://assets/sounds/shoot5.wav" id="3_u74yf"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="4_0b8u5"]
+
+[sub_resource type="Resource" id="Resource_tyy1t"]
+script = ExtResource("1_v1lmu")
+damage = 1
+trigger_invinc = false
+damage_cooldown = 0.5
+knockback_strength = 32.0
+status_effect = 0
+status_effect_ticks = 0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7ca1b"]
+random_pitch = 1.38
+streams_count = 1
+stream_0/stream = ExtResource("3_u74yf")
+
+[sub_resource type="Resource" id="Resource_6j3se"]
+script = ExtResource("2_cta5g")
+width = 4.0
+bolts = 1
+segments = 70
+frames_per_segment = 4
+sustain_frames = 5
+frame_inaccuracy = 1
+min_segment_length = 4.0
+max_segment_length = 8.0
+homes = false
+targets = Array[String](["player"])
+max_home_angle = 1.0
+home_inaccuracy = 0.0
+shadow_offset = Vector2(-2, 2)
+min_width = 1.0
+max_width = 2.0
+hitbox_data = SubResource("Resource_tyy1t")
+sound = SubResource("AudioStreamRandomizer_7ca1b")
+color = Color(1, 0, 0, 1)
+
+[resource]
+script = ExtResource("4_0b8u5")
+attack_data = SubResource("Resource_6j3se")
+spread = 360.0
+rotation_offset = 0.0
+shots_per_shot = 3
+shots_per_burst = 1
+angle_per_shot = 0.0
+angle_offset = 0.0
+shot_cooldown = 0.2
+burst_cooldown = 0.0
+camera_shake_shake = 5.0
+camera_shake_speed = 15.0
+camera_shake_decay = 15.0
+recoil_strength = 24.0
+stick_to_handler = false

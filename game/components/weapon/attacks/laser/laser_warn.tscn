@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://l1ot2xiqqr0g"]
-
-[ext_resource type="Script" path="res://components/weapon/attacks/laser/laser_warn.gd" id="1_hh1pj"]
-
-[node name="LaserWarn" type="Node2D"]
-script = ExtResource("1_hh1pj")

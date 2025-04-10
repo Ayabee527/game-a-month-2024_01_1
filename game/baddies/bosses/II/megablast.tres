@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=8 format=3 uid="uid://cex1gtruq7qfm"]
+
+[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_dva5y"]
+[ext_resource type="Script" path="res://components/weapon/attack_data/laser_data.gd" id="2_mqvsd"]
+[ext_resource type="AudioStream" uid="uid://cb5qb5emx8023" path="res://assets/sounds/playerboom.wav" id="3_hn7xj"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="4_bi2j5"]
+
+[sub_resource type="Resource" id="Resource_11bw8"]
+script = ExtResource("1_dva5y")
+damage = 2
+trigger_invinc = false
+damage_cooldown = 1.0
+knockback_strength = 32.0
+status_effect = 0
+status_effect_ticks = 0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ekggq"]
+random_pitch = 1.77
+streams_count = 1
+stream_0/stream = ExtResource("3_hn7xj")
+
+[sub_resource type="Resource" id="Resource_ei4eg"]
+script = ExtResource("2_mqvsd")
+width = 32.0
+length = 1024.0
+sustain_time = 5.0
+fade_time = 0.25
+warn_time = 1.0
+turn_speed = 0.0
+homes = false
+targets = Array[String](["player"])
+start_track_speed = 360.0
+end_track_speed = 360.0
+track_accel_time = 0.0
+hitbox_data = SubResource("Resource_11bw8")
+sound = SubResource("AudioStreamRandomizer_ekggq")
+color = Color(0, 1, 0, 1)
+
+[resource]
+script = ExtResource("4_bi2j5")
+attack_data = SubResource("Resource_ei4eg")
+spread = 0.0
+rotation_offset = 0.0
+shots_per_shot = 1
+shots_per_burst = 1
+angle_per_shot = 0.0
+angle_offset = 0.0
+shot_cooldown = 5.0
+burst_cooldown = 0.0
+camera_shake_shake = 15.0
+camera_shake_speed = 15.0
+camera_shake_decay = 15.0
+recoil_strength = 24.0
+stick_to_handler = true

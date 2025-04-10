@@ -27,7 +27,7 @@ func enter(_msg:={}) -> void:
 
 func charge() -> void:
 	if is_active:
-		enemy.look_at(enemy.player.global_position)
+		#enemy.look_at(enemy.player.global_position)
 		enemy.apply_central_impulse(
 			Vector2.from_angle(enemy.global_rotation) * charge_speed
 		)
@@ -36,10 +36,11 @@ func charge() -> void:
 		darts += 1
 
 func physics_update(delta: float) -> void:
-	var new_transform = enemy.global_transform.looking_at(enemy.player.global_position)
-	enemy.global_transform = enemy.global_transform.interpolate_with(
-		new_transform, turn_speed * delta
-	)
+	if adjusting:
+		var new_transform = enemy.global_transform.looking_at(enemy.player.global_position)
+		enemy.global_transform = enemy.global_transform.interpolate_with(
+			new_transform, turn_speed * delta
+		)
 
 func exit() -> void:
 	enemy.hit_coll_shape.set_deferred("disabled", true)

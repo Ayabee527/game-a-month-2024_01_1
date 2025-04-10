@@ -86,7 +86,7 @@ damping_min = 250.0
 damping_max = 750.0
 scale_curve = SubResource("CurveTexture_p6oyn")
 
-[node name="Sniper" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx")]
+[node name="Sniper" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx") groups=["aura_farmers", "enemies", "mages"]]
 collision_layer = 10
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_2dg38")

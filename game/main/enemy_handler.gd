@@ -9,7 +9,8 @@ signal boss_killed(boss: Node2D)
 # AFTER BOSS 1: MIN IS 39, MAX IS 45
 
 const BOSSES = [
-	preload("res://baddies/bosses/I/boss_I.tscn")
+	preload("res://baddies/bosses/I/boss_I.tscn"),
+	preload("res://baddies/bosses/II/boss_II.tscn")
 ]
 
 const ENEMIES = {
@@ -55,6 +56,7 @@ const TIER_II_COSTS = {
 @export var tier_themes: Array[AudioStreamPlayer]
 
 @export var starting_wave: int = 1
+@export var starting_upgrades: Array[RogueUpgrade] = [preload("res://player/upgrades/starter.tres")]
 @export var active: bool = true
 @export var time_before_start: float = 3.0
 @export var time_between_waves: float = 1.0
@@ -100,6 +102,8 @@ func _ready() -> void:
 	for i: int in bosses_killed:
 		shop_menu.upgrade_tier_silent()
 	
+	cheat_upgrades()
+	
 	music = tier_themes[bosses_killed]
 	music.play()
 	
@@ -115,6 +119,16 @@ func _ready() -> void:
 	else:
 		spawn_wave()
 	#spawn_timer.start()
+
+func cheat_upgrades() -> void:
+	for equip: RogueUpgrade in UpgradeHandler.equips:
+		UpgradeHandler.deactivate_upgrade(equip.upgrade_id)
+	UpgradeHandler.equips.clear()
+	
+	for equip: RogueUpgrade in starting_upgrades:
+		UpgradeHandler.equips.append(equip)
+		UpgradeHandler.activate_upgrade(equip.upgrade_id)
+	UpgradeHandler.equips = UpgradeHandler.equips
 
 func spawn_wave() -> void:
 	var chosens: Array = []

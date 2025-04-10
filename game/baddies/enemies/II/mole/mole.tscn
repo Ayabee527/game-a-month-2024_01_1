@@ -97,7 +97,7 @@ stream_0/stream = ExtResource("23_vpm4v")
 [sub_resource type="CircleShape2D" id="CircleShape2D_vi2q8"]
 radius = 24.0
 
-[node name="Mole" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx")]
+[node name="Mole" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx") groups=["aura_farmers", "enemies", "hoppers"]]
 collision_layer = 10
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_apmgr")

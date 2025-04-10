@@ -90,7 +90,7 @@ damping_min = 250.0
 damping_max = 750.0
 scale_curve = SubResource("CurveTexture_tplwx")
 
-[node name="Dasher" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "trail", "bleeder", "hurt_sfx") groups=["enemies", "melee"]]
+[node name="Dasher" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "trail", "bleeder", "hurt_sfx") groups=["aura_farmers", "enemies", "melee"]]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_l8ooj")
 gravity_scale = 0.0

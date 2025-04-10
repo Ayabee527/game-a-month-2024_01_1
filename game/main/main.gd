@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if player_dead:
-		if Input.is_action_just_pressed("dash"):
+		if Input.is_action_just_pressed("retry"):
 			restart()
 
 func restart() -> void:
