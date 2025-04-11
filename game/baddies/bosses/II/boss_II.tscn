@@ -24,8 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="13_14jr4"]
 [ext_resource type="Script" path="res://baddies/bosses/II/states/phase_ry.gd" id="13_cyys1"]
 [ext_resource type="Script" path="res://baddies/bosses/II/states/phase_gb.gd" id="14_2a7h2"]
-[ext_resource type="AudioStream" uid="uid://d0xnc6eedy14y" path="res://assets/music/boss2a.ogg" id="14_c3d0n"]
-[ext_resource type="AudioStream" uid="uid://cb82ols0mlxj3" path="res://assets/music/boss2b.ogg" id="15_aitnl"]
+[ext_resource type="AudioStream" uid="uid://d0xnc6eedy14y" path="res://assets/music/boss2b.ogg" id="14_c3d0n"]
+[ext_resource type="AudioStream" uid="uid://cb82ols0mlxj3" path="res://assets/music/boss2a.ogg" id="15_aitnl"]
 [ext_resource type="Script" path="res://baddies/bosses/II/states/phase_gy.gd" id="15_nghtr"]
 [ext_resource type="Script" path="res://baddies/bosses/II/states/phase_by.gd" id="16_1f1jw"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="23_8h8jt"]
@@ -34,7 +34,8 @@
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="31_shes1"]
 [ext_resource type="Resource" uid="uid://qncr7sq32wdw" path="res://baddies/bosses/II/tether.tres" id="32_n1bc0"]
 [ext_resource type="Resource" uid="uid://cex1gtruq7qfm" path="res://baddies/bosses/II/megablast.tres" id="34_nbv5c"]
-[ext_resource type="Resource" uid="uid://bc88f114etv4e" path="res://baddies/bosses/II/blast_spam.tres" id="35_bo8m3"]
+[ext_resource type="Resource" uid="uid://cryffs2cmo4we" path="res://baddies/bosses/II/blast_spam.tres" id="35_bo8m3"]
+[ext_resource type="PackedScene" uid="uid://cvnyuall3fkis" path="res://components/weapon/attacks/laser/warning/laser_warning.tscn" id="36_abis4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e5fj5"]
 bounce = 1.0
@@ -88,11 +89,6 @@ script = ExtResource("30_lsfap")
 collision_layer = 32
 collision_mask = 4
 
-[sub_resource type="Resource" id="Resource_fpqcc"]
-script = ExtResource("30_lsfap")
-collision_layer = 32
-collision_mask = 4
-
 [node name="BossII" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "boss_music_1", "boss_music_2") groups=["bosses"]]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_e5fj5")
@@ -136,19 +132,14 @@ script = ExtResource("5_kfonc")
 
 [node name="R" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon", "tether_vfx")]
 script = ExtResource("6_jblrj")
-max_shots = 40
-max_pull_force = 600.0
 weapon = NodePath("../../TetherAura")
 tether_vfx = NodePath("../../Tether")
 
-[node name="G" type="Node" parent="StateMachine" node_paths=PackedStringArray("megablast", "spam", "snipe_timer")]
+[node name="G" type="Node" parent="StateMachine" node_paths=PackedStringArray("sniper", "snipe_warning", "steering")]
 script = ExtResource("7_1nbq1")
-megablast = NodePath("../../MegaBlast")
-spam = NodePath("../../BlastSpam")
-snipe_timer = NodePath("SnipeTimer")
-
-[node name="SnipeTimer" type="Timer" parent="StateMachine/G"]
-wait_time = 5.0
+sniper = NodePath("../../Sniper")
+snipe_warning = NodePath("../../SnipeWarning")
+steering = NodePath("../../Steering")
 
 [node name="B" type="Node" parent="StateMachine"]
 script = ExtResource("8_dibvv")
@@ -225,12 +216,12 @@ shape = SubResource("RectangleShape2D_3npjd")
 disabled = true
 
 [node name="BossMusic1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_c3d0n")
+stream = ExtResource("15_aitnl")
 volume_db = -10.0
 bus = &"music"
 
 [node name="BossMusic2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_aitnl")
+stream = ExtResource("14_c3d0n")
 volume_db = -10.0
 bus = &"music"
 
@@ -245,26 +236,31 @@ max_distance = 512.0
 bus = &"sfx"
 
 [node name="TetherAura" parent="." instance=ExtResource("29_jvlwt")]
-muzzle_distance = 0.0
+muzzle_distance = 32.0
 muzzle_is_origin = false
 collision_data = SubResource("Resource_dtefi")
 weapons = Array[ExtResource("31_shes1")]([ExtResource("32_n1bc0")])
 
-[node name="MegaBlast" parent="." instance=ExtResource("29_jvlwt")]
-muzzle_distance = 48.0
+[node name="Sniper" parent="." instance=ExtResource("29_jvlwt")]
+muzzle_distance = 24.0
 collision_data = SubResource("Resource_feoly")
-weapons = Array[ExtResource("31_shes1")]([ExtResource("34_nbv5c")])
+weapons = Array[ExtResource("31_shes1")]([ExtResource("34_nbv5c"), ExtResource("35_bo8m3")])
 
-[node name="BlastSpam" parent="." instance=ExtResource("29_jvlwt")]
-muzzle_distance = 32.0
-collision_data = SubResource("Resource_fpqcc")
-weapons = Array[ExtResource("31_shes1")]([ExtResource("35_bo8m3")])
+[node name="SnipeWarning" parent="." instance=ExtResource("36_abis4")]
+active = false
+muzzle_dist = 12.0
+color = Color(0.2, 1, 0.2, 1)
+width = 24.0
+cool_down = 2.0
+
+[node name="Steering" type="Marker2D" parent="."]
 
 [connection signal="color_set" from="." to="StateMachine/R" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/G" method="_on_boss_ii_color_set"]
 [connection signal="timeout" from="StateMachine/Intro/GrowTimer" to="StateMachine/Intro" method="_on_grow_timer_timeout"]
-[connection signal="timeout" from="StateMachine/G/SnipeTimer" to="StateMachine/G" method="_on_snipe_timer_timeout"]
 [connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="fired" from="TetherAura" to="StateMachine/R" method="_on_tether_aura_fired"]
+[connection signal="fired" from="Sniper" to="StateMachine/G" method="_on_sniper_fired"]
+[connection signal="fired" from="SnipeWarning" to="StateMachine/G" method="_on_snipe_warning_fired"]

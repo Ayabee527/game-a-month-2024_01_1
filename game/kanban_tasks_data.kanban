@@ -17,11 +17,12 @@
 			"title": "Doing",
 			"tasks": [
 				"4a88f325-eb26-4c3c-87aa-4a2311d172b0",
+				"e04de685-5bbb-48a4-8401-c874f5da88af",
 				"917f6532-acb8-4f92-aee6-af3ccfd88a71",
 				"cf22e19e-b169-4969-90e6-0463a6418b27",
+				"0ff69109-f79f-4748-96cf-2a006096e11c",
 				"0fe2e988-e5e4-416d-afd8-557b1b230588",
 				"5527878d-acad-46c7-a348-d8c3b49222b2",
-				"e04de685-5bbb-48a4-8401-c874f5da88af",
 				"ade422b7-f163-4dd5-a9be-508a68f213d4"
 			]
 		},
@@ -402,6 +403,13 @@
 		{
 			"uuid": "e04de685-5bbb-48a4-8401-c874f5da88af",
 			"title": "rework blood splatters",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "0ff69109-f79f-4748-96cf-2a006096e11c",
+			"title": "export early access",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

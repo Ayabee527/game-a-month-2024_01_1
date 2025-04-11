@@ -60,10 +60,10 @@ func _draw() -> void:
 		draw_circle(
 			Vector2.ZERO,
 			draw_width + 4.0,
-			color, true
+			warn_color, true
 		)
 		draw_line(
-			Vector2.ZERO, Vector2.RIGHT * length, color, draw_width + 2.0
+			Vector2.ZERO, Vector2.RIGHT * length, warn_color, draw_width + 2.0
 		)
 	else:
 		draw_circle(

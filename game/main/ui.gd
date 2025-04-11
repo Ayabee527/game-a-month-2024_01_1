@@ -23,10 +23,10 @@ func update_points(new_points: int) -> void:
 func _on_enemy_handler_wave_cleared(wave: int, size: int) -> void:
 	waves = wave + 1
 	var text_color: Color = Color.WHITE
-	wave_count.text = "[wave]WAVE " + str(waves) + "/60"
+	wave_count.text = "[wave]WAVE " + str(waves) + "/45"
 	if waves % 15 == 0:
 		text_color = Color.RED
-		wave_count.text = "[wave][shake]WAVE " + str(waves) + "/60"
+		wave_count.text = "[wave][shake]WAVE " + str(waves) + "/45"
 	elif waves % 5 == 0:
 		text_color = Color.GREEN
 	

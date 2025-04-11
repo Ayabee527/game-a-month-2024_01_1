@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bg0ascfg2ttsp"]
+[gd_scene load_steps=39 format=3 uid="uid://bg0ascfg2ttsp"]
 
 [ext_resource type="Script" path="res://baddies/enemies/II/sniper/sniper.gd" id="1_ebv3g"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_ucnsy"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dfx55m3wk1kyk" path="res://assets/sounds/boom11.wav" id="20_l2nkj"]
 [ext_resource type="Resource" uid="uid://b4fc1gsmnwdxq" path="res://baddies/enemies/II/sniper/snipe.tres" id="20_oapvr"]
 [ext_resource type="AudioStream" uid="uid://bemri8op4hejq" path="res://assets/sounds/woagh.wav" id="23_krk3d"]
+[ext_resource type="PackedScene" uid="uid://cvnyuall3fkis" path="res://components/weapon/attacks/laser/warning/laser_warning.tscn" id="26_j0tsj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2dg38"]
 bounce = 1.0
@@ -86,7 +87,7 @@ damping_min = 250.0
 damping_max = 750.0
 scale_curve = SubResource("CurveTexture_p6oyn")
 
-[node name="Sniper" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx") groups=["aura_farmers", "enemies", "mages"]]
+[node name="Sniper" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hurtbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "weapon_handler", "bleeder", "hurt_sfx", "laser_warning") groups=["aura_farmers", "enemies", "mages"]]
 collision_layer = 10
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_2dg38")
@@ -106,6 +107,7 @@ shadow = NodePath("Shadow")
 weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
 hurt_sfx = NodePath("HurtSFX")
+laser_warning = NodePath("LaserWarning")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_ucnsy")
@@ -205,6 +207,11 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 
+[node name="LaserWarning" parent="." instance=ExtResource("26_j0tsj")]
+active = false
+color = Color(0.2, 1, 0.2, 1)
+cool_down = 2.0
+
 [connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
 [connection signal="was_hurt" from="Health" to="." method="_on_health_was_hurt"]
 [connection signal="timeout" from="StateMachine/Prep/PrepTimer" to="StateMachine/Prep" method="_on_prep_timer_timeout"]
@@ -215,3 +222,4 @@ explosiveness = 1.0
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="fired" from="WeaponHandler" to="StateMachine/Fire" method="_on_weapon_handler_fired"]
 [connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]
+[connection signal="fired" from="LaserWarning" to="StateMachine/Fire" method="_on_laser_warning_fired"]

@@ -18,11 +18,12 @@ signal died()
 @export var weapon_handler: WeaponHandler
 @export var bleeder: EntityBleeder
 @export var hurt_sfx: AudioStreamPlayer2D
+@export var laser_warning: LaserWarning
 
 var player: Player
 
 var color: Color
-var warn_size: float = 4.0
+var warn_size: float = 0.0
 
 func _ready() -> void:
 	color = default_color
@@ -32,15 +33,17 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 
 func _process(delta: float) -> void:
-	queue_redraw()
+	pass
+	#queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	pass
 
 func _draw() -> void:
-	draw_line(
-		Vector2.ZERO, Vector2.RIGHT * 1024.0, Color(0.2, 1, 0.2, 0.3), warn_size
-	)
+	pass
+	#draw_line(
+		#Vector2.ZERO, Vector2.RIGHT * 1024.0, Color(0.2, 1, 0.2, 0.3), warn_size
+	#)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.linear_velocity = state.linear_velocity.limit_length(max_speed)

@@ -25,6 +25,7 @@ width = 6.0
 length = 1024.0
 sustain_time = 0.25
 fade_time = 0.25
+warn_time = 0.0
 turn_speed = 0.0
 homes = false
 targets = Array[String](["player"])
