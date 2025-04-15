@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfq8pr8tjwqoc"]
+
+[ext_resource type="Script" path="res://components/circle_warning/circle_warning.gd" id="1_jrcay"]
+
+[node name="CircleWarning" type="Marker2D"]
+script = ExtResource("1_jrcay")

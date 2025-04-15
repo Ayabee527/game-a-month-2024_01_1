@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://duutpyaiwo465"]
+[gd_scene load_steps=54 format=3 uid="uid://duutpyaiwo465"]
 
 [ext_resource type="Script" path="res://baddies/bosses/II/boss_ii.gd" id="1_0fev0"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_a6v0i"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://baddies/bosses/II/states/phase_gy.gd" id="15_nghtr"]
 [ext_resource type="Script" path="res://baddies/bosses/II/states/phase_by.gd" id="16_1f1jw"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="23_8h8jt"]
+[ext_resource type="Texture2D" uid="uid://cqgaoh3so0ind" path="res://assets/textures/fat_bullet_in.png" id="24_uy5lu"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="29_jvlwt"]
 [ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="30_lsfap"]
 [ext_resource type="Script" path="res://components/weapon/weapon.gd" id="31_shes1"]
@@ -36,6 +37,7 @@
 [ext_resource type="Resource" uid="uid://cex1gtruq7qfm" path="res://baddies/bosses/II/megablast.tres" id="34_nbv5c"]
 [ext_resource type="Resource" uid="uid://cryffs2cmo4we" path="res://baddies/bosses/II/blast_spam.tres" id="35_bo8m3"]
 [ext_resource type="PackedScene" uid="uid://cvnyuall3fkis" path="res://components/weapon/attacks/laser/warning/laser_warning.tscn" id="36_abis4"]
+[ext_resource type="Resource" uid="uid://yt64v7oe384y" path="res://baddies/bosses/II/crash_wave.tres" id="37_dtjo0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e5fj5"]
 bounce = 1.0
@@ -67,6 +69,27 @@ scale_max = 2.0
 scale_curve = SubResource("CurveTexture_6nvxt")
 color = Color(0.678431, 0, 0, 0.501961)
 
+[sub_resource type="Curve" id="Curve_0b3g1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8pu4o"]
+curve = SubResource("Curve_0b3g1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tvgu5"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+damping_min = 500.0
+damping_max = 700.0
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_8pu4o")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3r0qg"]
 resource_local_to_scene = true
 shader = ExtResource("11_pfqg6")
@@ -85,6 +108,11 @@ collision_layer = 32
 collision_mask = 4
 
 [sub_resource type="Resource" id="Resource_feoly"]
+script = ExtResource("30_lsfap")
+collision_layer = 32
+collision_mask = 4
+
+[sub_resource type="Resource" id="Resource_t846a"]
 script = ExtResource("30_lsfap")
 collision_layer = 32
 collision_mask = 4
@@ -141,8 +169,14 @@ sniper = NodePath("../../Sniper")
 snipe_warning = NodePath("../../SnipeWarning")
 steering = NodePath("../../Steering")
 
-[node name="B" type="Node" parent="StateMachine"]
+[node name="B" type="Node" parent="StateMachine" node_paths=PackedStringArray("dig_timer", "dig_vfx", "crash_wpn")]
 script = ExtResource("8_dibvv")
+dig_timer = NodePath("DigTimer")
+dig_vfx = NodePath("../../DigVFX")
+crash_wpn = NodePath("../../Crash")
+
+[node name="DigTimer" type="Timer" parent="StateMachine/B"]
+one_shot = true
 
 [node name="Y" type="Node" parent="StateMachine"]
 script = ExtResource("9_8ydtp")
@@ -197,6 +231,14 @@ amount = 200
 process_material = SubResource("ParticleProcessMaterial_oj1iw")
 texture = ExtResource("23_8h8jt")
 visibility_rect = Rect2(-768, -768, 1536, 1536)
+local_coords = true
+
+[node name="DigVFX" type="GPUParticles2D" parent="." groups=["enemies", "mages"]]
+modulate = Color(0, 0, 0.501961, 1)
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_tvgu5")
+texture = ExtResource("24_uy5lu")
 
 [node name="HeightSprite" parent="." instance=ExtResource("10_qvcp3")]
 material = SubResource("ShaderMaterial_3r0qg")
@@ -246,6 +288,12 @@ muzzle_distance = 24.0
 collision_data = SubResource("Resource_feoly")
 weapons = Array[ExtResource("31_shes1")]([ExtResource("34_nbv5c"), ExtResource("35_bo8m3")])
 
+[node name="Crash" parent="." instance=ExtResource("29_jvlwt")]
+muzzle_distance = 0.0
+muzzle_is_origin = false
+collision_data = SubResource("Resource_t846a")
+weapons = Array[ExtResource("31_shes1")]([ExtResource("37_dtjo0")])
+
 [node name="SnipeWarning" parent="." instance=ExtResource("36_abis4")]
 active = false
 muzzle_dist = 12.0
@@ -257,7 +305,10 @@ cool_down = 2.0
 
 [connection signal="color_set" from="." to="StateMachine/R" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/G" method="_on_boss_ii_color_set"]
+[connection signal="color_set" from="." to="StateMachine/B" method="_on_boss_ii_color_set"]
 [connection signal="timeout" from="StateMachine/Intro/GrowTimer" to="StateMachine/Intro" method="_on_grow_timer_timeout"]
+[connection signal="timeout" from="StateMachine/B/DigTimer" to="StateMachine/B" method="_on_dig_timer_timeout"]
+[connection signal="ground_hit" from="HeightSprite" to="StateMachine/B" method="_on_height_sprite_ground_hit"]
 [connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]

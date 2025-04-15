@@ -39,10 +39,10 @@ func hop() -> void:
 			randf_range(-32.0, 32.0),
 			randf_range(-32.0, 32.0),
 		)
-	) / 2.0
+	)
 	jump_distance = min(jump_distance, max_hop_distance)
 	
-	var jump_velocity: float = jump_distance / ( 0.5 * total_time )
+	var jump_velocity: float = jump_distance / total_time
 	
 	enemy.sprite.jump(48.0, time_to_peak, time_to_fall)
 	enemy.linear_damp = 0.0
