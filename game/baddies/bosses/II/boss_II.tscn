@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://duutpyaiwo465"]
+[gd_scene load_steps=58 format=3 uid="uid://duutpyaiwo465"]
 
 [ext_resource type="Script" path="res://baddies/bosses/II/boss_ii.gd" id="1_0fev0"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_a6v0i"]
@@ -38,6 +38,7 @@
 [ext_resource type="Resource" uid="uid://cryffs2cmo4we" path="res://baddies/bosses/II/blast_spam.tres" id="35_bo8m3"]
 [ext_resource type="PackedScene" uid="uid://cvnyuall3fkis" path="res://components/weapon/attacks/laser/warning/laser_warning.tscn" id="36_abis4"]
 [ext_resource type="Resource" uid="uid://yt64v7oe384y" path="res://baddies/bosses/II/crash_wave.tres" id="37_dtjo0"]
+[ext_resource type="Texture2D" uid="uid://c4ogsgqi4j1lj" path="res://assets/textures/ball.png" id="39_8o7ma"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e5fj5"]
 bounce = 1.0
@@ -117,6 +118,25 @@ script = ExtResource("30_lsfap")
 collision_layer = 32
 collision_mask = 4
 
+[sub_resource type="Curve" id="Curve_gfr2g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bn4hu"]
+curve = SubResource("Curve_gfr2g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ayym"]
+lifetime_randomness = 0.54
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+damping_min = 400.0
+damping_max = 600.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_bn4hu")
+
 [node name="BossII" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "boss_music_1", "boss_music_2") groups=["bosses"]]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_e5fj5")
@@ -148,9 +168,10 @@ max_health = 300
 script = ExtResource("3_n30an")
 initial_state = NodePath("Intro")
 
-[node name="Intro" type="Node" parent="StateMachine" node_paths=PackedStringArray("grow_timer")]
+[node name="Intro" type="Node" parent="StateMachine" node_paths=PackedStringArray("grow_timer", "intro_vfx")]
 script = ExtResource("4_81ony")
 grow_timer = NodePath("GrowTimer")
+intro_vfx = NodePath("../../IntroVFX")
 
 [node name="GrowTimer" type="Timer" parent="StateMachine/Intro"]
 wait_time = 0.7
@@ -178,8 +199,17 @@ crash_wpn = NodePath("../../Crash")
 [node name="DigTimer" type="Timer" parent="StateMachine/B"]
 one_shot = true
 
-[node name="Y" type="Node" parent="StateMachine"]
+[node name="Y" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer", "steering")]
 script = ExtResource("9_8ydtp")
+dash_speed = 600.0
+vibe_speed = 500.0
+turn_speed = 5.0
+predict_speed = 4.0
+dash_timer = NodePath("DashTimer")
+steering = NodePath("../../Steering")
+
+[node name="DashTimer" type="Timer" parent="StateMachine/Y"]
+one_shot = true
 
 [node name="Enrage" type="Node" parent="StateMachine"]
 script = ExtResource("10_sgnos")
@@ -231,7 +261,6 @@ amount = 200
 process_material = SubResource("ParticleProcessMaterial_oj1iw")
 texture = ExtResource("23_8h8jt")
 visibility_rect = Rect2(-768, -768, 1536, 1536)
-local_coords = true
 
 [node name="DigVFX" type="GPUParticles2D" parent="." groups=["enemies", "mages"]]
 modulate = Color(0, 0, 0.501961, 1)
@@ -252,6 +281,9 @@ shape = SubResource("RectangleShape2D_ansyg")
 disabled = true
 
 [node name="Hitbox" parent="." instance=ExtResource("13_14jr4")]
+damage = 2
+damage_cooldown = 1.0
+knockback_strength = 128.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_3npjd")
@@ -303,11 +335,22 @@ cool_down = 2.0
 
 [node name="Steering" type="Marker2D" parent="."]
 
+[node name="IntroVFX" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_2ayym")
+texture = ExtResource("39_8o7ma")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
 [connection signal="color_set" from="." to="StateMachine/R" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/G" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/B" method="_on_boss_ii_color_set"]
+[connection signal="color_set" from="." to="StateMachine/Y" method="_on_boss_ii_color_set"]
 [connection signal="timeout" from="StateMachine/Intro/GrowTimer" to="StateMachine/Intro" method="_on_grow_timer_timeout"]
 [connection signal="timeout" from="StateMachine/B/DigTimer" to="StateMachine/B" method="_on_dig_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Y/DashTimer" to="StateMachine/Y" method="_on_dash_timer_timeout"]
 [connection signal="ground_hit" from="HeightSprite" to="StateMachine/B" method="_on_height_sprite_ground_hit"]
 [connection signal="height_changed" from="HeightSprite" to="." method="_on_height_sprite_height_changed"]
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]

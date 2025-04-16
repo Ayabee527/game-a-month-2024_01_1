@@ -55,9 +55,10 @@ func peek() -> void:
 		return
 	
 	var peeks: int = 3
+	var peek_time: float = 0.15
 	var warning := CIRCLE_WARNING.instantiate()
 	#warning.global_position = boss.global_position
-	warning.warn_time = 0.2 * (peeks * 2)
+	warning.warn_time = peek_time * (peeks * 2)
 	warning.radius = 96
 	warning.color = Color.BLUE
 	boss.add_child(warning)
@@ -69,7 +70,7 @@ func peek() -> void:
 		else:
 			boss.sprite.hide()
 			boss.shadow.hide()
-		await get_tree().create_timer(0.2, false).timeout
+		await get_tree().create_timer(peek_time, false).timeout
 	leap()
 
 func leap() -> void:
@@ -80,7 +81,7 @@ func leap() -> void:
 	crash_wpn.shoot()
 	MainCam.shake(17, 7, 7)
 	
-	var peak_time: float = 0.6
+	var peak_time: float = 0.5
 	var fall_time: float = 0.4
 	
 	var jump_distance := boss.global_position.distance_to(
@@ -99,10 +100,9 @@ func leap() -> void:
 	boss.apply_central_impulse(
 		Vector2.from_angle(boss.global_rotation) * jump_velocity
 	)
-	warn(jump_velocity)
+	warn(jump_velocity, peak_time + fall_time)
 
-func warn(speed: float) -> void:
-	var total_time: float = 1.0
+func warn(speed: float, total_time: float) -> void:
 	var jump_vector: Vector2 = Vector2.from_angle(boss.global_rotation) * speed * total_time
 	
 	var warning := CIRCLE_WARNING.instantiate()

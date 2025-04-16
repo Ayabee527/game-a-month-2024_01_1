@@ -1,7 +1,7 @@
 extends BossIIState
 
 #const PHASES_1: Array[String] = ["R", "G", "B", "Y"]
-const PHASES_1: Array[String] = ["R", "G", "B"]
+const PHASES_1: Array[String] = ["R", "G", "B", "Y"]
 const PHASES_2: Array[String] = ["RG", "RB", "RY", "GB", "GY", "BY"]
 
 var cycle: Array[String] = []

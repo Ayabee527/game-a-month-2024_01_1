@@ -3,6 +3,7 @@ extends BossIIState
 @export var max_grows: int = 5
 
 @export var grow_timer: Timer
+@export var intro_vfx: GPUParticles2D
 
 var grows: int = 0
 
@@ -35,6 +36,7 @@ func grow() -> void:
 		
 		boss.sprite.global_scale = Vector2.ONE * lerp(0.0, 1.0, float(grows) / max_grows)
 		boss.shadow.shadow_scale = Vector2.ONE * lerp(0.0, 1.0, float(grows) / max_grows)
+		intro_vfx.restart()
 		
 		var rotate = randf_range(-45, 45)
 		while abs(MainCam.rotation_degrees - rotate) < 10:
