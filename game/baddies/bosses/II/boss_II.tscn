@@ -181,6 +181,7 @@ script = ExtResource("5_kfonc")
 
 [node name="R" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon", "tether_vfx")]
 script = ExtResource("6_jblrj")
+max_shots = 30
 weapon = NodePath("../../TetherAura")
 tether_vfx = NodePath("../../Tether")
 
@@ -348,6 +349,7 @@ explosiveness = 1.0
 [connection signal="color_set" from="." to="StateMachine/G" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/B" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/Y" method="_on_boss_ii_color_set"]
+[connection signal="was_hurt" from="Health" to="StateMachine/Enrage" method="_on_health_was_hurt"]
 [connection signal="timeout" from="StateMachine/Intro/GrowTimer" to="StateMachine/Intro" method="_on_grow_timer_timeout"]
 [connection signal="timeout" from="StateMachine/B/DigTimer" to="StateMachine/B" method="_on_dig_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Y/DashTimer" to="StateMachine/Y" method="_on_dash_timer_timeout"]

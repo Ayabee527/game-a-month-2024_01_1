@@ -6,7 +6,12 @@ const PHASES_2: Array[String] = ["RG", "RB", "RY", "GB", "GY", "BY"]
 
 var cycle: Array[String] = []
 
+var last_phase: int = 0
+
 func enter(_msg:={}) -> void:
+	if last_phase != boss.phase:
+		cycle.clear()
+	
 	if cycle.is_empty():
 		if boss.phase == 0:
 			cycle = PHASES_1.duplicate()
