@@ -17,7 +17,7 @@ var dashes: int = 0
 func enter(_msg:={}) -> void:
 	dashes = 0
 	vibing = false
-	boss.set_color(Color.YELLOW)
+	boss.set_color(Color.YELLOW, Color.TRANSPARENT)
 
 func physics_update(delta: float) -> void:
 	if vibing:
@@ -67,7 +67,7 @@ func dash() -> void:
 	dash_timer.start()
 	vibing = false
 
-func _on_boss_ii_color_set(new_color: Color) -> void:
+func _on_boss_ii_color_set(_new_color_1: Color, _new_color_2: Color) -> void:
 	if is_active:
 		vibe()
 

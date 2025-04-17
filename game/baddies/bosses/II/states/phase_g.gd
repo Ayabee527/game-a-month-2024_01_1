@@ -21,7 +21,7 @@ var chase_speed: float = 300.0
 
 func enter(_msg:={}) -> void:
 	snipes = 0
-	boss.set_color(Color.GREEN)
+	boss.set_color(Color.GREEN, Color.TRANSPARENT)
 	
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
 	steer_speed = randf_range(min_steer_speed, max_steer_speed)
@@ -54,7 +54,7 @@ func exit() -> void:
 	snipe_warning.active = false
 
 
-func _on_boss_ii_color_set(new_color: Color) -> void:
+func _on_boss_ii_color_set(_new_color_1: Color, _new_color_2: Color) -> void:
 	if is_active:
 		#sniper.firing = true
 		snipe_warning.active = true

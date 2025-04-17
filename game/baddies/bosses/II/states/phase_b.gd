@@ -20,7 +20,7 @@ var turn_speed: float = 3.0
 
 func enter(_msg:={}) -> void:
 	leaps = 0
-	boss.set_color(Color.BLUE)
+	boss.set_color(Color.BLUE, Color.TRANSPARENT)
 	
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
 	turn_speed = randf_range(min_turn_speed, max_turn_speed)
@@ -112,7 +112,7 @@ func warn(speed: float, total_time: float) -> void:
 	warning.color = Color.BLUE
 	boss.get_parent().add_child(warning)
 
-func _on_boss_ii_color_set(new_color: Color) -> void:
+func _on_boss_ii_color_set(_new_color_1: Color, _new_color_2: Color) -> void:
 	if is_active:
 		peek()
 

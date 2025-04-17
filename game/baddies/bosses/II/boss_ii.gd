@@ -1,7 +1,7 @@
 class_name BossII
 extends RigidBody2D
 
-signal color_set(new_color: Color)
+signal color_set(new_color_1: Color, new_color_2: Color)
 signal died()
 
 @export_group("Inner Dependencies")
@@ -14,7 +14,9 @@ signal died()
 @export var health_indicator: HealthIndicator
 @export var player_tracker: PlayerTracker
 @export var sprite: HeightSprite
+@export var sprite_2: HeightSprite
 @export var shadow: Shadow
+@export var shadow_2: Shadow
 @export var bleeder: EntityBleeder
 @export var hurt_sfx: AudioStreamPlayer2D
 @export var boss_music_1: AudioStreamPlayer
@@ -34,30 +36,37 @@ func _physics_process(delta: float) -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	pass
 
-func set_color(color: Color) -> void:
+func set_color(color_1: Color, color_2: Color) -> void:
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel()
 	tween.tween_property(
-		sprite, "modulate", color, 1.0
+		sprite, "modulate", color_1, 1.0
 	)
 	tween.tween_property(
-		sprite, "hurt_color", color.inverted(), 1.0
+		sprite, "hurt_color", color_1.inverted(), 1.0
 	)
 	tween.tween_property(
-		bleeder, "blood_color", color, 1.0
+		bleeder, "blood_color", color_1, 1.0
 	)
 	tween.tween_property(
-		player_tracker, "color", color, 1.0
+		player_tracker, "color", color_1, 1.0
 	)
 	tween.tween_property(
-		health_indicator, "hurt_color", color, 1.0
+		health_indicator, "hurt_color", color_1, 1.0
 	)
 	tween.tween_property(
-		health_indicator, "outline_color", color, 1.0
+		health_indicator, "outline_color", color_1, 1.0
+	)
+	
+	tween.tween_property(
+		sprite_2, "modulate", color_2, 1.0
+	)
+	tween.tween_property(
+		sprite_2, "hurt_color", color_2.inverted(), 1.0
 	)
 	
 	await tween.finished
-	color_set.emit(color)
+	color_set.emit(color_1, color_2)
 
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.shake(10.0, 10.0, 5.0)
@@ -79,6 +88,7 @@ func _on_hurtbox_knocked_back(knockback: Vector2) -> void:
 	apply_central_impulse(knockback)
 
 func _on_height_sprite_height_changed(new_height: float) -> void:
+	sprite_2.height = new_height
 	hitbox.height = new_height
 	hurtbox.height = new_height
 	hurt_coll_shape.position = sprite.offset

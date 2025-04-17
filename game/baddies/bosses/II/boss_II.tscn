@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://duutpyaiwo465"]
+[gd_scene load_steps=60 format=3 uid="uid://duutpyaiwo465"]
 
 [ext_resource type="Script" path="res://baddies/bosses/II/boss_ii.gd" id="1_0fev0"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_a6v0i"]
@@ -51,6 +51,11 @@ resource_local_to_scene = true
 shader = ExtResource("8_62lpk")
 shader_parameter/color = Color(0, 0, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8f5a"]
+resource_local_to_scene = true
+shader = ExtResource("8_62lpk")
+shader_parameter/color = Color(0, 0, 0, 1)
+
 [sub_resource type="Curve" id="Curve_7sryx"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.753846, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -97,6 +102,12 @@ shader = ExtResource("11_pfqg6")
 shader_parameter/active = false
 shader_parameter/tint = Color(1, 0, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xmmje"]
+resource_local_to_scene = true
+shader = ExtResource("11_pfqg6")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ansyg"]
 size = Vector2(44, 44)
 
@@ -137,7 +148,7 @@ damping_max = 600.0
 scale_max = 2.0
 scale_curve = SubResource("CurveTexture_bn4hu")
 
-[node name="BossII" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "boss_music_1", "boss_music_2") groups=["bosses"]]
+[node name="BossII" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "sprite_2", "shadow", "shadow_2", "bleeder", "hurt_sfx", "boss_music_1", "boss_music_2") groups=["bosses"]]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_e5fj5")
 gravity_scale = 0.0
@@ -154,7 +165,9 @@ health = NodePath("Health")
 health_indicator = NodePath("HealthIndicator")
 player_tracker = NodePath("PlayerTracker")
 sprite = NodePath("HeightSprite")
+sprite_2 = NodePath("HeightSprite2")
 shadow = NodePath("Shadow")
+shadow_2 = NodePath("Shadow2")
 bleeder = NodePath("Bleeder")
 hurt_sfx = NodePath("HurtSFX")
 boss_music_1 = NodePath("BossMusic1")
@@ -215,8 +228,10 @@ one_shot = true
 [node name="Enrage" type="Node" parent="StateMachine"]
 script = ExtResource("10_sgnos")
 
-[node name="RG" type="Node" parent="StateMachine"]
+[node name="RG" type="Node" parent="StateMachine" node_paths=PackedStringArray("tether_wpn", "tether_vfx")]
 script = ExtResource("11_mm3ks")
+tether_wpn = NodePath("../../TetherAura")
+tether_vfx = NodePath("../../Tether")
 
 [node name="RB" type="Node" parent="StateMachine"]
 script = ExtResource("12_i5n4s")
@@ -256,6 +271,10 @@ material = SubResource("ShaderMaterial_jggci")
 texture = ExtResource("9_w46dt")
 caster = NodePath("../HeightSprite")
 
+[node name="Shadow2" parent="." node_paths=PackedStringArray("caster") instance=ExtResource("7_4omnu")]
+material = SubResource("ShaderMaterial_s8f5a")
+caster = NodePath("../HeightSprite2")
+
 [node name="Tether" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 200
@@ -273,6 +292,9 @@ texture = ExtResource("24_uy5lu")
 [node name="HeightSprite" parent="." instance=ExtResource("10_qvcp3")]
 material = SubResource("ShaderMaterial_3r0qg")
 texture = ExtResource("9_w46dt")
+
+[node name="HeightSprite2" parent="." instance=ExtResource("10_qvcp3")]
+material = SubResource("ShaderMaterial_xmmje")
 
 [node name="Hurtbox" parent="." instance=ExtResource("12_70yjx")]
 knockback_modifier = 0.5
