@@ -79,7 +79,7 @@ func shoot() -> void:
 		else:
 			attack.global_position = (
 				global_position
-				+ (Vector2.from_angle(global_rotation).rotated(deg_to_rad(shoot_angle)) * muzzle_distance)
+				+ (Vector2.from_angle(global_rotation + deg_to_rad(shoot_angle)) * muzzle_distance)
 			)
 		attack.global_rotation_degrees = muzzle.global_rotation_degrees + weapon.angle_offset
 		attack.global_rotation += deg_to_rad(shoot_angle)
@@ -95,8 +95,8 @@ func shoot() -> void:
 			attack_data.trigger_payload.connect( unleash_payload.bind(attack, weapon.payload) )
 		
 		if weapon.stick_to_handler:
-			attack.position = Vector2.ZERO
-			attack.rotation = 0
+			attack.position = Vector2.from_angle(attack.rotation) * muzzle_distance
+			#attack.rotation = 0
 			add_child.call_deferred(attack)
 		else:
 			owner.get_parent().add_child.call_deferred(attack)

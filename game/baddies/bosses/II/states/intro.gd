@@ -16,6 +16,8 @@ func enter(_msg:={}) -> void:
 	boss.sprite.global_scale = Vector2.ZERO
 	boss.shadow.shadow_scale = Vector2.ZERO
 	
+	boss.health.hurt(140)
+	
 	grows = 0
 	grow_timer.start()
 	

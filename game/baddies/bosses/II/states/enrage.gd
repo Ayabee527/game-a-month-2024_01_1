@@ -5,6 +5,7 @@ func enter(_msg:={}) -> void:
 	MainCam.flash(Color(1, 1, 1, 0.25), 0.3)
 	MainCam.target = boss
 	MainCam.min_shake_stength = 5.0
+	boss.linear_damp = 2
 	boss.player.toggle_invinc(true)
 	boss.hurt_coll_shape.set_deferred("disabled", true)
 	
@@ -15,6 +16,10 @@ func enter(_msg:={}) -> void:
 	)
 	tween.tween_property(
 		boss.boss_music_1, "pitch_scale", 0.01, 2.0
+	)
+	tween.tween_property(
+		boss.health_indicator, "health_fraction",
+		0.0, 2.0
 	)
 	
 	
@@ -38,12 +43,6 @@ func enter(_msg:={}) -> void:
 	)
 	tween2.tween_property(
 		boss.shadow, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
-	)
-	tween2.tween_property(
-		boss.sprite_2, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
-	)
-	tween2.tween_property(
-		boss.shadow_2, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
 	)
 	tween2.set_parallel(false)
 	await tween2.finished

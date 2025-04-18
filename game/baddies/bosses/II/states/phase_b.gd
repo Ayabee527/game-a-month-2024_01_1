@@ -46,8 +46,14 @@ func exit() -> void:
 	boss.shadow.show()
 	dig_vfx.emitting = false
 	boss.hurt_coll_shape.set_deferred("disabled", false)
+	boss.sprite.show()
+	boss.shadow.show()
+	boss.linear_damp = 2
 
 func peek() -> void:
+	if not is_active:
+		return
+	
 	boss.hurt_coll_shape.set_deferred("disabled", false)
 	
 	if leaps >= max_leaps:
@@ -74,6 +80,9 @@ func peek() -> void:
 	leap()
 
 func leap() -> void:
+	if not is_active:
+		return
+	
 	leaps += 1
 	
 	boss.sprite.show()
@@ -103,6 +112,9 @@ func leap() -> void:
 	warn(jump_velocity, peak_time + fall_time)
 
 func warn(speed: float, total_time: float) -> void:
+	if not is_active:
+		return
+	
 	var jump_vector: Vector2 = Vector2.from_angle(boss.global_rotation) * speed * total_time
 	
 	var warning := CIRCLE_WARNING.instantiate()

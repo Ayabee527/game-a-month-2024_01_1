@@ -56,11 +56,14 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if warning:
 		var warn_color: Color = color
-		warn_color.a = 0.25
+		warn_color.a = 0.2
 		draw_circle(
 			Vector2.ZERO,
-			draw_width + 4.0,
+			attack_data.width + 4.0,
 			warn_color, true
+		)
+		draw_line(
+			Vector2.ZERO, Vector2.RIGHT * length, warn_color, attack_data.width + 2.0
 		)
 		draw_line(
 			Vector2.ZERO, Vector2.RIGHT * length, warn_color, draw_width + 2.0

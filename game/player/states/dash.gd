@@ -92,7 +92,7 @@ func _on_dash_timer_timeout() -> void:
 
 func _on_dodge_check_hurt(_hitbox: Hitbox, _damage: int, _invinc_time: float) -> void:
 	if not dash_timer.is_stopped():
-		if dash_timer.time_left >= 0.7 * dash_timer.wait_time:
+		if dash_timer.time_left >= 0.6 * dash_timer.wait_time:
 			RogueHandler.trigger_style(
 				player.global_position, "PERFECT DODGE!", 15
 			)
