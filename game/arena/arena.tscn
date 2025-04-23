@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy1jiygmpu21b"]
+
+[ext_resource type="Script" path="res://arena/arena.gd" id="1_4dhvr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8462"]
+radius = 0.01
+
+[node name="Arena" type="Area2D" node_paths=PackedStringArray("border", "highlight", "collision") groups=["arena"]]
+collision_layer = 512
+collision_mask = 4
+script = ExtResource("1_4dhvr")
+border = NodePath("Border")
+highlight = NodePath("Highlight")
+collision = NodePath("CollisionShape2D")
+
+[node name="Border" type="Line2D" parent="."]
+points = PackedVector2Array(-16, 0, 0, -16, 16, 0, 0, 16)
+closed = true
+width = 4.0
+default_color = Color(1, 0, 0, 0)
+
+[node name="Highlight" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 0)
+invert_enabled = true
+invert_border = 5120.0
+polygon = PackedVector2Array(-16, 0, 0, -16, 16, 0, 0, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_w8462")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
