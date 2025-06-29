@@ -1,8 +1,8 @@
 extends BossIIState
 
 const PHASES_1: Array[String] = ["R", "G", "B", "Y"]
-#const PHASES_2: Array[String] = ["RG", "RB", "RY", "GB", "GY", "BY"]
-const PHASES_2: Array[String] = ["RG"]
+#const PHASES_2: Array[String] = ["ER", "EG", "EB", "EY"]
+const PHASES_2: Array[String] = ["ER"]
 
 var cycle: Array[String] = []
 

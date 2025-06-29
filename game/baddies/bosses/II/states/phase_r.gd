@@ -21,7 +21,7 @@ var turn_speed: float = 3.0
 func enter(_msg:={}) -> void:
 	shots = 0
 	pull_force = min_pull_force
-	boss.set_color(Color.RED, Color.TRANSPARENT)
+	boss.set_color(Color.RED)
 	tether_vfx.emitting = true
 	
 	chase_speed = randf_range(min_chase_speed, max_chase_speed)
@@ -63,6 +63,6 @@ func _on_tether_aura_fired() -> void:
 		state_machine.transition_to("PhaseSwitch")
 
 
-func _on_boss_ii_color_set(_new_color_1: Color, _new_color_2: Color) -> void:
+func _on_boss_ii_color_set(_new_color: Color) -> void:
 	if is_active:
 		weapon.firing = true

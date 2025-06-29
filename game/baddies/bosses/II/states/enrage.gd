@@ -31,12 +31,6 @@ func enter(_msg:={}) -> void:
 	tween2.tween_property(
 		boss.shadow, "shadow_scale", Vector2.ZERO, 2.0
 	)
-	tween2.tween_property(
-		boss.sprite_2, "global_scale", Vector2.ZERO, 2.0
-	)
-	tween2.tween_property(
-		boss.shadow_2, "shadow_scale", Vector2.ZERO, 2.0
-	)
 	tween2.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 	tween2.tween_property(
 		boss.sprite, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
@@ -47,15 +41,12 @@ func enter(_msg:={}) -> void:
 	tween2.set_parallel(false)
 	await tween2.finished
 	
-	boss.sprite.texture = load("res://assets/textures/enemies/smallbossangy2in.png")
+	boss.sprite.texture = load("res://assets/textures/enemies/smallbossangy2.png")
 	boss.shadow.texture = boss.sprite.texture
-	boss.sprite_2.texture = load("res://assets/textures/enemies/smallbossangy2out.png")
-	boss.sprite_2.modulate = boss.sprite.modulate
-	boss.sprite_2.global_rotation = boss.sprite.global_rotation
-	boss.shadow_2.texture = boss.sprite_2.texture
 	
 	boss.boss_music_2.pitch_scale = 0.01
 	boss.boss_music_2.play()
+	boss.arena.global_position = boss.global_position
 	
 	var tween3 = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	tween3.set_parallel()
@@ -67,10 +58,13 @@ func enter(_msg:={}) -> void:
 		boss.shadow, "shadow_scale", Vector2.ONE, 2.0
 	)
 	tween3.tween_property(
-		boss.sprite_2, "global_scale", Vector2.ONE, 2.0
+		boss.arena, "color", Color.RED, 2.0
 	)
 	tween3.tween_property(
-		boss.shadow_2, "shadow_scale", Vector2.ONE, 2.0
+		boss.arena, "radius", 256.0, 2.0
+	)
+	tween3.tween_property(
+		MainCam, "zoom_factor", 0.4, 2.0
 	)
 	tween3.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween3.tween_property(
@@ -80,22 +74,18 @@ func enter(_msg:={}) -> void:
 		boss.shadow, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
 	)
 	tween3.tween_property(
-		boss.sprite_2, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
-	)
-	tween3.tween_property(
-		boss.shadow_2, "global_rotation_degrees", boss.sprite.global_rotation_degrees * 10, 2.0
-	)
-	tween3.tween_property(
 		boss.boss_music_2, "pitch_scale", 1.0, 2.0
 	)
 	await tween3.finished
 	boss.phase = 1
+	boss.arena.active = true
 	state_machine.transition_to("PhaseSwitch")
 
 func exit() -> void:
 	MainCam.min_shake_stength = 0.0
 	boss.player.toggle_invinc(false)
-	boss.player.grab_camera()
+	MainCam.target = boss.arena
+	#boss.player.grab_camera()
 	boss.hurt_coll_shape.set_deferred("disabled", false)
 
 func _on_health_was_hurt(new_health: int, amount: int) -> void:

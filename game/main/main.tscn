@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=39 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
 [ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="9_nyh41"]
 [ext_resource type="AudioStream" uid="uid://cehuawtgod525" path="res://assets/music/shop-loop.ogg" id="9_rviqu"]
+[ext_resource type="PackedScene" uid="uid://cy1jiygmpu21b" path="res://arena/arena.tscn" id="10_i16rg"]
 [ext_resource type="Script" path="res://main/pause_menu.gd" id="10_r4wkv"]
 [ext_resource type="Resource" uid="uid://c57wnd7jx34ka" path="res://player/upgrades/dual_starter.tres" id="11_60coc"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
@@ -176,7 +177,7 @@ script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 tier_themes = [NodePath("../../Tier1"), NodePath("../../Tier2")]
 starting_wave = 30
-starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("13_xx7xw"), ExtResource("15_b8x6f"), ExtResource("18_nvu3b")])
+starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("15_b8x6f"), ExtResource("18_nvu3b"), ExtResource("13_xx7xw")])
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")
@@ -189,6 +190,8 @@ wait_time = 2.5
 [node name="MultiKillTimer" type="Timer" parent="World/EnemyHandler"]
 wait_time = 0.5
 one_shot = true
+
+[node name="Arena" parent="World" instance=ExtResource("10_i16rg")]
 
 [node name="Tier1" type="AudioStreamPlayer" parent="."]
 process_mode = 3

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://duutpyaiwo465"]
+[gd_scene load_steps=62 format=3 uid="uid://duutpyaiwo465"]
 
 [ext_resource type="Script" path="res://baddies/bosses/II/boss_ii.gd" id="1_0fev0"]
 [ext_resource type="Script" path="res://components/health/health.gd" id="2_a6v0i"]
@@ -17,17 +17,15 @@
 [ext_resource type="Texture2D" uid="uid://d4emu1rl50g6" path="res://assets/textures/enemies/smallboss.png" id="9_w46dt"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="10_qvcp3"]
 [ext_resource type="Script" path="res://baddies/bosses/II/states/enrage.gd" id="10_sgnos"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_rg.gd" id="11_mm3ks"]
+[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_er.gd" id="11_2fbrg"]
 [ext_resource type="Shader" path="res://components/flash.gdshader" id="11_pfqg6"]
+[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_eg.gd" id="12_6mvsy"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="12_70yjx"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_rb.gd" id="12_i5n4s"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="13_14jr4"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_ry.gd" id="13_cyys1"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_gb.gd" id="14_2a7h2"]
+[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_eb.gd" id="13_uvyd8"]
 [ext_resource type="AudioStream" uid="uid://d0xnc6eedy14y" path="res://assets/music/boss2b.ogg" id="14_c3d0n"]
+[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_ey.gd" id="14_vn2nc"]
 [ext_resource type="AudioStream" uid="uid://cb82ols0mlxj3" path="res://assets/music/boss2a.ogg" id="15_aitnl"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_gy.gd" id="15_nghtr"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_by.gd" id="16_1f1jw"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="23_8h8jt"]
 [ext_resource type="Texture2D" uid="uid://cqgaoh3so0ind" path="res://assets/textures/fat_bullet_in.png" id="24_uy5lu"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="29_jvlwt"]
@@ -160,7 +158,7 @@ damping_max = 600.0
 scale_max = 2.0
 scale_curve = SubResource("CurveTexture_bn4hu")
 
-[node name="BossII" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "sprite_2", "shadow", "shadow_2", "bleeder", "hurt_sfx", "boss_music_1", "boss_music_2") groups=["bosses"]]
+[node name="BossII" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "boss_music_1", "boss_music_2") groups=["bosses"]]
 collision_layer = 10
 physics_material_override = SubResource("PhysicsMaterial_e5fj5")
 gravity_scale = 0.0
@@ -177,9 +175,7 @@ health = NodePath("Health")
 health_indicator = NodePath("HealthIndicator")
 player_tracker = NodePath("PlayerTracker")
 sprite = NodePath("HeightSprite")
-sprite_2 = NodePath("HeightSprite2")
 shadow = NodePath("Shadow")
-shadow_2 = NodePath("Shadow2")
 bleeder = NodePath("Bleeder")
 hurt_sfx = NodePath("HurtSFX")
 boss_music_1 = NodePath("BossMusic1")
@@ -240,28 +236,17 @@ one_shot = true
 [node name="Enrage" type="Node" parent="StateMachine"]
 script = ExtResource("10_sgnos")
 
-[node name="RG" type="Node" parent="StateMachine" node_paths=PackedStringArray("tether_wpn", "spam_wpn", "tether_vfx")]
-script = ExtResource("11_mm3ks")
-max_chase_speed = 500.0
-min_chase_speed = 400.0
-tether_wpn = NodePath("../../TetherAura2")
-spam_wpn = NodePath("../../SpamSpin")
-tether_vfx = NodePath("../../Tether")
+[node name="ER" type="Node" parent="StateMachine"]
+script = ExtResource("11_2fbrg")
 
-[node name="RB" type="Node" parent="StateMachine"]
-script = ExtResource("12_i5n4s")
+[node name="EG" type="Node" parent="StateMachine"]
+script = ExtResource("12_6mvsy")
 
-[node name="RY" type="Node" parent="StateMachine"]
-script = ExtResource("13_cyys1")
+[node name="EB" type="Node" parent="StateMachine"]
+script = ExtResource("13_uvyd8")
 
-[node name="GB" type="Node" parent="StateMachine"]
-script = ExtResource("14_2a7h2")
-
-[node name="GY" type="Node" parent="StateMachine"]
-script = ExtResource("15_nghtr")
-
-[node name="BY" type="Node" parent="StateMachine"]
-script = ExtResource("16_1f1jw")
+[node name="EY" type="Node" parent="StateMachine"]
+script = ExtResource("14_vn2nc")
 
 [node name="HealthIndicator" parent="." instance=ExtResource("4_tkr4t")]
 entity_name = "BOSS II"
@@ -398,7 +383,6 @@ explosiveness = 1.0
 [connection signal="color_set" from="." to="StateMachine/G" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/B" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/Y" method="_on_boss_ii_color_set"]
-[connection signal="color_set" from="." to="StateMachine/RG" method="_on_boss_ii_color_set"]
 [connection signal="was_hurt" from="Health" to="StateMachine/Enrage" method="_on_health_was_hurt"]
 [connection signal="timeout" from="StateMachine/Intro/GrowTimer" to="StateMachine/Intro" method="_on_grow_timer_timeout"]
 [connection signal="timeout" from="StateMachine/B/DigTimer" to="StateMachine/B" method="_on_dig_timer_timeout"]
@@ -409,6 +393,4 @@ explosiveness = 1.0
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="fired" from="TetherAura" to="StateMachine/R" method="_on_tether_aura_fired"]
 [connection signal="fired" from="Sniper" to="StateMachine/G" method="_on_sniper_fired"]
-[connection signal="fired" from="TetherAura2" to="StateMachine/RG" method="_on_tether_aura_2_fired"]
-[connection signal="fired" from="SpamSpin" to="StateMachine/RG" method="_on_spam_spin_fired"]
 [connection signal="fired" from="SnipeWarning" to="StateMachine/G" method="_on_snipe_warning_fired"]
