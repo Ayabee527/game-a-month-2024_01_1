@@ -27,16 +27,17 @@ scale_max = 2.5
 scale_curve = SubResource("CurveTexture_oibvx")
 
 [node name="BloodSplatter" type="GPUParticles2D"]
+process_mode = 3
 z_index = -5
 emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_20dap")
 texture = ExtResource("1_eijsu")
-lifetime = 30.0
+lifetime = 60.0
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5
-visibility_rect = Rect2(-112, -112, 224, 224)
+visibility_rect = Rect2(-256, -256, 512, 512)
 draw_order = 0
 script = ExtResource("2_a5pmg")
 

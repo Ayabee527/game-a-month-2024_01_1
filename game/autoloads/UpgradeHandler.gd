@@ -32,6 +32,8 @@ var payload_queue: Array[Weapon] = []
 
 var player: Player
 
+var blood_fade_time: float = 0
+
 func set_equips(new_equips: Array[RogueUpgrade]) -> void:
 	equips = new_equips
 	equips_updated.emit(equips)
