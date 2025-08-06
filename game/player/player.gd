@@ -24,9 +24,7 @@ signal point_grabbed(point_color: Color)
 @export var bleeder: EntityBleeder
 @export var draw_control: Marker2D
 @export var hurt_sfx: AudioStreamPlayer2D
-
-@export_subgroup("Conditionals")
-@export var blown_away: WeaponHandler
+@export var punish_timer: Timer
 
 var color: Color = Color.WHITE
 
@@ -52,6 +50,10 @@ func _ready() -> void:
 		RogueHandler.points_updated.connect(on_points_updated)
 	if not RogueHandler.style_triggered.is_connected(on_style_triggered):
 		RogueHandler.style_triggered.connect(on_style_triggered)
+	
+	var arena: Arena = get_tree().get_first_node_in_group("arena")
+	if not arena.punishing_set.is_connected(toggle_punish):
+		arena.punishing_set.connect(toggle_punish)
 
 func _physics_process(delta: float) -> void:
 	if dead:
@@ -146,6 +148,12 @@ func set_overheated(new_overheated: bool) -> void:
 		else:
 			RogueHandler.damage_plus -= 1
 
+func toggle_punish(punishing: bool):
+	if punishing:
+		punish_timer.start()
+	else:
+		punish_timer.stop()
+
 func _on_hurtbox_hurt(hitbox: Hitbox, damage: int, invinc_time: float) -> void:
 	MainCam.hitstop(0.05, invinc_time)
 	var hurt_amount := roundi( (damage + RogueHandler.hurt_plus) )
@@ -190,3 +198,7 @@ func _on_health_was_hurt(new_health: int, amount: int) -> void:
 func _on_health_has_died() -> void:
 	dead = true
 	weapon_handler.firing = false
+
+
+func _on_punish_timer_timeout() -> void:
+	health.hurt(1)

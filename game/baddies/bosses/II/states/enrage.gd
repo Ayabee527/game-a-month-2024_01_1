@@ -78,7 +78,6 @@ func enter(_msg:={}) -> void:
 	)
 	await tween3.finished
 	boss.phase = 1
-	boss.arena.active = true
 	state_machine.transition_to("PhaseSwitch")
 
 func exit() -> void:

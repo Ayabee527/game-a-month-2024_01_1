@@ -100,7 +100,7 @@ stream_0/stream = ExtResource("22_l1n2k")
 [sub_resource type="CircleShape2D" id="CircleShape2D_mj4e7"]
 radius = 16.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "health", "health_indicator", "sprite", "shadow", "trail", "camera_lean", "weapon_handler", "bleeder", "draw_control", "hurt_sfx", "punish_timer") groups=["player"]]
 collision_layer = 6
 physics_material_override = SubResource("PhysicsMaterial_vqc0a")
 gravity_scale = 0.0
@@ -120,6 +120,7 @@ weapon_handler = NodePath("WeaponHandler")
 bleeder = NodePath("Bleeder")
 draw_control = NodePath("DrawControl")
 hurt_sfx = NodePath("HurtSFX")
+punish_timer = NodePath("PunishTimer")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_jb453")
@@ -245,6 +246,9 @@ hittable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DodgeCheck"]
 shape = SubResource("CircleShape2D_mj4e7")
 
+[node name="PunishTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="has_died" from="Health" to="." method="_on_health_has_died"]
 [connection signal="has_died" from="Health" to="StateMachine/Die" method="_on_health_has_died"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
@@ -258,3 +262,4 @@ shape = SubResource("CircleShape2D_mj4e7")
 [connection signal="knocked_back" from="Hurtbox" to="." method="_on_hurtbox_knocked_back"]
 [connection signal="recoiled" from="WeaponHandler" to="." method="_on_weapon_handler_recoiled"]
 [connection signal="hurt" from="DodgeCheck" to="StateMachine/Dash" method="_on_dodge_check_hurt"]
+[connection signal="timeout" from="PunishTimer" to="." method="_on_punish_timer_timeout"]

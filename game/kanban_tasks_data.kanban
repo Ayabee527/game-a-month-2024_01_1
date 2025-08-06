@@ -16,7 +16,7 @@
 			"uuid": "b6fdba55-fc14-4611-aa62-e7f47e812a8f",
 			"title": "Doing",
 			"tasks": [
-				"3cd78864-779b-4dc1-a013-b5b7c2c92eb0",
+				"c1c4e2ff-6d6b-44bc-a882-62df9322f7d3",
 				"4a88f325-eb26-4c3c-87aa-4a2311d172b0",
 				"eeb884b9-4d4c-406a-9df8-8639065e7b99",
 				"e04de685-5bbb-48a4-8401-c874f5da88af",
@@ -32,6 +32,7 @@
 			"uuid": "c019edc9-41eb-4e56-964c-0fc1c735b702",
 			"title": "Done",
 			"tasks": [
+				"3cd78864-779b-4dc1-a013-b5b7c2c92eb0",
 				"418048a7-712e-4acc-9ee1-f568352fdb92",
 				"f03db775-795e-4d1d-bba7-f7287689587d",
 				"276c0ca7-33f5-40ed-b573-1b0c08908ab8",
@@ -426,6 +427,13 @@
 		{
 			"uuid": "3cd78864-779b-4dc1-a013-b5b7c2c92eb0",
 			"title": "arena",
+			"description": "",
+			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
+			"steps": []
+		},
+		{
+			"uuid": "c1c4e2ff-6d6b-44bc-a882-62df9322f7d3",
+			"title": "tier 2 upgrades",
 			"description": "",
 			"category": "b92de4b3-f5f7-4991-a4d5-42b0c5cac464",
 			"steps": []

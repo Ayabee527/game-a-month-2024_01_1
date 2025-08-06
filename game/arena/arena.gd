@@ -16,11 +16,8 @@ signal punishing_set(new_punishing: bool)
 @export var collision: CollisionShape2D
 
 var last_radius: float = 1024.0
-var detail: int = 32
-
-var active: bool = false:
-	set = set_active
-var punishing: bool = true:
+var detail: int = 128
+var punishing: bool = false:
 	set = set_punishing
 
 func _ready() -> void:
@@ -63,15 +60,9 @@ func update_arena(new_radius: float) -> void:
 	shape.radius = new_radius
 	collision.shape = shape
 
-func set_active(new_active: bool) -> void:
-	active = new_active
-	punishing_set.emit(punishing)
-
 func set_punishing(new_punishing: bool) -> void:
 	punishing = new_punishing
-	if active:
-		punishing_set.emit(punishing)
-	
+	punishing_set.emit(punishing)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
