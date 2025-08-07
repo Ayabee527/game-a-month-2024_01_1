@@ -3,7 +3,6 @@ extends Area2D
 
 signal hurt(hitbox: Hitbox, damage: int, invinc_time: float)
 signal knocked_back(knockback: Vector2)
-signal effect_procced(effect: StatusEffector.EFFECTS, ticks: int)
 
 @export var height: float = 0.0
 @export var height_radius: float = 0.0

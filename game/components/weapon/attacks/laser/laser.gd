@@ -29,8 +29,6 @@ func _ready() -> void:
 	hitbox.trigger_invinc = attack_data.hitbox_data.trigger_invinc
 	hitbox.damage_cooldown = attack_data.hitbox_data.damage_cooldown
 	hitbox.knockback_strength = attack_data.hitbox_data.knockback_strength
-	hitbox.status_effect = attack_data.hitbox_data.status_effect
-	hitbox.status_effect_ticks = attack_data.hitbox_data.status_effect_ticks
 	
 	var col_shape = RectangleShape2D.new()
 	col_shape.size = Vector2(length, attack_data.width)

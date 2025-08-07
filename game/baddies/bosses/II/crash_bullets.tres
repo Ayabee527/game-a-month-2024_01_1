@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://etu0vsqumpl0"]
+
+[ext_resource type="Script" path="res://components/weapon/attack_data/projectile_data.gd" id="1_qajfi"]
+[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_siwys"]
+[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_xgakn"]
+
+[sub_resource type="Resource" id="Resource_c7e31"]
+script = ExtResource("1_xgakn")
+damage = 1
+trigger_invinc = false
+damage_cooldown = 0.5
+knockback_strength = 32.0
+
+[sub_resource type="Resource" id="Resource_vn0xo"]
+script = ExtResource("1_qajfi")
+life_time = 2.0
+start_speed = 384.0
+end_speed = 384.0
+accel_time = 0.0
+turn_speed = 0.0
+spin_speed = 0.0
+radius = 3.0
+max_pierces = 0.0
+homes = false
+targets = Array[String](["player"])
+start_home_speed = 360.0
+end_home_speed = 360.0
+home_accel_time = 0.0
+trail_visible = true
+show_indicator = true
+indicator_radius = 12.0
+attack_name = ""
+hitbox_data = SubResource("Resource_c7e31")
+color = Color(1, 1, 1, 1)
+
+[resource]
+script = ExtResource("1_siwys")
+attack_data = SubResource("Resource_vn0xo")
+spread = 0.0
+rotation_offset = 0.0
+shots_per_shot = 10
+shots_per_burst = 1
+angle_per_shot = 0.0
+angle_offset = 0.0
+shot_cooldown = 0.1
+burst_cooldown = 0.0
+camera_shake_shake = 5.0
+camera_shake_speed = 15.0
+camera_shake_decay = 15.0
+recoil_strength = 24.0
+stick_to_handler = false

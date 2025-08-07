@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://cperyiud6atrm"]
+
+[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_57xvh"]
+[ext_resource type="Texture2D" uid="uid://bvnb13lkngoov" path="res://assets/textures/upgrades/blaster.png" id="2_a0sl7"]
+
+[resource]
+script = ExtResource("1_57xvh")
+upgrade_name = "BLASTER"
+upgrade_desc = "[color=yellow]WEAPON UPGRADE[/color] - FIRES 2 MID DAMAGE PIERCING LASERS A SECOND"
+upgrade_icon = ExtResource("2_a0sl7")
+upgrade_color = Color(1, 1, 1, 1)
+upgrade_id = 10
+base_price = 100
+upgrade_tier = 2

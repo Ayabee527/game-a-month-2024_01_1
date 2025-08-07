@@ -35,9 +35,9 @@
 [ext_resource type="Resource" uid="uid://cex1gtruq7qfm" path="res://baddies/bosses/II/megablast.tres" id="34_nbv5c"]
 [ext_resource type="Resource" uid="uid://cryffs2cmo4we" path="res://baddies/bosses/II/blast_spam.tres" id="35_bo8m3"]
 [ext_resource type="PackedScene" uid="uid://cvnyuall3fkis" path="res://components/weapon/attacks/laser/warning/laser_warning.tscn" id="36_abis4"]
+[ext_resource type="Resource" uid="uid://etu0vsqumpl0" path="res://baddies/bosses/II/crash_bullets.tres" id="36_c8baj"]
 [ext_resource type="Resource" uid="uid://yt64v7oe384y" path="res://baddies/bosses/II/crash_wave.tres" id="37_dtjo0"]
 [ext_resource type="Resource" uid="uid://cqr3pbrkx4it5" path="res://baddies/bosses/II/tether2.tres" id="38_p1hst"]
-[ext_resource type="Texture2D" uid="uid://c4ogsgqi4j1lj" path="res://assets/textures/ball.png" id="39_8o7ma"]
 [ext_resource type="Resource" uid="uid://bouh442bf4tgy" path="res://baddies/bosses/II/spamspin.tres" id="40_vqbhh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e5fj5"]
@@ -148,6 +148,7 @@ curve = SubResource("Curve_gfr2g")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ayym"]
 lifetime_randomness = 0.54
+particle_flag_align_y = true
 particle_flag_disable_z = true
 spread = 180.0
 initial_velocity_min = 200.0
@@ -347,7 +348,7 @@ weapons = Array[ExtResource("31_shes1")]([ExtResource("34_nbv5c"), ExtResource("
 muzzle_distance = 0.0
 muzzle_is_origin = false
 collision_data = SubResource("Resource_t846a")
-weapons = Array[ExtResource("31_shes1")]([ExtResource("37_dtjo0")])
+weapons = Array[ExtResource("31_shes1")]([ExtResource("37_dtjo0"), ExtResource("36_c8baj")])
 
 [node name="TetherAura2" parent="." instance=ExtResource("29_jvlwt")]
 muzzle_distance = 32.0
@@ -374,7 +375,7 @@ cool_down = 2.0
 emitting = false
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_2ayym")
-texture = ExtResource("39_8o7ma")
+texture = ExtResource("23_8h8jt")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0

@@ -21,12 +21,10 @@ func enter(_msg:={}) -> void:
 	grows = 0
 	grow_timer.start()
 	
-	#var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	#tween.tween_property(
-		#boss.boss_music_1, "pitch_scale", 1.0, 3.0
-	#).from(0.01)
-	#await tween.finished
-	#state_machine.transition_to("PhaseSwitch")
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		boss.arena, "radius", 512, 30.0
+	).from(0.01)
 
 func grow() -> void:
 	if grows >= max_grows:

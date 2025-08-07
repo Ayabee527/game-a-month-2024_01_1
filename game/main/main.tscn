@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bxxx0cgwl7wb7"]
+[gd_scene load_steps=40 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
@@ -27,6 +27,7 @@
 [ext_resource type="Resource" uid="uid://6jqfisjj3iow" path="res://player/upgrades/explosive_payload.tres" id="18_nvu3b"]
 [ext_resource type="Resource" uid="uid://cwyyvg3uc4sj4" path="res://player/upgrades/untouchable.tres" id="19_pd8id"]
 [ext_resource type="Resource" uid="uid://c2mgkd8bugsd" path="res://player/upgrades/hot_temper.tres" id="20_nltpr"]
+[ext_resource type="Resource" uid="uid://cperyiud6atrm" path="res://player/upgrades/blaster.tres" id="24_ok4tt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5ojk"]
 bg_color = Color(0, 0, 0, 0.25098)
@@ -176,8 +177,8 @@ world = NodePath("..")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 tier_themes = [NodePath("../../Tier1"), NodePath("../../Tier2")]
-starting_wave = 30
-starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("13_xx7xw"), ExtResource("18_nvu3b"), ExtResource("15_b8x6f")])
+starting_wave = 16
+starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("24_ok4tt"), ExtResource("15_b8x6f"), null])
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")
@@ -328,6 +329,7 @@ layer = 2
 
 [node name="ShopMenu" type="PanelContainer" parent="Menus" node_paths=PackedStringArray("enemy_handler", "open_jingle_sfx", "shop_theme", "checker_board", "tier_label", "roll_label", "points_label", "shop_holder", "equip_holder", "confirm_butt", "equips_label", "info_name", "info_cost", "info_desc", "info_panel")]
 process_mode = 3
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(256, 256)
 offset_right = 40.0
@@ -335,7 +337,7 @@ offset_bottom = 40.0
 pivot_offset = Vector2(128, 256)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkjge")
 script = ExtResource("8_wmvef")
-upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("13_xx7xw"), ExtResource("14_k1phw"), ExtResource("15_b8x6f"), ExtResource("16_30mjr"), ExtResource("17_3xlxj"), ExtResource("18_nvu3b"), ExtResource("19_pd8id"), ExtResource("20_nltpr")])
+upgrades = Array[ExtResource("9_nyh41")]([ExtResource("12_yy211"), ExtResource("11_60coc"), ExtResource("13_xx7xw"), ExtResource("14_k1phw"), ExtResource("15_b8x6f"), ExtResource("16_30mjr"), ExtResource("17_3xlxj"), ExtResource("18_nvu3b"), ExtResource("19_pd8id"), ExtResource("20_nltpr"), ExtResource("24_ok4tt")])
 enemy_handler = NodePath("../../World/EnemyHandler")
 open_jingle_sfx = NodePath("OpenJingle")
 shop_theme = NodePath("ShopTheme")

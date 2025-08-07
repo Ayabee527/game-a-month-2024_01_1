@@ -9,6 +9,7 @@ var WEAPONS = {
 	"SNIPER": load("res://player/weapons/sniper.tres"),
 	"ARCANA": load("res://player/weapons/arcana.tres"),
 	"EXPLOSIVE PAYLOAD": load("res://player/weapons/explosive_payload.tres"),
+	"BLASTER": load("res://player/weapons/blaster.tres")
 }
 
 enum UPGRADES {
@@ -22,6 +23,7 @@ enum UPGRADES {
 	EXPLOSIVE_PAYLOAD,
 	UNTOUCHABLE,
 	HOT_TEMPER,
+	BLASTER,
 }
 
 var equips: Array[RogueUpgrade] = [
@@ -86,6 +88,8 @@ func activate_upgrade(id: UPGRADES) -> void:
 		UPGRADES.EXPLOSIVE_PAYLOAD:
 			payload_queue.append(WEAPONS["EXPLOSIVE PAYLOAD"])
 			reassign_payload_upgrades()
+		UPGRADES.BLASTER:
+			give_player_weapons([WEAPONS["BLASTER"]])
 		_:
 			pass
 
@@ -113,5 +117,7 @@ func deactivate_upgrade(id: UPGRADES) -> void:
 		UPGRADES.HOT_TEMPER:
 			if player.overheated:
 				RogueHandler.damage_plus -= 1
+		UPGRADES.BLASTER:
+			remove_player_weapons([WEAPONS["BLASTER"]])
 		_:
 			pass

@@ -134,7 +134,7 @@ func _on_height_sprite_ground_hit() -> void:
 		boss.bleeder.bleed(2, 2.0, 40)
 		boss.sprite.hide()
 		boss.shadow.hide()
-		crash_wpn.shoot()
+		crash_wpn.shoot_all()
 		dig_timer.start()
 		dig_vfx.emitting = true
 		boss.linear_velocity *= 0.0

@@ -11,8 +11,6 @@ damage = 1
 trigger_invinc = false
 damage_cooldown = 0.25
 knockback_strength = 32.0
-status_effect = 0
-status_effect_ticks = 0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b5yiy"]
 random_pitch = 1.77

@@ -41,12 +41,16 @@ func enter(_msg:={}) -> void:
 	tween2.set_parallel(false)
 	await tween2.finished
 	
+	boss.health.max_health = 400
+	boss.health.health = boss.health.max_health
+	boss.health_indicator.update_health(boss.health.health, boss.health.max_health)
+	boss.global_position = Vector2.ZERO
+	boss.hurtbox.knockback_modifier = 0.0
 	boss.sprite.texture = load("res://assets/textures/enemies/smallbossangy2.png")
 	boss.shadow.texture = boss.sprite.texture
 	
 	boss.boss_music_2.pitch_scale = 0.01
 	boss.boss_music_2.play()
-	boss.arena.global_position = boss.global_position
 	
 	var tween3 = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	tween3.set_parallel()
@@ -79,6 +83,12 @@ func enter(_msg:={}) -> void:
 	await tween3.finished
 	boss.phase = 1
 	state_machine.transition_to("PhaseSwitch")
+
+func physics_update(delta: float) -> void:
+	if boss.player.global_position.distance_to(Vector2.ZERO) > 240.0:
+		boss.player.apply_central_force(
+			boss.player.global_position.direction_to(Vector2.ZERO) * 1400.0
+		)
 
 func exit() -> void:
 	MainCam.min_shake_stength = 0.0
