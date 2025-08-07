@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwjul4jopsqpe"]
 
 [ext_resource type="FontFile" uid="uid://cqtksmv1t6g0g" path="res://assets/fonts/m5x7.ttf" id="1_rjwdb"]
-[ext_resource type="Script" path="res://components/style_text/style_text.gd" id="2_p2he5"]
+[ext_resource type="Script" uid="uid://cyr7ta4l0i6by" path="res://components/style_text/style_text.gd" id="2_p2he5"]
 
 [node name="StyleText" type="RichTextLabel" node_paths=PackedStringArray("fresh_timer")]
 clip_contents = false

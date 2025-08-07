@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://bouh442bf4tgy"]
 
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_aywec"]
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_nndjg"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/laser_data.gd" id="2_76e4k"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_aywec"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="1_nndjg"]
+[ext_resource type="Script" uid="uid://cswokdk2amj0d" path="res://components/weapon/attack_data/laser_data.gd" id="2_76e4k"]
 
 [sub_resource type="Resource" id="Resource_cdp6q"]
 script = ExtResource("1_aywec")

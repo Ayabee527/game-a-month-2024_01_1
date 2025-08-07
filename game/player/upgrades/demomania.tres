@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://d2g67ojsd33or"]
 
-[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_ln2aw"]
+[ext_resource type="Script" uid="uid://cbgecxgvn4vkk" path="res://player/upgrades/rogue_upgrade.gd" id="1_ln2aw"]
 [ext_resource type="Texture2D" uid="uid://c5q20hpqvsqc1" path="res://assets/textures/upgrades/demomania.png" id="2_iex1q"]
 
 [resource]

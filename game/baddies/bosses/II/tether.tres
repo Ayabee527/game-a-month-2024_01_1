@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=8 format=3 uid="uid://qncr7sq32wdw"]
 
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_v1lmu"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/lightning_data.gd" id="2_cta5g"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_v1lmu"]
+[ext_resource type="Script" uid="uid://dps60qhahis0i" path="res://components/weapon/attack_data/lightning_data.gd" id="2_cta5g"]
 [ext_resource type="AudioStream" uid="uid://bmqr5hje4ugna" path="res://assets/sounds/shoot5.wav" id="3_u74yf"]
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="4_0b8u5"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="4_0b8u5"]
 
 [sub_resource type="Resource" id="Resource_tyy1t"]
 script = ExtResource("1_v1lmu")

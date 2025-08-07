@@ -20,11 +20,6 @@ func enter(_msg:={}) -> void:
 	
 	grows = 0
 	grow_timer.start()
-	
-	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(
-		boss.arena, "radius", 512, 30.0
-	).from(0.01)
 
 func grow() -> void:
 	if grows >= max_grows:
@@ -55,9 +50,12 @@ func exit() -> void:
 	grow_timer.stop()
 	#boss.linear_damp = 2.0
 	
-	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tween.tween_property(
 		boss.player_tracker, "modulate:a", 1.0, 0.5
+	)
+	tween.tween_property(
+		boss.arena, "radius", 256, 50.0
 	)
 
 

@@ -18,6 +18,8 @@ var leaps: int = 0
 var chase_speed: float = 300.0
 var turn_speed: float = 3.0
 
+var leaping: bool = false
+
 func enter(_msg:={}) -> void:
 	leaps = 0
 	boss.set_color(Color.BLUE)
@@ -84,6 +86,7 @@ func leap() -> void:
 		return
 	
 	leaps += 1
+	leaping = true
 	
 	boss.sprite.show()
 	boss.shadow.show()
@@ -130,10 +133,12 @@ func _on_boss_ii_color_set(_new_color: Color) -> void:
 
 
 func _on_height_sprite_ground_hit() -> void:
-	if is_active:
+	if is_active and leaping:
+		leaping = false
 		boss.bleeder.bleed(2, 2.0, 40)
 		boss.sprite.hide()
 		boss.shadow.hide()
+		crash_wpn.look_at(boss.player.global_position)
 		crash_wpn.shoot_all()
 		dig_timer.start()
 		dig_vfx.emitting = true

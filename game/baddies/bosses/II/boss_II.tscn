@@ -1,36 +1,36 @@
 [gd_scene load_steps=62 format=3 uid="uid://duutpyaiwo465"]
 
-[ext_resource type="Script" path="res://baddies/bosses/II/boss_ii.gd" id="1_0fev0"]
-[ext_resource type="Script" path="res://components/health/health.gd" id="2_a6v0i"]
-[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_n30an"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/intro.gd" id="4_81ony"]
+[ext_resource type="Script" uid="uid://nfusbmf1m1j7" path="res://baddies/bosses/II/boss_ii.gd" id="1_0fev0"]
+[ext_resource type="Script" uid="uid://cd5uho5yl6yn2" path="res://components/health/health.gd" id="2_a6v0i"]
+[ext_resource type="Script" uid="uid://r5idajx25kv4" path="res://components/states/state_machine.gd" id="3_n30an"]
+[ext_resource type="Script" uid="uid://cuuiu4ytdul8q" path="res://baddies/bosses/II/states/intro.gd" id="4_81ony"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="4_tkr4t"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_switch.gd" id="5_kfonc"]
+[ext_resource type="Script" uid="uid://51uc8kl0h6ru" path="res://baddies/bosses/II/states/phase_switch.gd" id="5_kfonc"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="5_tnv5e"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="6_0u0us"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_r.gd" id="6_jblrj"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_g.gd" id="7_1nbq1"]
+[ext_resource type="Script" uid="uid://ioix8dv7o071" path="res://baddies/bosses/II/states/phase_r.gd" id="6_jblrj"]
+[ext_resource type="Script" uid="uid://v5g2iivr2b8g" path="res://baddies/bosses/II/states/phase_g.gd" id="7_1nbq1"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="7_4omnu"]
-[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="8_62lpk"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_b.gd" id="8_dibvv"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_y.gd" id="9_8ydtp"]
+[ext_resource type="Shader" uid="uid://cp8pjdgyctol1" path="res://components/shadow/shadow.gdshader" id="8_62lpk"]
+[ext_resource type="Script" uid="uid://cuo08ri05pu6v" path="res://baddies/bosses/II/states/phase_b.gd" id="8_dibvv"]
+[ext_resource type="Script" uid="uid://d3buxa4rpomll" path="res://baddies/bosses/II/states/phase_y.gd" id="9_8ydtp"]
 [ext_resource type="Texture2D" uid="uid://d4emu1rl50g6" path="res://assets/textures/enemies/smallboss.png" id="9_w46dt"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="10_qvcp3"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/enrage.gd" id="10_sgnos"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_er.gd" id="11_2fbrg"]
-[ext_resource type="Shader" path="res://components/flash.gdshader" id="11_pfqg6"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_eg.gd" id="12_6mvsy"]
+[ext_resource type="Script" uid="uid://c10orn7kwauyc" path="res://baddies/bosses/II/states/enrage.gd" id="10_sgnos"]
+[ext_resource type="Script" uid="uid://cau1exky7h4ui" path="res://baddies/bosses/II/states/phase_er.gd" id="11_2fbrg"]
+[ext_resource type="Shader" uid="uid://omedbtihdi84" path="res://components/flash.gdshader" id="11_pfqg6"]
+[ext_resource type="Script" uid="uid://dedq356wnvbgs" path="res://baddies/bosses/II/states/phase_eg.gd" id="12_6mvsy"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="12_70yjx"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="13_14jr4"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_eb.gd" id="13_uvyd8"]
+[ext_resource type="Script" uid="uid://dh1oopmib83ky" path="res://baddies/bosses/II/states/phase_eb.gd" id="13_uvyd8"]
 [ext_resource type="AudioStream" uid="uid://d0xnc6eedy14y" path="res://assets/music/boss2b.ogg" id="14_c3d0n"]
-[ext_resource type="Script" path="res://baddies/bosses/II/states/phase_ey.gd" id="14_vn2nc"]
+[ext_resource type="Script" uid="uid://bvwudgia3avth" path="res://baddies/bosses/II/states/phase_ey.gd" id="14_vn2nc"]
 [ext_resource type="AudioStream" uid="uid://cb82ols0mlxj3" path="res://assets/music/boss2a.ogg" id="15_aitnl"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="23_8h8jt"]
 [ext_resource type="Texture2D" uid="uid://cqgaoh3so0ind" path="res://assets/textures/fat_bullet_in.png" id="24_uy5lu"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="29_jvlwt"]
-[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="30_lsfap"]
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="31_shes1"]
+[ext_resource type="Script" uid="uid://b5ene6fuyvi7c" path="res://components/weapon/collision_data/collision_data.gd" id="30_lsfap"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="31_shes1"]
 [ext_resource type="Resource" uid="uid://qncr7sq32wdw" path="res://baddies/bosses/II/tether.tres" id="32_n1bc0"]
 [ext_resource type="Resource" uid="uid://cex1gtruq7qfm" path="res://baddies/bosses/II/megablast.tres" id="34_nbv5c"]
 [ext_resource type="Resource" uid="uid://cryffs2cmo4we" path="res://baddies/bosses/II/blast_spam.tres" id="35_bo8m3"]
@@ -279,16 +279,16 @@ caster = NodePath("../HeightSprite2")
 [node name="Tether" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 200
-process_material = SubResource("ParticleProcessMaterial_oj1iw")
 texture = ExtResource("23_8h8jt")
 visibility_rect = Rect2(-768, -768, 1536, 1536)
+process_material = SubResource("ParticleProcessMaterial_oj1iw")
 
 [node name="DigVFX" type="GPUParticles2D" parent="." groups=["enemies", "mages"]]
 modulate = Color(0, 0, 0.501961, 1)
 emitting = false
 amount = 40
-process_material = SubResource("ParticleProcessMaterial_tvgu5")
 texture = ExtResource("24_uy5lu")
+process_material = SubResource("ParticleProcessMaterial_tvgu5")
 
 [node name="HeightSprite" parent="." instance=ExtResource("10_qvcp3")]
 material = SubResource("ShaderMaterial_3r0qg")
@@ -374,11 +374,11 @@ cool_down = 2.0
 [node name="IntroVFX" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 30
-process_material = SubResource("ParticleProcessMaterial_2ayym")
 texture = ExtResource("23_8h8jt")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_2ayym")
 
 [connection signal="color_set" from="." to="StateMachine/R" method="_on_boss_ii_color_set"]
 [connection signal="color_set" from="." to="StateMachine/G" method="_on_boss_ii_color_set"]

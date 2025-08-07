@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=8 format=3 uid="uid://chn7v5grh8yxp"]
 
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_cg7gl"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_tk8lw"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/laser_data.gd" id="2_pn7yh"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="1_cg7gl"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_tk8lw"]
+[ext_resource type="Script" uid="uid://cswokdk2amj0d" path="res://components/weapon/attack_data/laser_data.gd" id="2_pn7yh"]
 [ext_resource type="AudioStream" uid="uid://dqyiuioohwjwj" path="res://assets/sounds/shoot6.wav" id="3_ukiir"]
 
 [sub_resource type="Resource" id="Resource_rae3k"]
 script = ExtResource("1_tk8lw")
 damage = 2
-trigger_invinc = false
+trigger_invinc = true
 damage_cooldown = 0.5
 knockback_strength = 32.0
 

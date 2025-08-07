@@ -41,9 +41,6 @@ func enter(_msg:={}) -> void:
 	tween2.set_parallel(false)
 	await tween2.finished
 	
-	boss.health.max_health = 400
-	boss.health.health = boss.health.max_health
-	boss.health_indicator.update_health(boss.health.health, boss.health.max_health)
 	boss.global_position = Vector2.ZERO
 	boss.hurtbox.knockback_modifier = 0.0
 	boss.sprite.texture = load("res://assets/textures/enemies/smallbossangy2.png")
@@ -60,12 +57,6 @@ func enter(_msg:={}) -> void:
 	)
 	tween3.tween_property(
 		boss.shadow, "shadow_scale", Vector2.ONE, 2.0
-	)
-	tween3.tween_property(
-		boss.arena, "color", Color.RED, 2.0
-	)
-	tween3.tween_property(
-		boss.arena, "radius", 256.0, 2.0
 	)
 	tween3.tween_property(
 		MainCam, "zoom_factor", 0.4, 2.0

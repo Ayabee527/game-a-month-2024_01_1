@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RogueUpgrade" load_steps=3 format=3 uid="uid://36d0ce8gd2kf"]
 
-[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="1_nwq8o"]
+[ext_resource type="Script" uid="uid://cbgecxgvn4vkk" path="res://player/upgrades/rogue_upgrade.gd" id="1_nwq8o"]
 [ext_resource type="Texture2D" uid="uid://yrf5l53cn0vg" path="res://assets/textures/upgrades/sniper.png" id="2_glpxr"]
 
 [resource]

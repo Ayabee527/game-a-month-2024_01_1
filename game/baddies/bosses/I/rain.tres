@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=10 format=3 uid="uid://dh1gi7o6pboh2"]
 
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_028b5"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="2_lylfl"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/fall_projectile_data.gd" id="3_83pcx"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="1_028b5"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="2_lylfl"]
+[ext_resource type="Script" uid="uid://btqyxee5mu68g" path="res://components/weapon/attack_data/fall_projectile_data.gd" id="3_83pcx"]
 [ext_resource type="AudioStream" uid="uid://duxeeiqk5mb1a" path="res://assets/sounds/shoot2.wav" id="4_43hqm"]
 [ext_resource type="Texture2D" uid="uid://cqgaoh3so0ind" path="res://assets/textures/fat_bullet_in.png" id="5_llijg"]
 [ext_resource type="Resource" uid="uid://bp5qsai1s1dyj" path="res://baddies/bosses/I/rain_bomb.tres" id="6_6qv36"]

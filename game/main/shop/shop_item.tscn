@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://d4njc6m8u2vhm"]
 
 [ext_resource type="Texture2D" uid="uid://cwhq242088d3x" path="res://assets/textures/upgrades/starter.png" id="1_ibxd5"]
-[ext_resource type="Script" path="res://main/shop/shop_item.gd" id="2_1vkti"]
+[ext_resource type="Script" uid="uid://cvd4led1yjmfc" path="res://main/shop/shop_item.gd" id="2_1vkti"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6hjd"]
 content_margin_left = 4.0

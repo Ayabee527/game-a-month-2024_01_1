@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://r22a0mmuikgy"]
 
-[ext_resource type="Script" path="res://components/blood_splatter/bleeder.gd" id="1_l4en3"]
+[ext_resource type="Script" uid="uid://cj07m6youmgeh" path="res://components/blood_splatter/bleeder.gd" id="1_l4en3"]
 
 [node name="Bleeder" type="Node2D"]
 script = ExtResource("1_l4en3")

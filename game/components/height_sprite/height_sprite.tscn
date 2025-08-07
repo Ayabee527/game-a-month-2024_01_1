@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ck7giesvc1amw"]
 
-[ext_resource type="Script" path="res://components/height_sprite/height_sprite.gd" id="1_3i3px"]
-[ext_resource type="Shader" path="res://components/flash.gdshader" id="1_ww6xj"]
+[ext_resource type="Script" uid="uid://dgfbka73la3yv" path="res://components/height_sprite/height_sprite.gd" id="1_3i3px"]
+[ext_resource type="Shader" uid="uid://omedbtihdi84" path="res://components/flash.gdshader" id="1_ww6xj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fivw1"]
 resource_local_to_scene = true
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4mtpi"]
 _data = {
-"RESET": SubResource("Animation_hta6o"),
-"hurt": SubResource("Animation_1teu7")
+&"RESET": SubResource("Animation_hta6o"),
+&"hurt": SubResource("Animation_1teu7")
 }
 
 [node name="HeightSprite" type="Sprite2D" node_paths=PackedStringArray("hurt_player")]

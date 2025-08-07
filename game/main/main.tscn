@@ -1,20 +1,20 @@
 [gd_scene load_steps=40 format=3 uid="uid://bxxx0cgwl7wb7"]
 
 [ext_resource type="Texture2D" uid="uid://cwbnmci4pj5s0" path="res://assets/textures/checkerboard.png" id="1_ag615"]
-[ext_resource type="Script" path="res://main/main.gd" id="1_wpomo"]
+[ext_resource type="Script" uid="uid://crslrhi074pln" path="res://main/main.gd" id="1_wpomo"]
 [ext_resource type="PackedScene" uid="uid://c6eounl1wmnfu" path="res://player/player.tscn" id="2_n5tbv"]
-[ext_resource type="Script" path="res://main/style_handler.gd" id="3_0avur"]
-[ext_resource type="Script" path="res://main/enemy_handler.gd" id="4_ws8n8"]
+[ext_resource type="Script" uid="uid://dquqmaphdk6th" path="res://main/style_handler.gd" id="3_0avur"]
+[ext_resource type="Script" uid="uid://c8qwck24dhor" path="res://main/enemy_handler.gd" id="4_ws8n8"]
 [ext_resource type="AudioStream" uid="uid://5sbcje1lyosi" path="res://assets/music/gameplay.ogg" id="5_otw4m"]
-[ext_resource type="Script" path="res://main/ui.gd" id="6_ppvwr"]
+[ext_resource type="Script" uid="uid://bmwxppfwvkyyy" path="res://main/ui.gd" id="6_ppvwr"]
 [ext_resource type="FontFile" uid="uid://dujxw7jilwnxa" path="res://assets/fonts/NotJamScrawl12.ttf" id="6_x562i"]
 [ext_resource type="AudioStream" uid="uid://ctuen8oy0dvm3" path="res://assets/music/tier2.ogg" id="7_qa8xp"]
 [ext_resource type="AudioStream" uid="uid://c0u34jg5lkm7i" path="res://assets/music/shop-intro.ogg" id="8_ekgub"]
-[ext_resource type="Script" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
-[ext_resource type="Script" path="res://player/upgrades/rogue_upgrade.gd" id="9_nyh41"]
+[ext_resource type="Script" uid="uid://buuiuxs7dob3" path="res://main/shop/shop_menu.gd" id="8_wmvef"]
+[ext_resource type="Script" uid="uid://cbgecxgvn4vkk" path="res://player/upgrades/rogue_upgrade.gd" id="9_nyh41"]
 [ext_resource type="AudioStream" uid="uid://cehuawtgod525" path="res://assets/music/shop-loop.ogg" id="9_rviqu"]
 [ext_resource type="PackedScene" uid="uid://cy1jiygmpu21b" path="res://arena/arena.tscn" id="10_i16rg"]
-[ext_resource type="Script" path="res://main/pause_menu.gd" id="10_r4wkv"]
+[ext_resource type="Script" uid="uid://b5k7s7elumpqy" path="res://main/pause_menu.gd" id="10_r4wkv"]
 [ext_resource type="Resource" uid="uid://c57wnd7jx34ka" path="res://player/upgrades/dual_starter.tres" id="11_60coc"]
 [ext_resource type="AudioStream" uid="uid://bjkufw5yjb7rv" path="res://assets/sounds/jingle.wav" id="11_h2tvk"]
 [ext_resource type="FontFile" uid="uid://bpr437vu657" path="res://assets/fonts/NotJamScrawl9.ttf" id="11_mvvmu"]
@@ -177,8 +177,8 @@ world = NodePath("..")
 script = ExtResource("4_ws8n8")
 player = NodePath("../Player")
 tier_themes = [NodePath("../../Tier1"), NodePath("../../Tier2")]
-starting_wave = 16
-starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("24_ok4tt"), ExtResource("15_b8x6f"), null])
+starting_wave = 30
+starting_upgrades = Array[ExtResource("9_nyh41")]([ExtResource("13_xx7xw"), ExtResource("15_b8x6f"), ExtResource("18_nvu3b")])
 time_before_start = 1.0
 spawn_timer = NodePath("SpawnTimer")
 multikill_timer = NodePath("MultiKillTimer")

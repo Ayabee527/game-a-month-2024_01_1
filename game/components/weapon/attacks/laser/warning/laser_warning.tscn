@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cvnyuall3fkis"]
 
-[ext_resource type="Script" path="res://components/weapon/attacks/laser/warning/laser_warning.gd" id="1_ihqqo"]
+[ext_resource type="Script" uid="uid://cl15ridq7ikly" path="res://components/weapon/attacks/laser/warning/laser_warning.gd" id="1_ihqqo"]
 
 [node name="LaserWarning" type="Marker2D" node_paths=PackedStringArray("cool_timer")]
 z_index = -2

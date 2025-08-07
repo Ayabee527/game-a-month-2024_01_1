@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=9 format=3 uid="uid://jodd3oe4f604"]
 
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_5xysm"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_d3w44"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/projectile_data.gd" id="2_kt2u8"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="1_5xysm"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_d3w44"]
+[ext_resource type="Script" uid="uid://lgge65561ggr" path="res://components/weapon/attack_data/projectile_data.gd" id="2_kt2u8"]
 [ext_resource type="AudioStream" uid="uid://c2lmfjic4musx" path="res://assets/sounds/thump1.wav" id="3_sxsy3"]
 [ext_resource type="Texture2D" uid="uid://bcwhqdf5cjtys" path="res://assets/textures/light_bullet.png" id="4_xk21q"]
 
@@ -12,8 +12,6 @@ damage = 1
 trigger_invinc = false
 damage_cooldown = 0.1
 knockback_strength = 32.0
-status_effect = 0
-status_effect_ticks = 0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ivhar"]
 random_pitch = 1.5

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=9 format=3 uid="uid://cryffs2cmo4we"]
 
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_a2jm8"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/projectile_data.gd" id="2_xu775"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_a2jm8"]
+[ext_resource type="Script" uid="uid://lgge65561ggr" path="res://components/weapon/attack_data/projectile_data.gd" id="2_xu775"]
 [ext_resource type="AudioStream" uid="uid://duxeeiqk5mb1a" path="res://assets/sounds/shoot2.wav" id="3_pvsy6"]
 [ext_resource type="Texture2D" uid="uid://n060xapimxte" path="res://assets/textures/smol_crescent.png" id="4_vyrvs"]
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="5_g0c6p"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="5_g0c6p"]
 
 [sub_resource type="Resource" id="Resource_0mkao"]
 script = ExtResource("1_a2jm8")

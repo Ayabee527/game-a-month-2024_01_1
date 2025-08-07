@@ -1,23 +1,23 @@
 [gd_scene load_steps=40 format=3 uid="uid://c6eounl1wmnfu"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_bjr5u"]
-[ext_resource type="Script" path="res://components/states/state_machine.gd" id="2_hcc0c"]
-[ext_resource type="Script" path="res://components/health/health.gd" id="2_jb453"]
-[ext_resource type="Script" path="res://player/states/idle.gd" id="3_tnhvb"]
-[ext_resource type="Script" path="res://player/states/move.gd" id="4_puc68"]
+[ext_resource type="Script" uid="uid://bnr2xmj3a6yu4" path="res://player/player.gd" id="1_bjr5u"]
+[ext_resource type="Script" uid="uid://r5idajx25kv4" path="res://components/states/state_machine.gd" id="2_hcc0c"]
+[ext_resource type="Script" uid="uid://cd5uho5yl6yn2" path="res://components/health/health.gd" id="2_jb453"]
+[ext_resource type="Script" uid="uid://7c2wip8me8u4" path="res://player/states/idle.gd" id="3_tnhvb"]
+[ext_resource type="Script" uid="uid://b21qdna41h5sr" path="res://player/states/move.gd" id="4_puc68"]
 [ext_resource type="Texture2D" uid="uid://8jc7c47l6pc7" path="res://assets/textures/small-circle.png" id="5_e7bnn"]
-[ext_resource type="Script" path="res://player/states/dash.gd" id="6_ku7yt"]
+[ext_resource type="Script" uid="uid://d6grymxotkae" path="res://player/states/dash.gd" id="6_ku7yt"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="6_qq22e"]
-[ext_resource type="Script" path="res://player/states/die.gd" id="7_fdvo3"]
+[ext_resource type="Script" uid="uid://bfdbsp368cis8" path="res://player/states/die.gd" id="7_fdvo3"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="8_7ix7h"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="8_das43"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="9_4re1e"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="9_fkcu6"]
-[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="10_cwhxb"]
-[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="10_wgpa7"]
+[ext_resource type="Script" uid="uid://b5ene6fuyvi7c" path="res://components/weapon/collision_data/collision_data.gd" id="10_cwhxb"]
+[ext_resource type="Shader" uid="uid://cp8pjdgyctol1" path="res://components/shadow/shadow.gdshader" id="10_wgpa7"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="11_abeu7"]
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="11_nmagf"]
-[ext_resource type="Shader" path="res://components/flash.gdshader" id="12_fpi6m"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="11_nmagf"]
+[ext_resource type="Shader" uid="uid://omedbtihdi84" path="res://components/flash.gdshader" id="12_fpi6m"]
 [ext_resource type="Texture2D" uid="uid://dyxea0hxqw4w" path="res://assets/textures/player.png" id="13_865qx"]
 [ext_resource type="Texture2D" uid="uid://cskb633sejnhj" path="res://assets/textures/light_bullet_turned.png" id="14_254qx"]
 [ext_resource type="AudioStream" uid="uid://8um6g3rltm4m" path="res://assets/sounds/dash.wav" id="15_mnfo3"]
@@ -193,8 +193,8 @@ shape = SubResource("CircleShape2D_2go1a")
 [node name="Trail" type="GPUParticles2D" parent="."]
 z_index = -1
 amount = 15
-process_material = SubResource("ParticleProcessMaterial_6yhwd")
 texture = ExtResource("5_e7bnn")
+process_material = SubResource("ParticleProcessMaterial_6yhwd")
 
 [node name="Hurtbox" parent="." instance=ExtResource("8_7ix7h")]
 collision_layer = 4
@@ -213,11 +213,11 @@ weapons = Array[ExtResource("11_nmagf")]([ExtResource("20_338pe")])
 [node name="Dash" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 5
-process_material = SubResource("ParticleProcessMaterial_uhsee")
 texture = ExtResource("14_254qx")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_uhsee")
 
 [node name="DashSFX" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_xfnu0")

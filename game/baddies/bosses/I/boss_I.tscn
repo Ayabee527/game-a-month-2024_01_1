@@ -1,35 +1,35 @@
 [gd_scene load_steps=55 format=3 uid="uid://clifi5r4t5suu"]
 
-[ext_resource type="Script" path="res://baddies/bosses/I/boss_i.gd" id="1_7jahb"]
-[ext_resource type="Script" path="res://components/health/health.gd" id="2_yi5bl"]
-[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_4p1a6"]
+[ext_resource type="Script" uid="uid://d1el0qanarggc" path="res://baddies/bosses/I/boss_i.gd" id="1_7jahb"]
+[ext_resource type="Script" uid="uid://cd5uho5yl6yn2" path="res://components/health/health.gd" id="2_yi5bl"]
+[ext_resource type="Script" uid="uid://r5idajx25kv4" path="res://components/states/state_machine.gd" id="3_4p1a6"]
 [ext_resource type="PackedScene" uid="uid://dihwftj02yegc" path="res://components/health_indicator/health_indicator.tscn" id="4_amltf"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/intro.gd" id="4_e2lqs"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/summon.gd" id="4_tns2k"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/phase_switch.gd" id="5_f7x6o"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/melee.gd" id="5_ld364"]
+[ext_resource type="Script" uid="uid://dxvce6qqlvv6c" path="res://baddies/bosses/I/states/intro.gd" id="4_e2lqs"]
+[ext_resource type="Script" uid="uid://3tg0myawgfaq" path="res://baddies/bosses/I/states/summon.gd" id="4_tns2k"]
+[ext_resource type="Script" uid="uid://wog5ojeseqcj" path="res://baddies/bosses/I/states/phase_switch.gd" id="5_f7x6o"]
+[ext_resource type="Script" uid="uid://dmhnc71f1y6ox" path="res://baddies/bosses/I/states/melee.gd" id="5_ld364"]
 [ext_resource type="PackedScene" uid="uid://bitvuxp6davs1" path="res://components/player_tracker/player_tracker.tscn" id="5_srgw8"]
 [ext_resource type="PackedScene" uid="uid://r22a0mmuikgy" path="res://components/blood_splatter/bleeder.tscn" id="6_stcmo"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/hop.gd" id="6_uytia"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/sacrifice.gd" id="7_3ia1e"]
+[ext_resource type="Script" uid="uid://c1p80ry0wdqks" path="res://baddies/bosses/I/states/hop.gd" id="6_uytia"]
+[ext_resource type="Script" uid="uid://5eei7ibpcgx4" path="res://baddies/bosses/I/states/sacrifice.gd" id="7_3ia1e"]
 [ext_resource type="PackedScene" uid="uid://b0h3spmyp72xm" path="res://components/shadow/shadow.tscn" id="7_d570u"]
-[ext_resource type="Shader" path="res://components/shadow/shadow.gdshader" id="8_32yfj"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/mage.gd" id="8_dkxt2"]
-[ext_resource type="Script" path="res://baddies/bosses/I/states/die.gd" id="9_8ubgp"]
+[ext_resource type="Shader" uid="uid://cp8pjdgyctol1" path="res://components/shadow/shadow.gdshader" id="8_32yfj"]
+[ext_resource type="Script" uid="uid://dnnn2i1bu68hs" path="res://baddies/bosses/I/states/mage.gd" id="8_dkxt2"]
+[ext_resource type="Script" uid="uid://cdp7cl22eeku5" path="res://baddies/bosses/I/states/die.gd" id="9_8ubgp"]
 [ext_resource type="Texture2D" uid="uid://oqqsevjiaa7e" path="res://assets/textures/enemies/boss.png" id="9_f6dtx"]
 [ext_resource type="PackedScene" uid="uid://ck7giesvc1amw" path="res://components/height_sprite/height_sprite.tscn" id="10_1lo04"]
-[ext_resource type="Shader" path="res://components/flash.gdshader" id="11_v52au"]
+[ext_resource type="Shader" uid="uid://omedbtihdi84" path="res://components/flash.gdshader" id="11_v52au"]
 [ext_resource type="PackedScene" uid="uid://dvvktbgt1ayca" path="res://components/hurtbox/hurtbox.tscn" id="12_uf6p8"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="13_rmtqp"]
 [ext_resource type="AudioStream" uid="uid://cuqil2kfiff0" path="res://assets/sounds/spawn1.wav" id="14_a3bid"]
 [ext_resource type="AudioStream" uid="uid://p26kkvv51h33" path="res://assets/sounds/crash.wav" id="14_inff7"]
 [ext_resource type="AudioStream" uid="uid://bcjdxvwjesjua" path="res://assets/sounds/spawn2.wav" id="15_g5w56"]
 [ext_resource type="PackedScene" uid="uid://b1lcu4cgm3hjd" path="res://components/weapon/weapon_handler.tscn" id="25_wski8"]
-[ext_resource type="Script" path="res://components/weapon/collision_data/collision_data.gd" id="26_kkevj"]
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="27_se2ub"]
+[ext_resource type="Script" uid="uid://b5ene6fuyvi7c" path="res://components/weapon/collision_data/collision_data.gd" id="26_kkevj"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="27_se2ub"]
 [ext_resource type="Resource" uid="uid://c026i1gn3rtqp" path="res://baddies/bosses/I/hop_boom.tres" id="29_amih5"]
 [ext_resource type="Resource" uid="uid://ddfonfgb8yptb" path="res://baddies/bosses/I/mage_shot.tres" id="30_pd4vo"]
-[ext_resource type="Script" path="res://baddies/bosses/I/sacri_target.gd" id="31_71gn4"]
+[ext_resource type="Script" uid="uid://cogcp02w81cfp" path="res://baddies/bosses/I/sacri_target.gd" id="31_71gn4"]
 [ext_resource type="AudioStream" uid="uid://blyeqlcw2sxum" path="res://assets/music/boss_1.ogg" id="32_5ruho"]
 [ext_resource type="Resource" uid="uid://dh1gi7o6pboh2" path="res://baddies/bosses/I/rain.tres" id="32_j3w1t"]
 [ext_resource type="AudioStream" uid="uid://bnu613rc4uag2" path="res://assets/music/bossdeath.ogg" id="33_3xbjx"]
@@ -165,8 +165,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6o77r"]
 _data = {
-"RESET": SubResource("Animation_ixwh8"),
-"die": SubResource("Animation_23g10")
+&"RESET": SubResource("Animation_ixwh8"),
+&"die": SubResource("Animation_23g10")
 }
 
 [node name="BossI" type="RigidBody2D" node_paths=PackedStringArray("coll_shape", "hurt_coll_shape", "hit_coll_shape", "hurtbox", "hitbox", "health", "health_indicator", "player_tracker", "sprite", "shadow", "bleeder", "hurt_sfx", "boss_music") groups=["bosses"]]
@@ -352,7 +352,7 @@ bus = &"music"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_6o77r")
+&"": SubResource("AnimationLibrary_6o77r")
 }
 
 [connection signal="color_set" from="." to="StateMachine/Melee" method="_on_boss_i_color_set"]

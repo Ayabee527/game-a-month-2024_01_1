@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvpu2owuwl1li"]
 
-[ext_resource type="Script" path="res://components/weapon/attacks/lightning/lightning_bolt.gd" id="1_x01af"]
+[ext_resource type="Script" uid="uid://c0eie3g6ivb5d" path="res://components/weapon/attacks/lightning/lightning_bolt.gd" id="1_x01af"]
 [ext_resource type="PackedScene" uid="uid://bd83v7x2q3o7f" path="res://components/hitbox/hitbox.tscn" id="2_g2n74"]
 
 [sub_resource type="Curve" id="Curve_bh0vy"]

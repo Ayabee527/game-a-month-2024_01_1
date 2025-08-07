@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=9 format=3 uid="uid://blq3p3i3itxx0"]
 
-[ext_resource type="Script" path="res://components/weapon/weapon.gd" id="1_36hm2"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_ciqsf"]
-[ext_resource type="Script" path="res://components/weapon/attack_data/projectile_data.gd" id="1_n3jpl"]
+[ext_resource type="Script" uid="uid://blda7nsn56b02" path="res://components/weapon/weapon.gd" id="1_36hm2"]
+[ext_resource type="Script" uid="uid://juajleuvqpm4" path="res://components/weapon/attack_data/hitbox_data/hitbox_data.gd" id="1_ciqsf"]
+[ext_resource type="Script" uid="uid://lgge65561ggr" path="res://components/weapon/attack_data/projectile_data.gd" id="1_n3jpl"]
 [ext_resource type="AudioStream" uid="uid://c2lmfjic4musx" path="res://assets/sounds/thump1.wav" id="3_g60nx"]
 [ext_resource type="Texture2D" uid="uid://bcwhqdf5cjtys" path="res://assets/textures/light_bullet.png" id="5_xp44m"]
 

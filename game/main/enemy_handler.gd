@@ -173,9 +173,14 @@ func spawn_wave() -> void:
 			#Vector2.ONE * 128.0
 			#+ Vector2.from_angle(TAU * randf()) * 256.0
 		#)
-		enemy.global_position = player.global_position + (
+		var pos = player.global_position + (
 			Vector2.from_angle(TAU * randf()) * 400.0
 		)
+		while pos.distance_to(Vector2.ZERO) > 1012.0:
+			pos = player.global_position + (
+				Vector2.from_angle(TAU * randf()) * 400.0
+			)
+		enemy.global_position = pos
 		if enemy.has_signal("died"):
 			enemy.died.connect(kill_enemy.bind(enemy))
 		else:
